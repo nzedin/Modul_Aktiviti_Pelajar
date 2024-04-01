@@ -69,8 +69,8 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="" ><button type="button" onclick="" class="btn btn-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
-                                        <a href="" ><button type="button" onclick="" class="btn btn-primary"><i class="fa fa-qrcode">  Create QR</i></button></a>
+                                        <a href="" ><button type="button" class="btn btn-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
+                                        <a href="" ><button type="button" class="btn btn-primary"><i class="fa fa-qrcode">  Create QR</i></button></a>
                                       </div>
                                   </td>
                               </tr>
