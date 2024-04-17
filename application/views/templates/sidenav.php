@@ -287,6 +287,25 @@
             </a> 
             <ul class="nav nav-treeview">
                   
+
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-group"></i>
+                    <p>
+                      Pelantikan
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        <p>AJK & Peserta Program</p>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="nav-icon fa fa-university"></i>
@@ -298,8 +317,13 @@
                   <ul class="nav nav-treeview">
                     
                     <li class="nav-item">
-                      <a href="<?= base_url('kehadiran/index/'.$warga)?>" class="nav-link">
-                        <p>Maklumat Program</p>
+                      <a href="" class="nav-link">
+                        <p>Mohon Ubah Maklumat Program</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        <p>Batal Aktiviti/Program</p>
                       </a>
                     </li>
                     <li class="nav-item">
@@ -313,7 +337,25 @@
                 
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
+                    <i class="nav-icon fa fa-file-text"></i>
+                    <p>
+                      Surat Kelulusan 
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="" class="nav-link">
+                        <p>Surat Kelulusan Program</p>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-clipboard"></i>
                     <p>
                       Laporan 
                       <i class="fas fa-angle-left right"></i>
@@ -321,8 +363,8 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="pages/mailbox/mailbox.html" class="nav-link">
-                        <p>Laporan</p>
+                      <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
+                        <p>Laporan Program</p>
                       </a>
                     </li>
                     

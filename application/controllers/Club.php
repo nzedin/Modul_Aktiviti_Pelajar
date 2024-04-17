@@ -1,6 +1,13 @@
 <?php
 defined("BASEPATH") OR exit("No direct script access allowed");
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 class Club extends CI_Controller {
 
     public function __construct(){
@@ -10,7 +17,7 @@ class Club extends CI_Controller {
         $this->load->model('login_model');
         $this->load->model('mpp_model');
         $this->load->model('committee_model');
-        $this->load->library('email');
+      
     }
     public function index($warga)
     {
@@ -166,6 +173,8 @@ class Club extends CI_Controller {
 
             $studentID = $this->input->post('studentID');
             $clubID = $this->input->post('clubID');
+            $studentEmail = $this->input->post('studentEmail');
+
             if  ($this->club_model->is_student_exists($studentID,$clubID)){
 
             $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -185,33 +194,36 @@ class Club extends CI_Controller {
                 );
                 $this->club_model->insert_kepimpinan($data, 'kepimpinan');
 
-                
-                $config = Array(
-                    'protocol' => 'smtp',
-                    'smtp_host' => 'smtp.googlemail.com',
-                    'smtp_port' => 465,
-                    'smtp_user' => 'nzed215@gmail.com',
-                    'smtp_pass' => 'w@NN@0N3B4U',
-                    'mailtype'  => 'html',
-                    'charset'   => 'iso-8859-1'
-                );
-                
-                $this->email->initialize($config);
-                if ($email) {
-                    // Send the registration success email
-                    $email_params = [
-                        'subject' => 'Registration successful',
-                        'message' => 'Congratulations! You have successfully registered for the president position on our website.',
-                        'to' => $this->club_model->get_student_by_id($studentID),
-                    ];
-                
-                    $this->email->from('nzed215@gmail.com', 'HEPA');
-                    $this->email->to($email_params['to']);
-                    $this->email->subject($email_params['subject']);
-                    $this->email->message($email_params['message']);
-                    $this->email->set_mailtype('html');
-                    $this->email->send();
-                }
+            
+  $mail = new PHPMailer(true);
+
+  try {
+      //Server settings
+      $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+      $mail->isSMTP();                                            //Send using SMTP
+      $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+      $mail->Username   = 'nzed215@gmail.com';                     //SMTP username
+      $mail->Password   = 'zpsajazincwojbyw';                               //SMTP password
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+      $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+      //Recipients
+      $mail->setFrom('nzed215@gmail.com', 'HEPA UMT');
+      $mail->addAddress($studentEmail);     //Add a recipient
+   
+   
+      //Content
+      $mail->isHTML(true);                                  //Set email format to HTML
+      $mail->Subject = 'Pendaftaran Ahli Kepimpinan';
+      $mail->Body    =  'Pelajar telah didaftarkan sebagai ahli kepimpinan! ';
+
+      $mail->send();
+      echo 'Message has been sent';
+  } catch (Exception $e) {
+      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+  }
+
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

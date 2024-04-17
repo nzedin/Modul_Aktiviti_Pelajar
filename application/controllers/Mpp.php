@@ -129,7 +129,8 @@ class Mpp extends CI_Controller {
         $response = array(
             'studentName' => $studentInfo->studentName,
             'program' => $studentInfo->program,
-            'semester' => $studentInfo->semester
+            'semester' => $studentInfo->semester,
+            'studentEmail' => $studentInfo->studentEmail
         );
     
         echo json_encode($response);
