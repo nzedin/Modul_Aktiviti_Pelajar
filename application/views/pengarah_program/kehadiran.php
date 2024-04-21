@@ -46,11 +46,12 @@
                               <tr>
                                   <th style="text-align: center;">No.</th>
                                   <th style="text-align: center;">Program</th>
-                                  <th style="text-align: center;">Nama Badan Pelajar</th>
+                                  <th style="text-align: center;">Badan Pelajar</th>
+                                  <th style="text-align: center;">Tarikh Mula</th>
+                                  <th style="text-align: center;">Tarikh Tamat</th>
                                   <th style="text-align: center;">Jenis Program</th>
-                                  <th style="text-align: center;">Tarikh</th>
-                                  <th style="text-align: center;">Lokasi</th>
                                   <th style="text-align: center;">Quota</th>
+                                  <th style="text-align: center;">Lokasi</th>
                                   <th style="text-align: center;">Action</th>
                               </tr>
                           </thead>
@@ -62,14 +63,15 @@
                                   <td><?= $no++ ?></td>
                                   <td><?= $list->programName ?></td>
                                   <td><?= $list->clubName ?></td>
+                                  <td><?= $list->startDate ?></td>
+                                  <td><?= $list->endDate ?></td>
                                   <td><?= $list->typeProgram ?></td>
-                                  <td><?= $list->programDate ?></td>
-                                  <td><?= $list->programLocation ?></td>
                                   <td><?= $list->programQuota ?></td>
+                                  <td><?= $list->programLocation ?></td>                                  
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="" ><button type="button" class="btn btn-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
+                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
                                         <a href="" ><button type="button" class="btn btn-primary"><i class="fa fa-qrcode">  Create QR</i></button></a>
                                       </div>
                                   </td>

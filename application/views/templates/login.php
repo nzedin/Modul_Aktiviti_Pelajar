@@ -1,5 +1,5 @@
 
-<body style=" background: url(https://upuonline.net/wp-content/uploads/2021/09/PicsArt_09-15-09.09.42.jpg);background-repeat:no-repeat;background-size: cover;background-attachment: fixed;" class="hold-transition login-page">
+<body style=" background: url(img/bg1.jpg);background-repeat:no-repeat;background-size: cover;background-attachment: fixed;" class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
             <a style="color:white;" href="#">Modul Aktiviti Pelajar <b>UMT</b></a>
