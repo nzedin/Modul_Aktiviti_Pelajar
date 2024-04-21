@@ -60,7 +60,7 @@
                               <tr>
                                   <td><?= $no++ ?></td>
                                   <td><?= $list->clubName ?></td>
-                                  <td><?= $list->programDate ?></td>
+                                  <td><?= $list->startDate ?></td>
                                   <td><?= $list->programName ?></td>
                                   <td>-</td>
                                   <td>-</td>
