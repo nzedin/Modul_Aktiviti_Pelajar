@@ -188,30 +188,30 @@
      
     </section>   
   </div>
-  <script>
-        function saveAdmin() {
-            var checkboxData = [];
+        <script>
+              function saveAdmin() {
+                  var checkboxData = [];
 
-            // Loop through each checkbox to gather data
-            $('.adminCheckbox').each(function() {
-                var mppID = $(this).data('mppid'); 
-                var adminMPP = $(this).prop('checked') ? 1 : 0; 
+                  // Loop through each checkbox to gather data
+                  $('.adminCheckbox').each(function() {
+                      var mppID = $(this).data('mppid'); 
+                      var adminMPP = $(this).prop('checked') ? 1 : 0; 
 
-                checkboxData.push({ mppID: mppID, adminMPP: adminMPP });
-            });
+                      checkboxData.push({ mppID: mppID, adminMPP: adminMPP });
+                  });
 
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('mpp/adminmpp/'.$warga) ?>",
-                data: { checkboxData: checkboxData },
-                success: function(response) {
-                    
-                  $('#flashMessage').html('<div class="alert alert-success alert-dismissible fade show" role="alert"> Admin MPP Berjaya Disimpan! <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button></div>');
-                  setTimeout(function() {
-                        location.reload();
-                    }, 1000);
-                }
-            });
-        }
+                  $.ajax({
+                      type: "POST",
+                      url: "<?= base_url('mpp/adminmpp/'.$warga) ?>",
+                      data: { checkboxData: checkboxData },
+                      success: function(response) {
+                          
+                        $('#flashMessage').html('<div class="alert alert-success alert-dismissible fade show" role="alert"> Admin MPP Berjaya Disimpan! <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button></div>');
+                        setTimeout(function() {
+                              location.reload();
+                          }, 1000);
+                      }
+                  });
+              }
 
         </script>

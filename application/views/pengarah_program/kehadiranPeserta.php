@@ -87,6 +87,9 @@
     <div class="card">
       
       <div class="card-body">
+      <div id="flashMessage">
+      <?= $this->session->flashdata('reminder'); ?>
+    </div>
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
             
           <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div>
@@ -97,7 +100,9 @@
                           <th>No.</th>
                           <th>Matrik</th>
                           <th>Nama</th>
-                          <th style="text-align: center;">Action</th>
+                          <th style="text-align: center;">
+                            <button type="button" onclick="return confirm('Confirm delete the data?') && padam();" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button>
+                          </th>
                       </tr>
                   </thead>
                   <?php $no = 1;
@@ -108,8 +113,8 @@
                           <td><?= ucwords(strtolower($hadir->studentID)) ?></td>
                           <td><?= ucwords(strtolower($hadir->studentName)) ?></td>
                           <td style="text-align: center;">
-                              <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                              </div>
+                              <input type="hidden" class="kehadiranID" value="<?= $hadir->kehadiranID ?>">
+                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-kehadiranid="<?= $hadir->kehadiranID ?>" <?= $hadir->kehadiranID == 1 ? 'checked' : '' ?>>
                           </td>
                       </tr>
                   </tbody>
@@ -150,7 +155,43 @@
             });
         });
     });
-  </script>
+
+    setTimeout(function() {
+        $('#flashMessage').fadeOut('fast');
+    }, 1000);
+
+    </script>
+
+        <script>
+              function padam() {
+                  var checkboxData = [];
+
+                  // Loop through each checkbox to gather data
+                  $('.adminCheckbox').each(function() {
+                      var kehadiranID = $(this).data('kehadiranid'); 
+                      var padam = $(this).prop('checked') ? 1 : 0; 
+
+                      checkboxData.push({ kehadiranID: kehadiranID, padam: padam });
+                  });
+
+                  $.ajax({
+                      type: "POST",
+                      url: "<?= base_url('kehadiran/deleteatt/'.$warga.'/'.$programID->programID) ?>",
+                      data: { checkboxData: checkboxData },
+                      success: function(response) {
+                          
+                        $('#flashMessage').html('<div class="alert alert-success alert-dismissible fade show" role="alert"> Kehadiran Berjaya Dipadam! <button type="button" class="close" data-dismiss="alert" aria-label="Close"> </button></div>');
+                        setTimeout(function() {
+                              location.reload();
+                          }, 1000);
+                      }
+                  });
+              }
+
+        </script>
+    
+
+
 
   
   

@@ -194,36 +194,6 @@ class Club extends CI_Controller {
                 );
                 $this->club_model->insert_kepimpinan($data, 'kepimpinan');
 
-            
-  $mail = new PHPMailer(true);
-
-  try {
-      //Server settings
-      $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-      $mail->isSMTP();                                            //Send using SMTP
-      $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-      $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-      $mail->Username   = 'nzed215@gmail.com';                     //SMTP username
-      $mail->Password   = 'zpsajazincwojbyw';                               //SMTP password
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-      $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-      //Recipients
-      $mail->setFrom('nzed215@gmail.com', 'HEPA UMT');
-      $mail->addAddress($studentEmail);     //Add a recipient
-   
-   
-      //Content
-      $mail->isHTML(true);                                  //Set email format to HTML
-      $mail->Subject = 'Pendaftaran Ahli Kepimpinan';
-      $mail->Body    =  'Pelajar telah didaftarkan sebagai ahli kepimpinan! ';
-
-      $mail->send();
-      echo 'Message has been sent';
-  } catch (Exception $e) {
-      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-  }
-
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

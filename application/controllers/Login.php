@@ -42,7 +42,7 @@ class Login extends CI_Controller {
             
             if ($this->login_model->get_login($wargaID, $password, $warga)) {
                 $this->session->set_userdata('wargaID', $wargaID);
-                $this->session->mark_as_temp('wargaID', 3600);
+               // $this->session->mark_as_temp('wargaID', 3600);
     
                 $this->profile($warga);
                 
