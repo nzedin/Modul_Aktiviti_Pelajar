@@ -58,11 +58,20 @@
 <script src="<?= base_url('dist/temp') ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('dist/temp') ?>/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= base_url('dist/temp') ?>/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?= base_url('dist/temp') ?>/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?= base_url('dist/temp') ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="<?= base_url('dist/temp') ?>/plugins/jszip/jszip.min.js"></script>
+
 <script>
   $(function () {
+    
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": false,
+      "autoWidth": true,
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
     });
     $('#example2').DataTable({
       "paging": true,

@@ -87,14 +87,13 @@
     <div class="card">
       
       <div class="card-body">
-      <div id="flashMessage">
-      <?= $this->session->flashdata('reminder'); ?>
-    </div>
+        <div id="flashMessage">
+          <?= $this->session->flashdata('reminder'); ?>
+        </div>
         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
             
-          <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div>
-
-          <table id="example2" class="table table-bordered table-hover">
+          
+          <table id="example1" class="table table-bordered table-striped">
                   <thead>
                       <tr>
                           <th>No.</th>
@@ -105,9 +104,10 @@
                           </th>
                       </tr>
                   </thead>
+                  
+                  <tbody>
                   <?php $no = 1;
                   foreach($kehadiran as $hadir): ?>
-                  <tbody>
                       <tr>
                           <td><?= $no++ ?></td>
                           <td><?= ucwords(strtolower($hadir->studentID)) ?></td>
@@ -117,8 +117,9 @@
                               <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-kehadiranid="<?= $hadir->kehadiranID ?>" <?= $hadir->kehadiranID == 1 ? 'checked' : '' ?>>
                           </td>
                       </tr>
+                      <?php endforeach ?>
                   </tbody>
-              <?php endforeach ?>
+              
               </table>
         
         </div>
@@ -138,6 +139,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function(){
+      
         $('select[name="studentID"]').change(function(){
             var studentID = $(this).val();
             $.ajax({
@@ -190,8 +192,9 @@
 
         </script>
     
+    
 
-
+   
 
   
   

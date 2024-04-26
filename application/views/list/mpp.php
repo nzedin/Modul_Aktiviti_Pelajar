@@ -45,9 +45,7 @@
               <div class="card-body">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     
-                  <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div>
-
-                      <table id="example2" class="table table-bordered table-hover">
+                      <table id="example1" class="table table-bordered table-striped">
                           <thead>
                               <tr>
                                   <th>No.</th>
@@ -60,16 +58,17 @@
                                   <th style="text-align: center;">Action</th>
                               </tr>
                           </thead>
+                          
+                          <tbody>
                           <?php $no = 1;
                           foreach($mpp as $mpp): ?>
-                          <tbody>
                               <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= $mpp->committee ?></td>
+                                  <td><?= ucwords(strtolower($mpp->committee)) ?></td>
                                   <td><?= $mpp->session ?></td>
-                                  <td><?= $mpp->status ?></td>
-                                  <td><?= $mpp->studentName ?></td>
-                                  <td><?= $mpp->studentID ?></td>
+                                  <td><?= ucwords(strtolower($mpp->status)) ?></td>
+                                  <td><?= ucwords(strtolower($mpp->studentName)) ?></td>
+                                  <td><?= ucwords(strtolower($mpp->studentID)) ?></td>
                                   <td style="text-align: center;">
                                       <input type="hidden" class="mppID" value="<?= $mpp->mppID ?>">
                                       <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-mppid="<?= $mpp->mppID ?>" <?= $mpp->adminMPP == 1 ? 'checked' : '' ?>>
@@ -176,8 +175,8 @@
                                       
                                   </td>
                               </tr>
+                              <?php endforeach ?>
                           </tbody>
-                      <?php endforeach ?>
                       </table>
                 
                 </div>

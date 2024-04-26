@@ -51,6 +51,21 @@ class Kehadiran_model extends CI_Model {
             return false;
         }
     }
+
+    public function is_student_umt($studentID,$password)
+    {
+        
+            $this->db->where('studentID', $studentID);
+            $this->db->where('studentPassword', $password);
+            $query = $this->db->get('student');
+        
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function insert_kehadiran($data,$table)
     {
        $this->db->insert($table,$data);

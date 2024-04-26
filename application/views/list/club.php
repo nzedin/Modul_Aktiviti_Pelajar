@@ -43,29 +43,28 @@
               <div class="card-body">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     
-                  <div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div></div></div>
-
-                      <table id="example2" class="table table-bordered table-hover">
+                      <table id="example1" class="table table-bordered table-hover">
                           <thead>
                               <tr>
                                   <th style="text-align: center;">No.</th>
-                                  <th style="text-align: center;width:12%;">No. Rujukan</th>
-                                  <th style="text-align: center;width:17%;">Nama Badan Pelajar</th>
+                                  <th style="text-align: center;">No. Rujukan</th>
+                                  <th style="text-align: center;">Nama Badan Pelajar</th>
                                   <th style="text-align: center;">Singkatan</th>
                                   <th style="text-align: center;">Logo</th>
                                   <th style="text-align: center;">Penasihat 1</th>
-                                  <th style="text-align: center;width:11%;">Daftar Kepimpinan</th>
+                                  <th style="text-align: center;">Daftar Kepimpinan</th>
                                   <th style="text-align: center;">Action</th>
                               </tr>
                           </thead>
+                          
+                          <tbody>
                           <?php $no = 1;
                           foreach($club as $kelab): ?>
-                          <tbody>
                               <tr>
                                   <td><?= $no++ ?></td>
                                   <td><?= $kelab->refNo ?></td>
-                                  <td><?= $kelab->clubName ?></td>
-                                  <td><?= $kelab->shortName ?></td>
+                                  <td><?= ucwords(strtolower($kelab->clubName)) ?></td>
+                                  <td><?= ucwords(strtolower($kelab->shortName)) ?></td>
                                   <td style="text-align: center;">
                                     
                                   <?php if($kelab->logo): ?>
@@ -207,8 +206,8 @@
                                       
                                   </td>
                               </tr>
+                              <?php endforeach ?>
                           </tbody>
-                      <?php endforeach ?>
                       </table>
                 
                 </div>

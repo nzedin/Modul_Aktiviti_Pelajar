@@ -83,32 +83,33 @@ class Kehadiran extends CI_Controller {
      
         $studentID = $this->input->post('studentID');
         $programID = $this->input->post('programID');
-
-        if  ($this->kehadiran_model->is_student_exists($studentID,$programID)){
-
-        $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Matrik pelajar telah wujud!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>');
         
-        } else {
+            if  ($this->kehadiran_model->is_student_exists($studentID,$programID)){
 
-            $data = array(
-                'studentID'=> $this->input->post('studentID'),
-                'programID'=> $this->input->post('programID')
-            );
-            $this->kehadiran_model->insert_kehadiran($data, 'kehadiran');
-
-            $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
-                Data Berjaya Disimpan!
+            $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Matrik pelajar telah wujud!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button></div>');
-        }
-        redirect('kehadiran/kehadiranPeserta/'.$warga.'/'.$programID);
-    
+                </button>
+            </div>');
+            
+            } else {
+
+                $data = array(
+                    'studentID'=> $this->input->post('studentID'),
+                    'programID'=> $this->input->post('programID')
+                );
+                $this->kehadiran_model->insert_kehadiran($data, 'kehadiran');
+
+                $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Kehadiran Berjaya Disimpan!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>');
+            }
+
+            redirect('kehadiran/kehadiranPeserta/'.$warga.'/'.$programID);
+       
     }
 
     public function deleteatt($warga, $programID) {
@@ -123,33 +124,44 @@ class Kehadiran extends CI_Controller {
      
         $studentID = $this->input->post('studentID');
         $programID = $this->input->post('programID');
-
-        if  ($this->kehadiran_model->is_student_exists($studentID,$programID)){
-
-            $message = '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fa fa-check" aria-hidden="true">  <b>OK</b></i><br>Pengesahan Kehadiran Berjaya!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button></div>';
-    
+        $password = $this->input->post('password');
         
-        } else {
+        if  ($this->kehadiran_model->is_student_umt($studentID, $password)){
 
-            $data = array(
-                'studentID'=> $this->input->post('studentID'),
-                'programID'=> $this->input->post('programID')
-            );
-            $this->kehadiran_model->insert_kehadiran($data, 'kehadiran');
 
-            $message = '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fa fa-check" aria-hidden="true">  <b>OK</b></i><br>Pengesahan Kehadiran Berjaya!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button></div>';
-    
+            if  ($this->kehadiran_model->is_student_exists($studentID,$programID)){
+
+                $message = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fa fa-check" aria-hidden="true">  <b>OK</b></i><br>Pengesahan Kehadiran Berjaya!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>';
+        
+            
+            } else {
+
+                $data = array(
+                    'studentID'=> $this->input->post('studentID'),
+                    'programID'=> $this->input->post('programID')
+                );
+                $this->kehadiran_model->insert_kehadiran($data, 'kehadiran');
+
+                $message = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fa fa-check" aria-hidden="true">  <b>OK</b></i><br>Pengesahan Kehadiran Berjaya!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>';
+        
+            }
+
+            $this->login($studentID, $message);
+        }else{
+            $this->session->set_flashdata('reminder','<div style="color:red;" class="alert" role="alert">
+                    Username or Password is incorrect!
+                    </div>');
+
+            redirect('kehadiran/logmasuk/'.$programID);
         }
-
-        $this->login($studentID, $message);
     
     }
 }

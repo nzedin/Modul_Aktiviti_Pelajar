@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 </div>
-
+                <?= $this->session->flashdata('reminder'); ?>
                 <div class="row">
                 <div class="col-8">
                 
