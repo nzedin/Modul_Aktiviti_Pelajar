@@ -72,7 +72,7 @@
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                         <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
-                                        <a href="<?= base_url('kehadiran/logmasuk/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-primary"><i class="fa fa-qrcode">  Create QR</i></button></a>
+                                        <button type="button" onclick="window.open('<?= base_url('kehadiran/qrcode/'.$warga.'/'.$list->programID) ?>')" class="btn btn-primary"><i class="fa fa-qrcode">  Create QR</i></button>
                                       </div>
                                   </td>
                               </tr>

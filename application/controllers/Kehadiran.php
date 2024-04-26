@@ -47,9 +47,15 @@ class Kehadiran extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function logmasuk($warga, $programID)
+    public function logmasuk($programID)
     {
         $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
+        $data['title'] = 'eKehadiran';
+        $this->load->view('pengarah_program/loginkehadiran', $data);
+    }
+
+    public function qrcode($warga,$programID)
+    {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
@@ -57,8 +63,12 @@ class Kehadiran extends CI_Controller {
         } else {
             $data['student'] = $this->login_model->get_warga($wargaID, 'student');
         }
-        $data['title'] = 'eKehadiran';
-        $this->load->view('pengarah_program/loginkehadiran', $data);
+        $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
+        $data['title'] = 'QR Kehadiran';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('pengarah_program/QRcode', $data);
+        $this->load->view('templates/footer');
     }
 
     public function login($studentID, $message = '')
