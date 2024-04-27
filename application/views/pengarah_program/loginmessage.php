@@ -26,7 +26,13 @@
 <body style=" background: url(<?= base_url('img/log.jpg')?>);background-repeat:no-repeat;background-size: cover;background-attachment: fixed;" class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a style="color:green;font-weight: bold;" href="#"><b>eKehadiran</b></a>
+        <?php if( $title == "eKehadiran" ): ?>
+                <a style="color:green;font-weight: bold;" href="#"><b>eKehadiran</b></a>
+            <?php endif; ?>
+
+            <?php if( $title == "ePendaftaran" ): ?>
+                <a style="color:green;font-weight: bold;" href="#"><b>ePendaftaran</b></a>
+            <?php endif; ?>
         </div>
         <!-- /.login-logo -->
         <div class="card">

@@ -26,12 +26,21 @@
 <body style=" background: url(<?= base_url('img/log.jpg')?>);background-repeat:no-repeat;background-size: cover;background-attachment: fixed;" class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a style="color:green;font-weight: bold;" href="#"><b>eKehadiran</b></a>
+            <?php if( $title == "eKehadiran" ): ?>
+                <a style="color:green;font-weight: bold;" href="#"><b>eKehadiran</b></a>
+            <?php endif; ?>
+
+            <?php if( $title == "ePendaftaran" ): ?>
+                <a style="color:green;font-weight: bold;" href="#"><b>ePendaftaran</b></a>
+            <?php endif; ?>
+            
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
             <p class="login-box-msg">Sila login menggunakan UmtID untuk Pengesahan Kehadiran</p>
+
+            <?php if( $title == "eKehadiran" ): ?>
 
             <form action="<?= base_url('kehadiran/scanner')?>" method="POST">
                 
@@ -68,6 +77,44 @@
                 </div>
             </form>
 
+            <?php endif; ?>
+
+            <?php if( $title == "ePendaftaran" ): ?>
+                <form action="<?= base_url('kehadiran/qscanner')?>" method="POST">
+                
+            <input type="hidden" id="programID" name="programID" value="<?= $programID->programID; ?>">
+
+                <div class="input-group mb-3">
+                <input type="text" name="studentID" class="form-control" placeholder="Username" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+                </div>
+                <?= $this->session->flashdata('reminder'); ?>
+                <div class="row">
+                <div class="col-8">
+                
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+               
+                <!-- /.col -->
+                </div>
+            </form>
+            <?php endif; ?>
             
             </div>
             <!-- /.login-card-body -->

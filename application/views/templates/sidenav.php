@@ -330,7 +330,7 @@
                         </li>
                         <li class="nav-item">
                           <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
-                            <p>Kehadiran</p>
+                            <p>Pendaftaran & Kehadiran</p>
                           </a>
                         </li>
                         
@@ -662,7 +662,7 @@
                         </li>
                         <li class="nav-item">
                           <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
-                            <p>Kehadiran</p>
+                            <p>Pendaftaran & Kehadiran</p>
                           </a>
                         </li>
                         

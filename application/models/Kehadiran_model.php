@@ -28,6 +28,18 @@ class Kehadiran_model extends CI_Model {
 
         return $this->db->get();
     }
+
+    public function get_penyertaan($programID,$table)
+    {
+        $this->db->select('penyertaan.*, program.*, student.*');
+        $this->db->from($table);
+        $this->db->join('program', 'program.programID = penyertaan.programID');
+        $this->db->join('student', 'student.studentID = penyertaan.studentID'); 
+        $this->db->where('penyertaan.programID', $programID);
+        $this->db->where('penyertaan.padam' , 0);
+
+        return $this->db->get();
+    }
     
     public function get_program_by_id($programID)
     {
@@ -44,6 +56,20 @@ class Kehadiran_model extends CI_Model {
         $this->db->where('programID', $programID);
         $this->db->where('padam', 0);
         $query = $this->db->get('kehadiran');
+        
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function is_student_register($studentID,$programID)
+    {
+        $this->db->where('studentID', $studentID);
+        $this->db->where('programID', $programID);
+        $this->db->where('padam', 0);
+        $query = $this->db->get('penyertaan');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -71,6 +97,25 @@ class Kehadiran_model extends CI_Model {
        $this->db->insert($table,$data);
     }
 
+    public function is_quota_exceeded($programID) {
+        // Get the current count of registrations for the program where padam = 0
+        $this->db->where('programID', $programID);
+        $this->db->where('padam', 0);
+        $currentCount = $this->db->count_all_results('penyertaan');
+        
+        // Get the quota for the program
+        $this->db->select('programQuota');
+        $this->db->where('programID', $programID);
+        $quota = $this->db->get('program')->row()->programQuota;
+    
+        // Check if the current count exceeds the quota
+        return $currentCount >= $quota;
+    }
+    
+    
+    
+    
+
     public function deletekehadiran($checkboxData){
         foreach ($checkboxData as $data) {
             $kehadiranID = $data['kehadiranID'];
@@ -79,6 +124,17 @@ class Kehadiran_model extends CI_Model {
                 $this->db->set('padam', $padam);
                 $this->db->where('kehadiranID', $kehadiranID);
                 $this->db->update('kehadiran');
+        }
+    }
+
+    public function deletepenyertaan($checkboxData){
+        foreach ($checkboxData as $data) {
+            $penyertaanID = $data['penyertaanID'];
+            $padam = $data['padam'];
+        
+                $this->db->set('padam', $padam);
+                $this->db->where('penyertaanID', $penyertaanID);
+                $this->db->update('penyertaan');
         }
     }
 

@@ -10,7 +10,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Pelajar</li>
               <li class="breadcrumb-item">Aktiviti/Program</li>
-              <li class="breadcrumb-item">Kehadiran</li>
+              <li class="breadcrumb-item">Pendaftaran & Kehadiran</li>
               <li class="breadcrumb-item active"><?= $title ?></li>
             </ol>
           </div>
@@ -22,7 +22,7 @@
       <div class="container-fluid">
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Daftar Kehadiran <?= ucwords(strtolower($programID->programName)); ?></h3>
+            <h3 class="card-title">Penyertaan <?= ucwords(strtolower($programID->programName)); ?></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -32,7 +32,7 @@
             </div>
           </div>
           
-          <form action="<?= base_url('kehadiran/tambahkehadiran/'.$warga .'/'. $programID->programID)?>" method="POST">
+          <form action="<?= base_url('kehadiran/tambahpenyertaan/'.$warga .'/'. $programID->programID)?>" method="POST">
           <div class="card-body">
           
                <input type="hidden" id="programID" name="programID" value="<?= $programID->programID; ?>">
@@ -73,7 +73,7 @@
 
 <div class="card card-info">
   <div class="card-header">
-    <h3 class="card-title">Senarai Kehadiran <?= ucwords(strtolower($programID->programName)); ?></h3>
+    <h3 class="card-title">Senarai Penyertaan <?= ucwords(strtolower($programID->programName)); ?></h3>
 
     <div class="card-tools">
       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -99,7 +99,6 @@
                           <th>No.</th>
                           <th>Matrik</th>
                           <th>Nama</th>
-                          <th style="text-align: center;">Status</th>
                           <th style="text-align: center;">
                             <button type="button" onclick="return confirm('Confirm delete the data?') && padam();" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button>
                           </th>
@@ -108,28 +107,14 @@
                   
                   <tbody>
                   <?php $no = 1;
-                  foreach($kehadiran as $hadir): ?>
+                  foreach($penyertaan as $join): ?>
                       <tr>
                           <td><?= $no++ ?></td>
-                          <td><?= ucwords(strtolower($hadir->studentID)) ?></td>
-                          <td><?= ucwords(strtolower($hadir->studentName)) ?></td>
+                          <td><?= ucwords(strtolower($join->studentID)) ?></td>
+                          <td><?= ucwords(strtolower($join->studentName)) ?></td>
                           <td style="text-align: center;">
-                              <?php 
-                              $registered = false;
-                              foreach($penyertaan as $join): 
-                                  if ($hadir->studentID == $join->studentID) {
-                                      $registered = true; 
-                                      break; 
-                                  }
-                              endforeach; 
-                              ?>
-                              <span class="badge <?= $registered ? 'badge-primary' : 'badge-secondary' ?>">
-                                  <?= $registered ? 'Registered' : 'Unregistered' ?>
-                              </span>
-                          </td>
-                          <td style="text-align: center;">
-                              <input type="hidden" class="kehadiranID" value="<?= $hadir->kehadiranID ?>">
-                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-kehadiranid="<?= $hadir->kehadiranID ?>" <?= $hadir->kehadiranID == 1 ? 'checked' : '' ?>>
+                              <input type="hidden" class="penyertaanID" value="<?= $join->penyertaanID ?>">
+                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-penyertaanid="<?= $join->penyertaanID ?>" <?= $join->penyertaanID == 1 ? 'checked' : '' ?>>
                           </td>
                       </tr>
                       <?php endforeach ?>
@@ -185,19 +170,19 @@
 
                   // Loop through each checkbox to gather data
                   $('.adminCheckbox').each(function() {
-                      var kehadiranID = $(this).data('kehadiranid'); 
+                      var penyertaanID = $(this).data('penyertaanid'); 
                       var padam = $(this).prop('checked') ? 1 : 0; 
 
-                      checkboxData.push({ kehadiranID: kehadiranID, padam: padam });
+                      checkboxData.push({ penyertaanID: penyertaanID, padam: padam });
                   });
 
                   $.ajax({
                       type: "POST",
-                      url: "<?= base_url('kehadiran/deleteatt/'.$warga.'/'.$programID->programID) ?>",
+                      url: "<?= base_url('kehadiran/deletepenyertaan/'.$warga.'/'.$programID->programID) ?>",
                       data: { checkboxData: checkboxData },
                       success: function(response) {
                           
-                        $('#flashMessage').html('<div class="alert alert-success alert-dismissible fade show" role="alert"> Kehadiran Berjaya Dipadam! <button type="button" class="close" data-dismiss="alert" aria-label="Close"> </button></div>');
+                        $('#flashMessage').html('<div class="alert alert-success alert-dismissible fade show" role="alert"> Peserta Berjaya Dipadam! <button type="button" class="close" data-dismiss="alert" aria-label="Close"> </button></div>');
                         setTimeout(function() {
                               location.reload();
                           }, 1000);
