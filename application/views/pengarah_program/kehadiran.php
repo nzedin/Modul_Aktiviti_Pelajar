@@ -71,7 +71,16 @@
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                         <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
-                                        <button type="button" onclick="window.open('<?= base_url('kehadiran/qrcode/'.$warga.'/'.$list->programID) ?>')" class="btn btn-primary"><i class="fa fa-qrcode">  Create QR</i></button>
+                                        <button type="button" class="btn btn-primary" 
+                                          <?php 
+                                            if(strtotime($list->startDate) > strtotime(date('Y-m-d')) || strtotime($list->endDate) < strtotime(date('Y-m-d'))) {
+                                              $dateString = date('d F Y, l', strtotime($list->startDate));
+                                              echo 'onclick="alert(\'QR Attendance can only be generated during the program on ' . $dateString . '.\');"';                                            
+                                            }else 
+                                              echo 'onclick="window.open(\''. base_url('kehadiran/qrcode/'.$warga.'/'.$list->programID) . '\')"';
+                                            ?>>
+                                          <i class="fa fa-qrcode">  Create QR</i>
+                                        </button>
                                       </div>
                                   </td>
                               </tr>

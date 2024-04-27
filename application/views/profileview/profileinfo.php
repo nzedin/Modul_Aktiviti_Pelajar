@@ -25,11 +25,11 @@
                                         <tbody>
                                         <tr>
                                             <td> ID Pelajar </td>
-                                            <td> <?php echo $profile->studentID; ?> </td>
+                                            <td> <?php echo ucwords(strtolower($profile->studentID)); ?> </td>
                                         </tr>
                                         <tr>
                                             <td> Nama Pelajar </td>
-                                            <td><?php echo $profile->studentName; ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->studentName)); ?></td>
                                         </tr>
                                         <tr>
                                             <td> No. Telefon </td>
@@ -41,11 +41,11 @@
                                         </tr>
                                         <tr>
                                             <td> Fakulti </td>
-                                            <td> <?php echo $profile->faculty; ?></td>
+                                            <td> <?php echo ucwords(strtolower($profile->faculty)); ?></td>
                                         </tr>
                                         <tr>
                                             <td> Program </td>
-                                            <td><?php echo $profile->program; ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->program)); ?></td>
                                         </tr>
                                         <tr>
                                             <td> Semester </td>
@@ -53,11 +53,11 @@
                                         </tr>
                                         <tr>
                                             <td> Status </td>
-                                            <td><?php echo $profile->status ; ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->status)) ; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Jawatan </td>
-                                            <td><?php echo $profile->committee ; ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->committee)) ; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Sesi Pelantikan </td>
@@ -113,7 +113,7 @@
                                        </tr>
                                        <tr>
                                            <td> Nama Kelab </td>
-                                           <td><?php echo $profile->clubName; ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->clubName)); ?></td>
                                        </tr>
                                        <tr>
                                            <td> Nama Singkatan </td>
@@ -121,19 +121,19 @@
                                        </tr>
                                        <tr>
                                            <td> Kategori Badan Pelajar </td>
-                                           <td><?php echo $profile->category; ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->category)); ?></td>
                                        </tr>
                                        <tr>
                                            <td> Penasihat 1 </td>
-                                           <td> <?php echo $profile->advisor1_name; ?></td>
+                                           <td> <?php echo ucwords(strtolower($profile->advisor1_name)); ?></td>
                                        </tr>
                                        <tr>
                                            <td> Penasihat 2 </td>
-                                           <td><?php echo $profile->advisor2_name; ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->advisor2_name)); ?></td>
                                        </tr>
                                        <tr>
                                            <td> Objective </td>
-                                           <td><?php echo $profile->objective; ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->objective)); ?></td>
                                        </tr>
                                        </tbody>
                                    </table>
@@ -160,9 +160,9 @@
                                         <?php else: ?>
                                             <?php foreach( $kepimpinan as $kep ): ?>
                                                 <tr>
-                                                    <td> <?= $kep->committee ?></td>
-                                                    <td> <?= $kep->studentID ?> </td>
-                                                    <td> <?= $kep->studentName ?> </td>
+                                                    <td> <?= ucwords(strtolower($kep->committee)) ?></td>
+                                                    <td> <?= ucwords(strtolower($kep->studentID)) ?> </td>
+                                                    <td> <?= ucwords(strtolower($kep->studentName)) ?> </td>
                                                     <td> <?= ucwords(strtolower($kep->status)); ?> </td>
                                                 </tr>
                                             <?php endforeach ?>

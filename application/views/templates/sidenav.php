@@ -34,7 +34,7 @@
               <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($staff->staffImg); ?>" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-            <?php echo $staff->staffName; ?>
+            <?php echo ucwords(strtolower($staff->staffName)); ?>
             </div>
         </div>
       </a> 
@@ -269,7 +269,7 @@
                   <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <?php echo $student->studentName; ?>
+                <?php echo ucwords(strtolower($student->studentName)); ?>
                 </div>
             </div>
           </a> 
@@ -406,7 +406,7 @@
                   <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <?php echo $student->studentName; ?>
+                <?php echo ucwords(strtolower($student->studentName)); ?>
                 </div>
             </div>
           </a> 
@@ -437,7 +437,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                         <li class="nav-item">
-                          <a href="" class="nav-link">
+                          <a href="<?= base_url('club/clubmembers/'.$warga) ?>" class="nav-link">
                             <p>Daftar Ahli Badan Pelajar</p>
                           </a>
                         </li>
@@ -519,7 +519,7 @@
                   <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <?php echo $student->studentName; ?>
+                <?php echo ucwords(strtolower($student->studentName)); ?>
                 </div>
             </div>
           </a> 
@@ -541,7 +541,7 @@
 
                     <li class="nav-item">
                       <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-group"></i>
+                        <i class="nav-icon fa fa-user"></i>
                         <p>
                           Presiden / Setiausaha
                           <i class="fas fa-angle-left right"></i>
@@ -560,7 +560,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                         <li class="nav-item">
-                          <a href="" class="nav-link">
+                          <a href="<?= base_url('club/clubmembers/'.$warga) ?>" class="nav-link">
                             <p>Daftar Ahli Badan Pelajar</p>
                           </a>
                         </li>
@@ -613,7 +613,7 @@
 
                     <li class="nav-item">
                       <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-university"></i>
+                        <i class="nav-icon fa fa-user-plus"></i>
                         <p>
                           Pengarah Program 
                           <i class="fas fa-angle-left right"></i>

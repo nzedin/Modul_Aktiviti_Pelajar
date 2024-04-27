@@ -64,7 +64,7 @@
                                   <td><?= $no++ ?></td>
                                   <td><?= $kelab->refNo ?></td>
                                   <td><?= ucwords(strtolower($kelab->clubName)) ?></td>
-                                  <td><?= ucwords(strtolower($kelab->shortName)) ?></td>
+                                  <td><?= $kelab->shortName ?></td>
                                   <td style="text-align: center;">
                                     
                                   <?php if($kelab->logo): ?>

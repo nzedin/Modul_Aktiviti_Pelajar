@@ -7,12 +7,20 @@
             <h1><?= $title2 ?></h1>
           </div>
           <div class="col-sm-6">
+          <?php if( $warga == "staff" ): ?>
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Admin</li>
               <li class="breadcrumb-item">Pendaftaran</li>
               <li class="breadcrumb-item"><?= $title ?></li>
               <li class="breadcrumb-item active"><?= $title2 ?></li>
             </ol>
+            <?php else: ?>
+              <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">Pelajar</li>
+              <li class="breadcrumb-item">Pendaftaran Ahli</li>
+              <li class="breadcrumb-item active"><?= $title2 ?></li>
+            </ol>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -41,8 +49,8 @@
                   <label>Matrik Pelajar</label>
                   <select name="studentID" class="form-control select2bs4" style="width: 100%;" required>
                   <option value="" selected disabled>Pilih Matrik Pelajar</option>
-                  <?php foreach ($student as $student): ?>
-                        <option value="<?= $student->studentID; ?>"><?= $student->studentID; ?></option>
+                  <?php foreach ($studentSelect as $stud): ?>
+                        <option value="<?= $stud->studentID; ?>"><?= $stud->studentID; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -61,8 +69,6 @@
                   <label>Semester</label>
                   <input type="text" class="form-control" id="semester" name="semester" placeholder="Semester" disabled>
                 </div>
-
-                  <input type="text" class="form-control" id="studentEmail" name="studentEmail" disabled>
                 
                 <div class="form-group">
                   <label>Jawatan</label>
@@ -76,18 +82,22 @@
                     
                   </select>
                 </div>
-              <div class="form-group">
-                  <label>Status Pelajar</label>
-                       
-                      <div class="custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" id="aktif" name="status" value="AKTIF" required>
-                        <label for="aktif" class="custom-control-label">Aktif</label>
-                      </div>
-                      <div class="custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" id="tidakaktif" name="status" value="TIDAK AKTIF">
-                        <label for="tidakaktif" class="custom-control-label">Tidak Aktif</label>
-                      </div>
-                </div>
+                <?php if( $warga == "staff" ): ?>
+                  <div class="form-group">
+                      <label>Status Pelajar</label>
+                          
+                          <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="aktif" name="status" value="AKTIF" required>
+                            <label for="aktif" class="custom-control-label">Aktif</label>
+                          </div>
+                          <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="tidakaktif" name="status" value="TIDAK AKTIF">
+                            <label for="tidakaktif" class="custom-control-label">Tidak Aktif</label>
+                          </div>
+                    </div>
+                    <?php else: ?>
+                       <input type="hidden" id="status" name="status" value="Aktif">
+                  <?php endif; ?>
                 
             </div>
             <!-- /.card-body -->

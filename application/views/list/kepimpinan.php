@@ -6,12 +6,20 @@
             <h1><?= $title ?></h1>
           </div>
           <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
+          <?php if( $warga == "staff" ): ?>
+            <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">Admin</li>
               <li class="breadcrumb-item">Pendaftaran</li>
               <li class="breadcrumb-item"><?= $title ?></li>
               <li class="breadcrumb-item active"><?= $title2 ?></li>
             </ol>
+            <?php else: ?>
+              <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item">Pelajar</li>
+              <li class="breadcrumb-item">Pendaftaran Ahli</li>
+              <li class="breadcrumb-item active"><?= $title ?></li>
+            </ol>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -51,7 +59,9 @@
                                   <th>Jawatan</th>
                                   <th>Matrik</th>
                                   <th>Nama</th>
-                                  <th>Status</th>
+                                  <?php if( $warga == "staff" ): ?>
+                                    <th>Status</th>
+                                  <?php endif; ?>
                                   <th style="text-align: center;">Action</th>
                               </tr>
                           </thead>
@@ -64,7 +74,9 @@
                                   <td><?= ucwords(strtolower($kep->committee)) ?></td>
                                   <td><?= ucwords(strtolower($kep->studentID)) ?></td>
                                   <td><?= ucwords(strtolower($kep->studentName)) ?></td>
-                                  <td><?= ucwords(strtolower($kep->status)) ?></td>
+                                  <?php if( $warga == "staff" ): ?>
+                                    <td><?= ucwords(strtolower($kep->status)) ?></td>
+                                  <?php endif; ?>
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                          
@@ -115,7 +127,7 @@
                                                                 <?php endforeach; ?>
                                                               </select>
                                                             </div>
-
+                                                          <?php if( $warga == "staff" ): ?>
                                                            <div class="form-group">
                                                               <label>Status Pelajar</label>
                                                               <div class="custom-control custom-radio">
@@ -128,6 +140,9 @@
                                                               </div>
 
                                                             </div>
+                                                            <?php else: ?>
+                                                              <input type="hidden" id="status" name="status" value="<?= $kep->status; ?>">
+                                                            <?php endif; ?>
 
                                                             
                                                               <div style="text-align: right;" class="card-footer">

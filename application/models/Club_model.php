@@ -15,6 +15,17 @@ class Club_model extends CI_Model {
 
     }
 
+    public function get_club_by_student($table, $studentID)
+    {
+        $this->db->select('club.*, kepimpinan.*');
+        $this->db->from($table);
+        $this->db->join('kepimpinan', 'club.clubID = kepimpinan.clubID');
+        $this->db->where('kepimpinan.studentID', $studentID);
+
+        return $this->db->get();
+
+    }
+
     public function get_kepimpinan($clubID,$table)
     {
         $this->db->select('kepimpinan.*, club.*, student.*, committee.*');
