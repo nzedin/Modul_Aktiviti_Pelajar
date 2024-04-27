@@ -53,7 +53,7 @@
                 </p>
             </a> 
             <ul class="nav nav-treeview">
-                  <li class="nav-item">
+                <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
                     <p >
@@ -137,6 +137,7 @@
                     </li>
                     
                   </ul>
+                  
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
@@ -260,141 +261,479 @@
 
     <?php endif; ?>
     <?php if( $warga == "student" ): ?>
-      <div class="sidebar">   
-      <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-              <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
+      <?php if( $student_type == "programdirector" ): ?>
+        <div class="sidebar">   
+          <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                  <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                <?php echo $student->studentName; ?>
+                </div>
             </div>
-            <div class="info">
-            <?php echo $student->studentName; ?>
-            </div>
-        </div>
-      </a> 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-              
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-graduation-cap"></i>
-                <p >
-                    PELAJAR
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a> 
-            <ul class="nav nav-treeview">
+          </a> 
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                  with font-awesome or any other icon font library -->
                   
-
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-group"></i>
-                    <p>
-                      Pelantikan
-                      <i class="fas fa-angle-left right"></i>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-graduation-cap"></i>
+                    <p >
+                        PELAJAR
+                        <i class="fas fa-angle-left right"></i>
                     </p>
-                  </a>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        <p>AJK & Peserta Program</p>
-                      </a>
-                    </li>
-                    
-                  </ul>
-                </li>
+                </a> 
+                <ul class="nav nav-treeview">
+                      
 
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-university"></i>
-                    <p>
-                      Aktiviti / Program 
-                      <i class="fas fa-angle-left right"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
-                    
                     <li class="nav-item">
-                      <a href="" class="nav-link">
-                        <p>Mohon Ubah Maklumat Program</p>
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-group"></i>
+                        <p>
+                          Pelantikan
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
                       </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>AJK & Peserta Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
                     </li>
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        <p>Batal Aktiviti/Program</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
-                        <p>Kehadiran</p>
-                      </a>
-                    </li>
-                    
-                  </ul>
-                </li>
-                
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-file-text"></i>
-                    <p>
-                      Surat Kelulusan 
-                      <i class="fas fa-angle-left right"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                      <a href="" class="nav-link">
-                        <p>Surat Kelulusan Program</p>
-                      </a>
-                    </li>
-                    
-                  </ul>
-                </li>
 
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-clipboard"></i>
-                    <p>
-                      Laporan 
-                      <i class="fas fa-angle-left right"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
-                        <p>Laporan Program</p>
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-university"></i>
+                        <p>
+                          Aktiviti / Program 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
                       </a>
+                      <ul class="nav nav-treeview">
+                        
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Mohon Ubah Maklumat Program</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Batal Aktiviti/Program</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
+                            <p>Kehadiran</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
                     </li>
                     
-                  </ul>
-                </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-file-text"></i>
+                        <p>
+                          Surat Kelulusan 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Surat Kelulusan Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
 
-                
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-clipboard"></i>
+                        <p>
+                          Laporan 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
+                            <p>Laporan Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    
+                </ul>
+              </li>
+              
             </ul>
-          </li>
-          
-        </ul>
-       <br><br><br>
-        <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false" style=" background-color:#343A40ff; position: fixed; bottom: 10px; ">
-                  <li class="nav-item">
-                    <hr class="dropdown-divider">
-                  </li>
+          <br><br><br>
+            <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false" style=" background-color:#343A40ff; position: fixed; bottom: 10px; ">
+                      <li class="nav-item">
+                        <hr class="dropdown-divider">
+                      </li>
+
+                        <li class="nav-item">
+                            <a href="<?= base_url('login/logout') ?>" onclick="return confirm('Continue logout?')" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    LOGOUT
+                                    <i class="fas fa-angle-right right"></i>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+          </nav>
+        </div>
+    <?php endif; ?>
+
+    <?php if( $student_type == "member" ): ?>
+      <div class="sidebar">   
+          <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                  <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                <?php echo $student->studentName; ?>
+                </div>
+            </div>
+          </a> 
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                  with font-awesome or any other icon font library -->
+                  
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-graduation-cap"></i>
+                    <p >
+                        PELAJAR
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a> 
+                <ul class="nav nav-treeview">
+                      
 
                     <li class="nav-item">
-                        <a href="<?= base_url('login/logout') ?>" onclick="return confirm('Continue logout?')" class="nav-link">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                LOGOUT
-                                <i class="fas fa-angle-right right"></i>
-                            </p>
-                        </a>
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-group"></i>
+                        <p>
+                          Pendaftaran Ahli
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Daftar Ahli Badan Pelajar</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-university"></i>
+                        <p>
+                          Daftar Program 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Mohon Program</p>
+                          </a>
+                        </li>                       
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-clipboard"></i>
+                        <p>
+                          Perlantikan 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Pengarah Program</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>AJK & Ahli Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    
+                </ul>
+              </li>
+              
+            </ul>
+          <br><br><br>
+            <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false" style=" background-color:#343A40ff; position: fixed; bottom: 10px; ">
+                      <li class="nav-item">
+                        <hr class="dropdown-divider">
+                      </li>
+
+                        <li class="nav-item">
+                            <a href="<?= base_url('login/logout') ?>" onclick="return confirm('Continue logout?')" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    LOGOUT
+                                    <i class="fas fa-angle-right right"></i>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+          </nav>
+        </div>
+    <?php endif; ?>
+
+    <?php if( $student_type == "both" ): ?>
+      <div class="sidebar">   
+          <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                  <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                <?php echo $student->studentName; ?>
+                </div>
+            </div>
+          </a> 
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                  with font-awesome or any other icon font library -->
+                  
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-graduation-cap"></i>
+                    <p >
+                        PELAJAR
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a> 
+                <ul class="nav nav-treeview">
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-group"></i>
+                        <p>
+                          Presiden / Setiausaha
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                      
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-group"></i>
+                        <p>
+                          Pendaftaran Ahli
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Daftar Ahli Badan Pelajar</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-university"></i>
+                        <p>
+                          Daftar Program 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Mohon Program</p>
+                          </a>
+                        </li>                       
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-clipboard"></i>
+                        <p>
+                          Perlantikan 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Pengarah Program</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>AJK & Ahli Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
                     </li>
                 </ul>
-      </nav>
-    </div>
+              </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-university"></i>
+                        <p>
+                          Pengarah Program 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                      
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-group"></i>
+                        <p>
+                          Pelantikan
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>AJK & Peserta Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-university"></i>
+                        <p>
+                          Aktiviti / Program 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Mohon Ubah Maklumat Program</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Batal Aktiviti/Program</p>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
+                            <p>Kehadiran</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-file-text"></i>
+                        <p>
+                          Surat Kelulusan 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="" class="nav-link">
+                            <p>Surat Kelulusan Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-clipboard"></i>
+                        <p>
+                          Laporan 
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                          <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
+                            <p>Laporan Program</p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>
+
+                    
+                </ul>
+                    </li>
+                   
+                </ul>
+              </li>
+              
+            </ul>
+          <br><br><br>
+            <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false" style=" background-color:#343A40ff; position: fixed; bottom: 10px; ">
+                      <li class="nav-item">
+                        <hr class="dropdown-divider">
+                      </li>
+
+                        <li class="nav-item">
+                            <a href="<?= base_url('login/logout') ?>" onclick="return confirm('Continue logout?')" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    LOGOUT
+                                    <i class="fas fa-angle-right right"></i>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+          </nav>
+        </div>
     <?php endif; ?>
+
+  <?php endif; ?>
 
     <!-- /.sidebar -->
   </aside>

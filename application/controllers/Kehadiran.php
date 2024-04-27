@@ -20,7 +20,22 @@ class Kehadiran extends CI_Controller {
         if ($warga == 'staff') {
             $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
         } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
             $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
         }
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidenav', $data);
@@ -39,7 +54,22 @@ class Kehadiran extends CI_Controller {
         if ($warga == 'staff') {
             $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
         } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
             $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
         }
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidenav', $data);
@@ -61,7 +91,22 @@ class Kehadiran extends CI_Controller {
         if ($warga == 'staff') {
             $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
         } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
             $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
         }
         $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
         $data['title'] = 'QR Kehadiran';

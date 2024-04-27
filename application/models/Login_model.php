@@ -43,6 +43,38 @@ class Login_model extends CI_Model {
         return $query->row();
     }
 
+    public function ahli_kelab($studentID)
+{
+    $this->db->select('kepimpinan.*, student.*, committee.*, categoryrole.*');
+    $this->db->from('kepimpinan');
+    $this->db->join('student', 'student.studentID = kepimpinan.studentID'); 
+    $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID');
+    $this->db->join('categoryrole', 'committee.categoryRoleID = categoryrole.categoryRoleID');
+    $this->db->where("(committee = 'presiden' OR committee = 'Presiden' OR committee = 'Setiausaha' OR committee = 'setiausaha')");
+    $this->db->where("(categoryrole = 'Badan Pelajar' OR categoryrole = 'badan pelajar' OR categoryrole = 'Club' OR categoryrole = 'club')" );
+    $this->db->where('kepimpinan.studentID', $studentID);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        return true; 
+    } else {
+        return false; 
+    }
+}
+
+    public function pengarah_program($studentID)
+    {
+        $this->db->where('pengarahProg', $studentID);
+        $query = $this->db->get('program');
+        
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function logout()
     {
         // destroy the user's session
