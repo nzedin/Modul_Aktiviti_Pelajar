@@ -46,7 +46,8 @@
                                   <th style="text-align: center;">No.</th>
                                   <th style="text-align: center;">Program</th>
                                   <th style="text-align: center;">Badan Pelajar</th>
-                                  <th style="text-align: center;">Tarikh Aktiviti</th>
+                                  <th style="text-align: center;">Tarikh Mula</th>
+                                  <th style="text-align: center;">Tarikh Tamat</th>
                                   <th style="text-align: center;">Jenis Program</th>
                                   <th style="text-align: center;">Quota</th>
                                   <th style="text-align: center;">Lokasi</th>
@@ -63,25 +64,26 @@
                                   <td><?= ucwords(strtolower($list->programName)) ?></td>
                                   <td><?= ucwords(strtolower($list->clubName)) ?></td>
                                   <td><?= $list->startDate ?></td>
+                                  <td><?= $list->endDate ?></td>
                                   <td><?= ucwords(strtolower($list->typeProgram)) ?></td>
                                   <td><?= $list->programQuota ?></td>
                                   <td><?= ucwords(strtolower($list->programLocation)) ?></td>                                  
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('kehadiran/pendaftaranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info"><i class="fa fa-plus-square-o">  Pendaftaran</i></button></a>
+                                        <a href="<?= base_url('kehadiran/pendaftaranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info btn-sm"><i class="fa fa-plus-square-o">  Pendaftaran</i></button></a>
                                         <?php if (strtotime($list->startDate) > strtotime(date('Y-m-d'))) { ?>
                                               <?php if (!$this->kehadiran_model->is_quota_exceeded($list->programID)) { ?>
-                                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="window.open('<?= base_url('kehadiran/qrregistration/'.$warga.'/'.$list->programID) ?>')">
+                                                  <button type="button" class="btn btn-block btn-outline-primary btn-sm" onclick="window.open('<?= base_url('kehadiran/qrregistration/'.$warga.'/'.$list->programID) ?>')">
                                                       <i class="fa fa-qrcode"> Create QR</i>
                                                   </button>
                                               <?php } else { ?>
-                                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="alert('Registration is full.');">
+                                                  <button type="button" class="btn btn-block btn-outline-primary btn-sm" onclick="alert('Registration is full.');">
                                                       <i class="fa fa-qrcode"> Create QR</i>
                                                   </button>
                                               <?php } ?>
                                           <?php } else { ?>
-                                              <button type="button" class="btn btn-block btn-outline-primary" onclick="alert('Program registration is closed.');">
+                                              <button type="button" class="btn btn-block btn-outline-primary btn-sm" onclick="alert('Program registration is closed.');">
                                                   <i class="fa fa-qrcode"> Create QR</i>
                                               </button>
                                           <?php } ?>
@@ -90,8 +92,8 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
-                                        <button type="button" class="btn btn-block btn-outline-primary" 
+                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info btn-sm"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
+                                        <button type="button" class="btn btn-block btn-outline-primary btn-sm" 
                                           <?php 
                                             if(strtotime($list->startDate) > strtotime(date('Y-m-d')) || strtotime($list->endDate) < strtotime(date('Y-m-d'))) {
                                               $dateString = date('d F Y, l', strtotime($list->startDate));
