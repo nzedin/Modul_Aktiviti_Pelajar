@@ -6,12 +6,14 @@ class Kehadiran_model extends CI_Model {
 
     public function get_program($table, $studentID) {
 
-        $this->db->select('program.*, programcategory.*, state.*, club.*');
+        $this->db->select('program.*, programcategory.*, state.*, club.*, COUNT(CASE WHEN penyertaan.padam = 0 THEN 1 END) AS bilangan_penyertaan');
         $this->db->from($table);
         $this->db->join('club', 'club.clubID = program.clubID');
         $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID');
         $this->db->join('state', 'state.stateID = program.stateID');
+        $this->db->join('penyertaan', 'penyertaan.programID = program.programID', 'left');
         $this->db->where('pengarahProg', $studentID);
+        $this->db->group_by('program.programID');
         $this->db->order_by('program.startDate', 'ASC');
 
         return $this->db->get();
@@ -36,7 +38,7 @@ class Kehadiran_model extends CI_Model {
         $this->db->join('program', 'program.programID = penyertaan.programID');
         $this->db->join('student', 'student.studentID = penyertaan.studentID'); 
         $this->db->where('penyertaan.programID', $programID);
-        $this->db->where('penyertaan.padam' , 0);
+        $this->db->where('penyertaan.padam', 0);
 
         return $this->db->get();
     }
@@ -111,10 +113,6 @@ class Kehadiran_model extends CI_Model {
         // Check if the current count exceeds the quota
         return $currentCount >= $quota;
     }
-    
-    
-    
-    
 
     public function deletekehadiran($checkboxData){
         foreach ($checkboxData as $data) {

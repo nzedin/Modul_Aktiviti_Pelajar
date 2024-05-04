@@ -40,7 +40,7 @@
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     
 
-                      <table id="example1" class="table table-bordered table-hover">
+                    <table id="example1" class="table table-bordered table-hover">
                           <thead>
                               <tr>
                                   <th style="text-align: center;">No.</th>
@@ -49,7 +49,8 @@
                                   <th style="text-align: center;">Tarikh Mula</th>
                                   <th style="text-align: center;">Tarikh Tamat</th>
                                   <th style="text-align: center;">Jenis Program</th>
-                                  <th style="text-align: center;">Quota</th>
+                                  <th style="text-align: center;">Kuota</th>
+                                  <th style="text-align: center;">Peserta</th>
                                   <th style="text-align: center;">Lokasi</th>
                                   <th style="text-align: center;">Pendaftaran</th>
                                   <th style="text-align: center;">Kehadiran</th>
@@ -59,7 +60,7 @@
                           <tbody>
                           <?php $no = 1;
                           foreach($list as $list): ?>
-                              <tr>
+                            <tr>
                                   <td><?= $no++ ?></td>
                                   <td><?= ucwords(strtolower($list->programName)) ?></td>
                                   <td><?= ucwords(strtolower($list->clubName)) ?></td>
@@ -67,23 +68,24 @@
                                   <td><?= $list->endDate ?></td>
                                   <td><?= ucwords(strtolower($list->typeProgram)) ?></td>
                                   <td><?= $list->programQuota ?></td>
+                                  <td><?= $list->bilangan_penyertaan ?></td>
                                   <td><?= ucwords(strtolower($list->programLocation)) ?></td>                                  
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('kehadiran/pendaftaranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info btn-sm"><i class="fa fa-plus-square-o">  Pendaftaran</i></button></a>
+                                        <a href="<?= base_url('kehadiran/pendaftaranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info "><i class="fa fa-plus-square-o">  Daftar</i></button></a>
                                         <?php if (strtotime($list->startDate) > strtotime(date('Y-m-d'))) { ?>
                                               <?php if (!$this->kehadiran_model->is_quota_exceeded($list->programID)) { ?>
-                                                  <button type="button" class="btn btn-block btn-outline-primary btn-sm" onclick="window.open('<?= base_url('kehadiran/qrregistration/'.$warga.'/'.$list->programID) ?>')">
+                                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="window.open('<?= base_url('kehadiran/qrregistration/'.$warga.'/'.$list->programID) ?>')">
                                                       <i class="fa fa-qrcode"> Create QR</i>
                                                   </button>
                                               <?php } else { ?>
-                                                  <button type="button" class="btn btn-block btn-outline-primary btn-sm" onclick="alert('Registration is full.');">
+                                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="alert('Registration is full.');">
                                                       <i class="fa fa-qrcode"> Create QR</i>
                                                   </button>
                                               <?php } ?>
                                           <?php } else { ?>
-                                              <button type="button" class="btn btn-block btn-outline-primary btn-sm" onclick="alert('Program registration is closed.');">
+                                              <button type="button" class="btn btn-block btn-outline-primary" onclick="alert('Program registration is closed.');">
                                                   <i class="fa fa-qrcode"> Create QR</i>
                                               </button>
                                           <?php } ?>
@@ -92,12 +94,15 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info btn-sm"><i class="fa fa-list-ol">  Kehadiran</i></button></a>
-                                        <button type="button" class="btn btn-block btn-outline-primary btn-sm" 
+                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info "><i class="fa fa-list-ol">  Kehadiran</i></button></a>
+                                        <button type="button" class="btn btn-block btn-outline-primary" 
                                           <?php 
-                                            if(strtotime($list->startDate) > strtotime(date('Y-m-d')) || strtotime($list->endDate) < strtotime(date('Y-m-d'))) {
+                                            if(strtotime($list->startDate) > strtotime(date('Y-m-d'))) {
                                               $dateString = date('d F Y, l', strtotime($list->startDate));
                                               echo 'onclick="alert(\'QR Attendance can only be generated during the program on ' . $dateString . '.\');"';                                            
+                                            }else if(strtotime($list->endDate) < strtotime(date('Y-m-d'))) {
+                                              $dateString = date('d F Y, l', strtotime($list->endDate));
+                                              echo 'onclick="alert(\'The program has already ended on ' . $dateString . '.\');"';                                            
                                             }else 
                                               echo 'onclick="window.open(\''. base_url('kehadiran/qrcode/'.$warga.'/'.$list->programID) . '\')"';
                                             ?>>
@@ -109,7 +114,7 @@
                               <?php endforeach ?>
                           </tbody>
                       
-                      </table>
+                    </table>
                 
                 </div>
               </div>
