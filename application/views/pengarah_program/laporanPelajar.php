@@ -23,7 +23,7 @@
 
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Senarai Aktiviti / Program</h3>
+            <h3 class="card-title">Senarai Laporan Aktiviti / Program</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -54,18 +54,28 @@
                           
                           <tbody>
                           <?php $no = 1;
-                          foreach($list as $list): ?>
+                          foreach($laporan as $list): ?>
                               <tr>
                                   <td><?= $no++ ?></td>
                                   <td><?= $list->clubName ?></td>
                                   <td><?= $list->startDate ?></td>
                                   <td><?= $list->programName ?></td>
-                                  <td>-</td>
+                                  <td> <?php
+                                        if ($list->statusApproval == 0) {
+                                          echo "<span class='badge badge-warning'>Pending</span>";
+                                        }
+                                        else if ($list->statusApproval == 1){
+                                          echo "<span class='badge badge-danger'>Not Approved</span>";
+                                        } else {
+                                          echo "<span class='badge badge-success'> Approved</span>";
+                                        }
+                                      ?>
+                                  </td>
                                   <td>-</td>
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="" ><button type="button" class="btn btn-info">Laporan</button></a>
+                                        <a href="<?= base_url('laporan/laporanProgram/'.$warga.'/programID?='.$list->laporanID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
                                       </div>
                                   </td>
                               </tr>
