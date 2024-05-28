@@ -73,19 +73,19 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('kehadiran/pendaftaranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info "><i class="fa fa-plus-square-o">  Daftar</i></button></a>
+                                        <a href="<?= base_url('kehadiran/pendaftaranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-info "><i class="fa fa-plus-square-o">  Daftar</i></button></a>
                                         <?php if (strtotime($list->startDate) > strtotime(date('Y-m-d'))) { ?>
                                               <?php if (!$this->kehadiran_model->is_quota_exceeded($list->programID)) { ?>
-                                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="window.open('<?= base_url('kehadiran/qrregistration/'.$warga.'/'.$list->programID) ?>')">
+                                                  <button type="button" class="btn btn-block btn-primary" onclick="window.open('<?= base_url('kehadiran/qrregistration/'.$warga.'/'.$list->programID) ?>')">
                                                       <i class="fa fa-qrcode"> Create QR</i>
                                                   </button>
                                               <?php } else { ?>
-                                                  <button type="button" class="btn btn-block btn-outline-primary" onclick="alert('Registration is full.');">
+                                                  <button type="button" class="btn btn-block btn-primary" onclick="alert('Registration is full.');">
                                                       <i class="fa fa-qrcode"> Create QR</i>
                                                   </button>
                                               <?php } ?>
                                           <?php } else { ?>
-                                              <button type="button" class="btn btn-block btn-outline-primary" onclick="alert('Program registration is closed.');">
+                                              <button type="button" class="btn btn-block btn-primary" onclick="alert('Program registration is closed.');">
                                                   <i class="fa fa-qrcode"> Create QR</i>
                                               </button>
                                           <?php } ?>
@@ -94,8 +94,8 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-outline-info "><i class="fa fa-list-ol">  Kehadiran</i></button></a>
-                                        <button type="button" class="btn btn-block btn-outline-primary" 
+                                        <a href="<?= base_url('kehadiran/kehadiranPeserta/'.$warga.'/'.$list->programID) ?>" ><button type="button" class="btn btn-block btn-info "><i class="fa fa-list-ol">  Kehadiran</i></button></a>
+                                        <button type="button" class="btn btn-block btn-primary" 
                                           <?php 
                                             if(strtotime($list->startDate) > strtotime(date('Y-m-d'))) {
                                               $dateString = date('d F Y, l', strtotime($list->startDate));

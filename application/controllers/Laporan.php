@@ -12,7 +12,8 @@ class Laporan extends CI_Controller {
     }
     public function index($warga, $studentID)
     {
-        $data['laporan'] = $this->laporan_model->get_laporan('laporan', $studentID)->result();
+        $data['laporan'] = $this->laporan_model->get_laporan('program', $studentID)->result();
+        $data['error']= $this->laporan_model->get_laporan('program', $studentID)->result();
         $data['title'] = 'Laporan Program';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
@@ -42,9 +43,9 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function laporanProgram($warga, $laporanID){
+    public function laporanProgram($warga, $programID){
         
-        $data['laporanID'] = $this->laporan_model->get_laporan_byid($laporanID)->result();
+        $data['program'] = $this->laporan_model->get_byid($programID)->row();
         $data['title'] = 'Laporan Program';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');

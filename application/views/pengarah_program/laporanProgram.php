@@ -1,3 +1,11 @@
+<head>
+    <style>
+        p {
+            padding: 6px;
+        }
+    </style>
+</head>
+<body>
 <div class="content-wrapper">
     <section class="content-header" >
             
@@ -13,35 +21,44 @@
                            <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Maklumat Program</b></h5>
                                <div style="width: 90%; margin: auto;" class="card-body">
                                     
+
+                               <input type="hidden" id="programID" name="programID" value="<?= $program->programID; ?>">
+
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Nama Program</label>
+                                        <label for="programName" class="col-sm-4 col-form-label">Nama Program</label>
                                         <p >:</p>
                                         <div class="col-sm-7">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                            <p id="programName"> <?= ucwords(strtolower($program->programName)) ?></p>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Anjuran Badan Pelajar</label>
+                                        <label for="clubName" class="col-sm-4 col-form-label">Anjuran Badan Pelajar</label>
                                         <p >:</p>
                                         <div class="col-sm-7">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                            <p id="clubName"> <?= ucwords(strtolower($program->clubName)) ?></p>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Tarikh Pelaksanaan Program</label>
+                                        <label for="date" class="col-sm-4 col-form-label">Tarikh Pelaksanaan Program</label>
                                         <p >:</p>
-                                        <div class="col-sm-7">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                        <div class="col-sm-2">
+                                            <p id="date"> <?= $program->startDate ?> </p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p id="date"><b>sehingga</b></p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p id="date"> <?= $program->endDate ?></p>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Tempat</label>
+                                        <label for="tempat" class="col-sm-4 col-form-label">Tempat</label>
                                         <p >:</p>
                                         <div class="col-sm-7">
-                                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                            <p id="tempat"> <?= ucwords(strtolower($program->programLocation)) ?></p>
                                         </div>
                                     </div>
 
@@ -143,4 +160,4 @@
         </div>
     </section>
 </div>
- 
+</body>

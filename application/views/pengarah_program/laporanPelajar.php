@@ -60,8 +60,15 @@
                                   <td><?= $list->clubName ?></td>
                                   <td><?= $list->startDate ?></td>
                                   <td><?= $list->programName ?></td>
+
                                   <td> <?php
-                                        if ($list->statusApproval == 0) {
+                                        if ($list->statusApproval == null) {
+                                          echo "<span class='badge badge-secondary'>No Submission</span>";
+                                        }
+                                        else if ($list->statusApproval == 3) {
+                                          echo "<span class='badge badge-primary'>In Draft</span>";
+                                        }
+                                        else if ($list->statusApproval == 0) {
                                           echo "<span class='badge badge-warning'>Pending</span>";
                                         }
                                         else if ($list->statusApproval == 1){
@@ -75,7 +82,7 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="<?= base_url('laporan/laporanProgram/'.$warga.'/programID?='.$list->laporanID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
+                                        <a href="<?= base_url('laporan/laporanProgram/'.$warga.'/'.$list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
                                       </div>
                                   </td>
                               </tr>
@@ -92,4 +99,5 @@
      
     </section>   
   </div>
+
  
