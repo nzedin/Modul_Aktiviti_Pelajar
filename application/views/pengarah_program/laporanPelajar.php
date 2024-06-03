@@ -61,24 +61,24 @@
                                   <td><?= $list->startDate ?></td>
                                   <td><?= $list->programName ?></td>
 
-                                  <td> <?php
+                                  <td style="text-align: center;"> <?php
                                         if ($list->statusApproval == null) {
                                           echo "<span class='badge badge-secondary'>No Submission</span>";
                                         }
-                                        else if ($list->statusApproval == 3) {
+                                        else if ($list->statusApproval == 0) {
                                           echo "<span class='badge badge-primary'>In Draft</span>";
                                         }
-                                        else if ($list->statusApproval == 0) {
+                                        else if ($list->statusApproval == 1) {
                                           echo "<span class='badge badge-warning'>Pending</span>";
                                         }
-                                        else if ($list->statusApproval == 1){
+                                        else if ($list->statusApproval == 2){
                                           echo "<span class='badge badge-danger'>Not Approved</span>";
                                         } else {
                                           echo "<span class='badge badge-success'> Approved</span>";
                                         }
                                       ?>
                                   </td>
-                                  <td>-</td>
+                                  <td style="text-align: center;">-</td>
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">

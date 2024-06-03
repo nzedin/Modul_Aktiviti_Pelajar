@@ -36,7 +36,10 @@
             
         </div>
         <!-- /.login-logo -->
-        <div class="card">
+        <div class="card card-primary">
+        <div class="card-header">
+            <h6 style="text-align:center;"><b><?= $programID->programName; ?></b></h6>
+        </div>
             <div class="card-body login-card-body">
             <p class="login-box-msg">Sila login menggunakan UmtID untuk Pengesahan Kehadiran</p>
 

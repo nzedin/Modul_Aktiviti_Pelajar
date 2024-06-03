@@ -75,4 +75,66 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function saveReport($warga, $programID){
+
+            $laporanID = $this->input->post('laporanID');
+            $programID = $this->input->post('programID');
+            $programUmt = $this->input->post('programUmt');
+            $programLuar = $this->input->post('programLuar');
+            $pencapaian = $this->input->post('pencapaian');
+            $syor = $this->input->post('syor');
+            $objektif = $this->input->post('objektif');
+            $bantuanKewanganHEPA = $this->input->post('bantuanKewanganHEPA');
+            $danaTabungAmanah = $this->input->post('danaTabungAmanah');
+            $kelulusanKenderaan = $this->input->post('kelulusanKenderaan');
+            $kelulusanSijil = $this->input->post('kelulusanSijil');
+            $lainLainKelulusan = $this->input->post('lainLainKelulusan');
+            $status = $this->input->post('status');
+            
+            if ($this->laporan_model->is_report_exist($laporanID)) {
+                $data = array(
+                    'laporanID' => $laporanID,
+                    'programID' => $programID,
+                    'programUmt' => $programUmt,
+                    'programLuar' => $programLuar,
+                    'pencapaian' => $pencapaian,
+                    'syor' => $syor,
+                    'objektif' => $objektif,
+                    'bantuanKewanganHEPA' => $bantuanKewanganHEPA,
+                    'danaTabungAmanah' => $danaTabungAmanah,
+                    'kelulusanKenderaan' => $kelulusanKenderaan,
+                    'kelulusanSijil' => $kelulusanSijil,
+                    'lainLainKelulusan' => $lainLainKelulusan,
+                    'statusApproval' => $status
+    
+                );
+
+                $this->laporan_model->update_report($data, 'laporan');
+                
+            } else {
+
+            $data = array(
+                'programID' => $programID,
+                'programUmt' => $programUmt,
+                'programLuar' => $programLuar,
+                'pencapaian' => $pencapaian,
+                'syor' => $syor,
+                'objektif' => $objektif,
+                'bantuanKewanganHEPA' => $bantuanKewanganHEPA,
+                'danaTabungAmanah' => $danaTabungAmanah,
+                'kelulusanKenderaan' => $kelulusanKenderaan,
+                'kelulusanSijil' => $kelulusanSijil,
+                'lainLainKelulusan' => $lainLainKelulusan,
+                'statusApproval' => $status
+
+            );
+
+            $this->laporan_model->insert_report($data, 'laporan');
+            
+            }
+        
+            $response = array('success' => true);
+            echo json_encode($response);  exit;
+    }
+
 }
