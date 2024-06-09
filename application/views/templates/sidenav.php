@@ -171,17 +171,17 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/tables/data.html" class="nav-link">
+                      <a href="<?= base_url('laporan/report_submission_list/'.$warga)?>" class="nav-link">
                         <p>Kelulusan</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/tables/jsgrid.html" class="nav-link">
+                      <a href="<?= base_url('laporan/late_Reasons/'.$warga)?>" class="nav-link">
                         <p>Sebab Kelewatan</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/tables/jsgrid.html" class="nav-link">
+                      <a href="<?= base_url('laporan/student_transcript/'.$warga)?>" class="nav-link">
                         <p>Transkrip</p>
                       </a>
                     </li>

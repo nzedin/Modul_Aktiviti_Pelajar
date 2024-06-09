@@ -13,7 +13,6 @@ class Laporan extends CI_Controller {
     public function index($warga, $studentID)
     {
         $data['laporan'] = $this->laporan_model->get_laporan('program', $studentID)->result();
-        $data['error']= $this->laporan_model->get_laporan('program', $studentID)->result();
         $data['title'] = 'Laporan Program';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
@@ -91,6 +90,7 @@ class Laporan extends CI_Controller {
             $lainLainKelulusan = $this->input->post('lainLainKelulusan');
             $status = $this->input->post('status');
             $sebabLewat = $this->input->post('sebabLewat');
+            $dateSubmission = $this->input->post('dateSubmission');
             
             if ($this->laporan_model->is_report_exist($laporanID)) {
                 $data = array(
@@ -107,7 +107,8 @@ class Laporan extends CI_Controller {
                     'kelulusanSijil' => $kelulusanSijil,
                     'lainLainKelulusan' => $lainLainKelulusan,
                     'statusApproval' => $status,
-                    'sebabLewat' => $sebabLewat
+                    'sebabLewat' => $sebabLewat,
+                    'dateSubmission' => $dateSubmission
     
                 );
 
@@ -127,7 +128,9 @@ class Laporan extends CI_Controller {
                 'kelulusanKenderaan' => $kelulusanKenderaan,
                 'kelulusanSijil' => $kelulusanSijil,
                 'lainLainKelulusan' => $lainLainKelulusan,
-                'statusApproval' => $status
+                'statusApproval' => $status,
+                'sebabLewat' => $sebabLewat,
+                'dateSubmission' => $dateSubmission
 
             );
 
@@ -201,6 +204,88 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidenav', $data);
         $this->load->view('form/transkrip', $data);
+        $this->load->view('templates/footer');
+
+        
+    }
+
+    public function search_transcript($warga)
+    {
+        $studentID = $this->input->post('studentID');
+        
+        $result = $this->laporan_model->get_transcript($studentID);
+    
+        if ($result->num_rows() > 0) {
+            $data['student'] = $result->result();
+            $response = array('success' => true, 'student' => $data['student']);
+        } else {
+            $response = array('success' => false, 'message' => 'No transcript found');
+        }
+    
+        return json_encode($response);
+    }
+    
+    public function late_Reasons($warga)
+    {
+        $data['laporan'] = $this->laporan_model->get_lateReason('laporan')->result();
+        $data['title'] = 'Sebab Kelewatan Laporan';
+        $data['warga'] = $warga;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/lateReport', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function report_submission_list($warga)
+    {
+        $data['laporan'] = $this->laporan_model->get_reportApproval('laporan')->result();
+        $data['title'] = 'Kelulusan Laporan';
+        $data['warga'] = $warga;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/laporan_Pelajar', $data);
         $this->load->view('templates/footer');
     }
 

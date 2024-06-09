@@ -168,7 +168,7 @@
                                         <label for="programLuar" class="col-sm-4 col-form-label">Penyertaan Program (Luar)</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <textarea class="form-control" id="programLuar" name="programLuar" placeholder="Penyertaan Program (Luar)"><?= $program->programLuar ?></textarea>
+                                            <textarea class="form-control" id="programLuar" name="programLuar" placeholder="Penyertaan Program (Luar) (cth; VVIP,Perasmi,Penceramah,Jururlatih dll)"><?= $program->programLuar ?></textarea>
                                         </div>
                                     </div>
 
@@ -206,7 +206,7 @@
                                             <label for="bantuanKewanganHEPA" class="col-sm-4 col-form-label">Bantuan Kewangan HEPA</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="bantuanKewanganHEPA" name="bantuanKewanganHEPA" placeholder="Maklumat Bantuan Kewangan HEPA"><?= $program->bantuanKewanganHEPA ?></textarea>
+                                            <p id="bantuanKewanganHEPA">RM <?= ucwords(strtolower($program->bantuanKewanganHEPA)) ?></p>
                                             </div>
                                         </div>
 
@@ -214,7 +214,7 @@
                                             <label for="danaTabungAmanah" class="col-sm-4 col-form-label">Dana Tabung Amanah</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="danaTabungAmanah" name="danaTabungAmanah" placeholder="Maklumat Dana Tabung Amanah"><?= $program->danaTabungAmanah ?></textarea>
+                                            <p id="danaTabungAmanah">RM <?= ucwords(strtolower($program->danaTabungAmanah)) ?></p>
                                             </div>
                                         </div>
 
@@ -222,7 +222,7 @@
                                             <label for="kelulusanKenderaan" class="col-sm-4 col-form-label">Kelulusan Kenderaan</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="kelulusanKenderaan" name="kelulusanKenderaan" placeholder="Maklumat Kelulusan Kenderaan"><?= $program->kelulusanKenderaan ?></textarea>
+                                                <p id="kelulusanKenderaan"><?= $program->kelulusanKenderaan ?></p>
                                             </div>
                                         </div>
 
@@ -230,7 +230,7 @@
                                             <label for="kelulusanSijil" class="col-sm-4 col-form-label">Kelulusan Sijil</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="kelulusanSijil" name="kelulusanSijil" placeholder="Maklumat Kelulusan Sijil"><?= $program->kelulusanSijil ?></textarea>
+                                                <p id="kelulusanSijil" p><?= $program->kelulusanSijil ?>  keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
                                             </div>
                                         </div>
 
@@ -244,73 +244,91 @@
 
                                         <?php if (strtotime($program->endDate) < strtotime('+15 days')) { ?>
                                             <div class="form-group row">
-                                                <label for="sebabLewat" class="col-sm-4 col-form-label">Sebab Kelewatan</label>
+                                                <label for="sebabLewat" class="col-sm-4 col-form-label">Alasan Kelewatan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
                                                     <textarea class="form-control" id="sebabLewat" name="sebabLewat" placeholder="Sebab Lewat"><?= $program->sebabLewat ?></textarea>
                                                 </div>
                                             </div>
                                         <?php } ?>
-          
+
+                                        <?php if ($program->statusApproval == 4): ?>
+                                            <div class="form-group row">
+                                                <label for="comment" class="col-sm-4 col-form-label">Ulasan</label>
+                                                <p>:</p>
+                                                <div class="col-sm-7">
+                                                    <p id="comment"> <?= ucwords(strtolower($program->comment)) ?></p>
+                                                </div>
+                                            </div>
+                                        <?php endif ?>
+
+                                        <?php
+                                            $currentDate = date('Y-m-d');
+                                        ?>
+
+                                        <input type="hidden" name="dateSubmission" value="<?php echo $currentDate; ?>">
                                     </div>
 
                                <div class="card-footer">
-                                <p>Sila lampirkan penyata kewangan aktiviti, salinan resit pembelian dan gambar aktiviti(bewarna) kepada 
-                                HEPA untuk kelulusan laporan ini selepas mengisi borang laporan ini. Kegagalan pihak saudara/i berbuat demikian 
-                                akan melambatkan proses kelulusan dan pengeluaran sijil AJK.</p><br>
-
+                                    <p>Sila lampirkan penyata kewangan aktiviti, salinan resit pembelian dan gambar aktiviti(bewarna) kepada 
+                                    HEPA untuk kelulusan laporan ini selepas mengisi borang laporan ini. Kegagalan pihak saudara/i berbuat demikian 
+                                    akan melambatkan proses kelulusan dan pengeluaran sijil AJK.</p><br>
                                     <input type="hidden" id="status" name="status" value="0">
-                                    <button type="submit" id="submit-simpan" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#statusSuccessModal"><i class="fas fa-save"></i>   Simpan</button>
-                                    
-                                    <button type="submit" id="submit-hantar" data-bs-toggle="modal" data-bs-target="#successSubmit" onclick="return confirm('Borang laporan yang telah dihantar tidak dapat dikemaskini lagi. Teruskan?')" class="btn btn-primary"><i class="fas fa-check"></i>   Hantar</button>
+
+                                    <?php if ($program->statusApproval == 4): ?>
+                                        <button type="submit" id="submit-hantar" data-bs-toggle="modal" data-bs-target="#successSubmit" onclick="return confirm('Borang laporan yang telah dihantar tidak dapat dikemaskini lagi. Teruskan?')" class="btn btn-primary"><i class="fas fa-check"></i>   Hantar</button>
+                                    <?php else: ?>
+                                            <button type="submit" id="submit-simpan" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#statusSuccessModal"><i class="fas fa-save"></i>   Simpan</button>
+                                            <button type="submit" id="submit-hantar" data-bs-toggle="modal" data-bs-target="#successSubmit" onclick="return confirm('Borang laporan yang telah dihantar tidak dapat dikemaskini lagi. Teruskan?')" class="btn btn-primary"><i class="fas fa-check"></i>   Hantar</button>
+                                    <?php endif ?>
                                </div>
                             </form>
                        </div>
                    </div>
                 </div>
-                                <div class="modal fade" id="statusSuccessModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
-                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
-                                        <div class="modal-content"> 
-                                            <div class="modal-body text-center p-lg-4"> 
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                                                    <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                                                    <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
-                                                </svg> 
-                                                <h4 class="text-success mt-3">Report Successfully Saved!</h4> 
-                                                <button type="button" class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                </div>
-                                <div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
-                                <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
-                                    <div class="modal-content"> 
-                                        <div class="modal-body text-center p-lg-4"> 
-                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                                                <circle class="path circle" fill="none" stroke="#db3646" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" /> 
-                                                <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
-                                                <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" X2="34.4" y2="92.2" /> 
-                                            </svg> 
-                                            <h4 class="text-danger mt-3">Report Unseccessfully Saved!</h4> 
-                                            <button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">Ok</button> 
-                                        </div> 
-                                    </div> 
-                                </div> 
-                            </div>
-                            <div class="modal fade" id="successSubmit" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
-                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
-                                        <div class="modal-content"> 
-                                            <div class="modal-body text-center p-lg-4"> 
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
-                                                    <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                                                    <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
-                                                </svg> 
-                                                <h4 class="text-success mt-3">Report Successfully Submit!</h4> 
-                                                <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
-                                            </div> 
-                                        </div> 
-                                    </div> 
-                                </div>
+                <div class="modal fade" id="statusSuccessModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
+                        <div class="modal-content"> 
+                            <div class="modal-body text-center p-lg-4"> 
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                    <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                                    <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
+                                </svg> 
+                                <h4 class="text-success mt-3">Report Successfully Saved!</h4> 
+                                <button type="button" class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div>
+                <div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
+                    <div class="modal-content"> 
+                        <div class="modal-body text-center p-lg-4"> 
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                <circle class="path circle" fill="none" stroke="#db3646" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" /> 
+                                <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                                <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" X2="34.4" y2="92.2" /> 
+                            </svg> 
+                            <h4 class="text-danger mt-3">Report Unseccessfully Saved!</h4> 
+                            <button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">Ok</button> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
+            <div class="modal fade" id="successSubmit" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
+                    <div class="modal-content"> 
+                        <div class="modal-body text-center p-lg-4"> 
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                                <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
+                            </svg> 
+                            <h4 class="text-success mt-3">Report Successfully Submit!</h4> 
+                            <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>
               
         </div>
     </section>
@@ -325,7 +343,7 @@ $(document).ready(function() {
         event.preventDefault(); // Prevent the default form submission
 
         if ($(event.originalEvent.submitter).attr('id') === 'submit-hantar') {
-            statusValue = 1; 
+            statusValue = 2; 
             $('#status').val(statusValue); 
             $.ajax({
                 url: $(this).attr('action'),
@@ -345,7 +363,7 @@ $(document).ready(function() {
         }
 
         if ($(event.originalEvent.submitter).attr('id') === 'submit-simpan') {
-            var statusValue = 0; 
+            var statusValue = 1; 
             $('#status').val(statusValue); 
             $.ajax({
                 url: $(this).attr('action'),

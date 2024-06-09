@@ -198,63 +198,72 @@
                                    
                                </div>
 
-                               <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Bantuan dan Kelulusan HEPA</b></h5>
+                                <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Bantuan dan Kelulusan HEPA</b></h5>
                                 <div style="width: 90%; margin: auto;" class="card-body">
                                    
                                     <div class="form-group row">
-                                            <label for="bantuanKewanganHEPA" class="col-sm-4 col-form-label">Bantuan Kewangan HEPA</label>
-                                            <p>:</p>
-                                            <div class="col-sm-7">
-                                                <p id="bantuanKewanganHEPA"> <?= ucwords(strtolower($program->bantuanKewanganHEPA)) ?></p>
-                                            </div>
+                                        <label for="bantuanKewanganHEPA" class="col-sm-4 col-form-label">Bantuan Kewangan HEPA</label>
+                                        <p>:</p>
+                                        <div class="col-sm-7">
+                                            <p id="bantuanKewanganHEPA">RM <?= ucwords(strtolower($program->bantuanKewanganHEPA)) ?></p>
                                         </div>
-
-                                        <div class="form-group row">
-                                            <label for="danaTabungAmanah" class="col-sm-4 col-form-label">Dana Tabung Amanah</label>
-                                            <p>:</p>
-                                            <div class="col-sm-7">
-                                                <p id="danaTabungAmanah"> <?= ucwords(strtolower($program->danaTabungAmanah)) ?></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="kelulusanKenderaan" class="col-sm-4 col-form-label">Kelulusan Kenderaan</label>
-                                            <p>:</p>
-                                            <div class="col-sm-7">
-                                                <p id="kelulusanKenderaan"> <?= ucwords(strtolower($program->kelulusanKenderaan)) ?></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="kelulusanSijil" class="col-sm-4 col-form-label">Kelulusan Sijil</label>
-                                            <p>:</p>
-                                            <div class="col-sm-7">
-                                                <p id="kelulusanSijil"> <?= ucwords(strtolower($program->kelulusanSijil)) ?></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="lainLainKelulusan" class="col-sm-4 col-form-label">Lain-lain Kelulusan</label>
-                                            <p>:</p>
-                                            <div class="col-sm-7">
-                                                <p id="lainLainKelulusan"> <?= ucwords(strtolower($program->lainLainKelulusan)) ?></p>
-                                            </div>
-                                        </div>
-
-                                        <?php if (strtotime($program->endDate) < strtotime('+15 days')) { ?>
-                                            <div class="form-group row">
-                                                <label for="sebabLewat" class="col-sm-4 col-form-label">Sebab Kelewatan</label>
-                                                <p>:</p>
-                                                <div class="col-sm-7">
-                                                    <p id="sebabLewat"> <?= ucwords(strtolower($program->sebabLewat)) ?></p>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-          
                                     </div>
 
-                               
-                            
+                                    <div class="form-group row">
+                                        <label for="danaTabungAmanah" class="col-sm-4 col-form-label">Dana Tabung Amanah</label>
+                                        <p>:</p>
+                                        <div class="col-sm-7">
+                                            <p id="danaTabungAmanah">RM <?= ucwords(strtolower($program->danaTabungAmanah)) ?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="kelulusanKenderaan" class="col-sm-4 col-form-label">Kelulusan Kenderaan</label>
+                                        <p>:</p>
+                                        <div class="col-sm-7">
+                                            <p id="kelulusanKenderaan"> <?= ucwords(strtolower($program->kelulusanKenderaan)) ?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="kelulusanSijil" class="col-sm-4 col-form-label">Kelulusan Sijil</label>
+                                        <p>:</p>
+                                        <div class="col-sm-7">
+                                            <p id="kelulusanSijil" p><?= $program->kelulusanSijil ?>  keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="lainLainKelulusan" class="col-sm-4 col-form-label">Lain-lain Kelulusan</label>
+                                        <p>:</p>
+                                        <div class="col-sm-7">
+                                            <p id="lainLainKelulusan"> <?= ucwords(strtolower($program->lainLainKelulusan)) ?></p>
+                                        </div>
+                                    </div>
+
+                                    <?php if (strtotime($program->endDate) < strtotime('+15 days')) { ?>
+                                        <div class="form-group row">
+                                            <label for="sebabLewat" class="col-sm-4 col-form-label">Alasan Kelewatan</label>
+                                            <p>:</p>
+                                            <div class="col-sm-7">
+                                                <p id="sebabLewat"> <?= ucwords(strtolower($program->sebabLewat)) ?></p>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+
+                                
+                                <?php if ($program->statusApproval == 3): ?>
+                                    <div class="card-footer">
+                                        <div style="padding: 0 5%;" class="form-group row">
+                                            <label for="comment" class="col-sm-4 col-form-label">Ulasan</label>
+                                            <p>:</p>
+                                            <div class="col-sm-7">
+                                                <p id="comment"> <?= ucwords(strtolower($program->comment)) ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
                        </div>
                    </div>
                 </div>

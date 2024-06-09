@@ -16,6 +16,30 @@ class Laporan_model extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_lateReason($table) {
+
+        $this->db->select('laporan.*, program.*, state.*, club.*');
+        $this->db->from($table);
+        $this->db->join('program', 'laporan.programID = program.programID','left');
+        $this->db->join('state', 'state.stateID = program.stateID','left');
+        $this->db->join('club', 'club.clubID = program.clubID','left');
+        $this->db->where_in('laporan.statusApproval', [2, 3, 4]);
+
+        return $this->db->get();
+    }
+
+    public function get_reportApproval($table) {
+
+        $this->db->select('laporan.*, program.*, state.*, club.*');
+        $this->db->from($table);
+        $this->db->join('program', 'laporan.programID = program.programID','left');
+        $this->db->join('state', 'state.stateID = program.stateID','left');
+        $this->db->join('club', 'club.clubID = program.clubID','left');
+        $this->db->where_in('laporan.statusApproval', [2, 3, 4]);
+        
+        return $this->db->get();
+    }
+
     public function get_byid($programID)
     {
         $this->db->select('program.*, club.*, laporan.*, program.programID');
@@ -49,5 +73,14 @@ class Laporan_model extends CI_Model {
             return false;
         }
     }
-    
+
+    public function get_transcript($studentID)
+    {
+        $this->db->select('studentID, studentName');
+        $this->db->from('student');
+        $this->db->where('studentID', $studentID);
+        
+        return $this->db->get();
+    }
+
 }
