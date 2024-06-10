@@ -51,6 +51,17 @@ class Laporan_model extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_laporan_byid($laporanID)
+    {
+        $this->db->select('laporan.*, program.*, club.*, program.programID');
+        $this->db->from('laporan');
+        $this->db->join('program', 'laporan.programID = program.programID', 'left');
+        $this->db->join('club', 'club.clubID = program.clubID');
+        $this->db->where('laporan.laporanID', $laporanID);
+        
+        return $this->db->get();
+    }
+
     public function insert_report($data,$table)
     {
         $this->db->insert($table,$data);   

@@ -105,7 +105,7 @@
                                   </td>
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                      <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
+                                      <a href="<?= base_url($list->statusApproval == 2 ? 'laporan/laporanProgramID/' . $warga . '/' . $list->laporanID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
                                       </div>
                                   </td>
                                 </tr>
@@ -344,4 +344,5 @@
 			</div>
 		</div>
 	</div>
- 
+  
+  

@@ -253,7 +253,7 @@
                                 </div>
 
                                 
-                                <?php if ($program->statusApproval == 3): ?>
+                                <?php if ($program->statusApproval == 3 || $program->statusApproval == 4): ?>
                                     <div class="card-footer">
                                         <div style="padding: 0 5%;" class="form-group row">
                                             <label for="comment" class="col-sm-4 col-form-label">Ulasan</label>

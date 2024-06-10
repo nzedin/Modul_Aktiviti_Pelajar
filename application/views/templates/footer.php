@@ -67,9 +67,9 @@
     
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": true,
+      "autoWidth": false,
       "paging": true,
-      "lengthChange": true,
+      "lengthChange": false,
       "searching": true,
       "ordering": true,
     });
@@ -99,6 +99,8 @@
   $(function () {
   bsCustomFileInput.init();
   });
+
+ 
 </script>
 </body>
 </html>

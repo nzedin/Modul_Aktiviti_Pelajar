@@ -74,6 +74,38 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function laporanProgramID($warga, $laporanID){
+        
+        $data['program'] = $this->laporan_model->get_laporan_byid($laporanID)->row();
+        $data['title'] = 'Kelulusan Laporan Program';
+        $data['warga'] = $warga;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('pengarah_program/laporanProgram', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function saveReport($programID){
 
             $laporanID = $this->input->post('laporanID');
@@ -83,10 +115,6 @@ class Laporan extends CI_Controller {
             $pencapaian = $this->input->post('pencapaian');
             $syor = $this->input->post('syor');
             $objektif = $this->input->post('objektif');
-            $bantuanKewanganHEPA = $this->input->post('bantuanKewanganHEPA');
-            $danaTabungAmanah = $this->input->post('danaTabungAmanah');
-            $kelulusanKenderaan = $this->input->post('kelulusanKenderaan');
-            $kelulusanSijil = $this->input->post('kelulusanSijil');
             $lainLainKelulusan = $this->input->post('lainLainKelulusan');
             $status = $this->input->post('status');
             $sebabLewat = $this->input->post('sebabLewat');
@@ -101,10 +129,6 @@ class Laporan extends CI_Controller {
                     'pencapaian' => $pencapaian,
                     'syor' => $syor,
                     'objektif' => $objektif,
-                    'bantuanKewanganHEPA' => $bantuanKewanganHEPA,
-                    'danaTabungAmanah' => $danaTabungAmanah,
-                    'kelulusanKenderaan' => $kelulusanKenderaan,
-                    'kelulusanSijil' => $kelulusanSijil,
                     'lainLainKelulusan' => $lainLainKelulusan,
                     'statusApproval' => $status,
                     'sebabLewat' => $sebabLewat,
@@ -123,10 +147,6 @@ class Laporan extends CI_Controller {
                 'pencapaian' => $pencapaian,
                 'syor' => $syor,
                 'objektif' => $objektif,
-                'bantuanKewanganHEPA' => $bantuanKewanganHEPA,
-                'danaTabungAmanah' => $danaTabungAmanah,
-                'kelulusanKenderaan' => $kelulusanKenderaan,
-                'kelulusanSijil' => $kelulusanSijil,
                 'lainLainKelulusan' => $lainLainKelulusan,
                 'statusApproval' => $status,
                 'sebabLewat' => $sebabLewat,
@@ -141,6 +161,36 @@ class Laporan extends CI_Controller {
             $response = array('success' => true);
             echo json_encode($response);  exit;
     }
+
+    public function update_Approval($laporanID){
+
+        $laporanID = $this->input->post('laporanID');
+        $bantuanKewanganHEPA = $this->input->post('bantuanKewanganHEPA');
+        $danaTabungAmanah = $this->input->post('danaTabungAmanah');
+        $kelulusanKenderaan = $this->input->post('kelulusanKenderaan');
+        $kelulusanSijil = $this->input->post('kelulusanSijil');
+        $comment = $this->input->post('comment');
+        $status = $this->input->post('status');
+
+        if ($this->laporan_model->is_report_exist($laporanID)) {
+            $data = array(
+                'laporanID' => $laporanID,
+                'bantuanKewanganHEPA' => $bantuanKewanganHEPA,
+                'danaTabungAmanah' => $danaTabungAmanah,
+                'kelulusanKenderaan' => $kelulusanKenderaan,
+                'kelulusanSijil' => $kelulusanSijil,
+                'comment' => $comment,
+                'statusApproval' => $status
+
+            );
+
+            $this->laporan_model->update_report($data, 'laporan');
+            
+        } 
+    
+        $response = array('success' => true);
+        echo json_encode($response);  exit;
+}
 
 
 
