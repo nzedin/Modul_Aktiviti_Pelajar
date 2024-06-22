@@ -16,6 +16,32 @@ class Laporan_model extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_all_program($table) {
+
+        $this->db->select('program.*, club.*, state.*, laporan.*');
+        $this->db->from($table);
+        $this->db->join('club', 'club.clubID = program.clubID');
+        $this->db->join('state', 'state.stateID = program.stateID','left');
+        $this->db->join('laporan', 'laporan.programID = program.programID','left');
+        
+        return $this->db->get();
+    }
+
+    public function get_all_record($table) {
+
+        $this->db->select('program.*, club.*, state.*, laporan.*, student.*, programcategory.*, DATEDIFF(program.endDate, program.startDate) AS period,
+            (laporan.bantuanKewanganHEPA + laporan.danaTabungAmanah) as total');
+        $this->db->from($table);
+        $this->db->join('club', 'club.clubID = program.clubID');
+        $this->db->join('state', 'state.stateID = program.stateID','left');
+        $this->db->join('laporan', 'laporan.programID = program.programID','left');
+        $this->db->join('student', 'student.studentID = program.pengarahProg', 'left');
+        $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID', 'left');
+        $this->db->where('laporan.statusApproval', 3);
+
+        return $this->db->get();
+    }
+
     public function get_lateReason($table) {
 
         $this->db->select('laporan.*, program.*, state.*, club.*');

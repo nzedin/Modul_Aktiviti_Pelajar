@@ -1,27 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('img/mynemo.jpg')?>" />
+  <title><?= $title ?></title>
+  <style>
+    .card {
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        background-color: #fff;
+    }
 
-    <style>
-        p {
-            padding: 6px;
-       
-        }
-        
+    h2 {
+        background-color: #17a2b8;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    .card-footer {
+        background-color: #f2f4f4;
+        padding: 10px 0;
+        border-radius: 0 0 8px 8px;
+    }
+
+    h4 {
+        background: #F2F4F4; 
+        padding: 10px; 
+        margin:10px;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .col-form-label {
+        flex: 0 0 33%;
+        max-width: 33%;
+        font-weight: bold;
+    }
+
+    .col-sm-4, .col-sm-7, .col-sm-2 {
+        padding: 0 15px;
+    }
+
+    .col-sm-4 {
+        flex: 0 0 33%;
+        max-width: 33%;
+    }
+
+    .col-sm-7 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .col-sm-2 {
+        flex: 0 0 14%;
+        max-width: 14%;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    label {
+        margin-bottom: 0;
+        display: inline-block;
+    }
+
+    p {
+        margin: 0;
+        display: inline-block;
+    }
+
+    .float-right {
+        float: right !important;
+    }
+
     </style>
 </head>
-<body>
+<body onload="window.print()">
 <div class="content-wrapper">
     <section class="content-header">
             
             <div class="card card-widget widget-user" style="width: 95%; margin:5% auto;">
               
-              <div class="row">
                    <div class="card-body">
                        <div class="card card-info">
-                           <div class="card-header">
+                           <div class="cardheader">
                                <h2 class="card-title"><?= $title ?></h2>
                            </div>
 
-                           <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Maklumat Program</b></h5>
+                           <h4><b>Maklumat Program</b></h4>
                                <div style="width: 90%; margin: auto;" class="card-body">
                                     
 
@@ -109,7 +191,7 @@
                                    
                                </div>
 
-                                <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Bantuan dan Kelulusan HEPA</b></h5>
+                                <h4><b>Bantuan dan Kelulusan HEPA</b></h4>
                                 <div style="width: 90%; margin: auto;" class="card-body">
                                    
                                     <div class="form-group row">
@@ -177,10 +259,6 @@
                                 <?php endif ?>
                        </div>
 
-                        <div class="col-12">
-                            <button type="button" onclick="window.print(location.href='<?= base_url('laporan/print_Report/'.$program->programID)?>')" class="btn btn-info float-right"><i class="fa fa-print" aria-hidden="true"></i>  Print</button>
-                        </div>
-                   </div>
                 </div> 
 
         </div>

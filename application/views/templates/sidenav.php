@@ -166,7 +166,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="pages/tables/simple.html" class="nav-link">
+                      <a href="<?= base_url('laporan/report_reminder/'.$warga)?>" class="nav-link">
                         <p>Peringatan</p>
                       </a>
                     </li>
@@ -199,7 +199,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="pages/mailbox/mailbox.html" class="nav-link">
+                      <a href="<?= base_url('laporan/laporan_admin/'.$warga)?>" class="nav-link">
                         <p>Laporan</p>
                       </a>
                     </li>
@@ -219,21 +219,15 @@
                     
                     <li class="nav-item">
                       <a href="pages/examples/lockscreen.html" class="nav-link">
-                        <p>Lockscreen</p>
+                        <p>Admin</p>
                       </a>
                     </li>
                     <li class="nav-item">
                       <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                        <p>Legacy User Menu</p>
+                        <p>Parameter Surat</p>
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a href="pages/examples/language-menu.html" class="nav-link">
-                        <p>Language Menu</p>
-                      </a>
-                    </li>
-                    
-                    
+                   
                   </ul>
                 </li>
             </ul>

@@ -55,7 +55,6 @@
                                   <th style="text-align: center;">Tarikh Aktiviti</th>
                                   <th style="text-align: center;">Nama Program</th>
                                   <th style="text-align: center;">Status</th>
-                                  <th style="text-align: center;">Cetak Laporan</th>
                                   <th style="text-align: center;">Ulasan Laporan</th>
                               </tr>
                           </thead>
@@ -86,7 +85,6 @@
                                         }
                                       ?>
                                   </td>
-                                  <td style="text-align: center;">-</td>
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -285,7 +283,6 @@
                     <th style="text-align: center;">Tarikh Aktiviti</th>
                     <th style="text-align: center;">Nama Program</th>
                     <th style="text-align: center;">Status</th>
-                    <th style="text-align: center;">Cetak Laporan</th>
                     <th style="text-align: center;">Ulasan Laporan</th>
                 </tr>
             </thead>
@@ -302,7 +299,6 @@
                             echo "<span class='badge badge-success'>Approved</span>";
                         ?>
                     </td>
-                    <td>pdf</td>
                     <td style="text-align: center;">
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                         <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null  ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>

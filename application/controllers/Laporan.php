@@ -272,7 +272,7 @@ class Laporan extends CI_Controller {
             $response = array('success' => false, 'message' => 'No transcript found');
         }
     
-        return json_encode($response);
+        echo json_encode($response);
     }
     
     public function late_Reasons($warga)
@@ -339,5 +339,75 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
+    public function print_Report($programID){
+            
+        $data['program'] = $this->laporan_model->get_byid($programID)->row();
+        $data['title'] = 'Laporan Program';
+        
+        $this->load->view('form/print_Report', $data);
+    }
 
+    public function report_reminder($warga)
+    {
+        $data['laporan'] = $this->laporan_model->get_all_program('program')->result();
+        $data['title'] = 'Peringatan Laporan';
+        $data['warga'] = $warga;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/report_Reminder', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function laporan_admin($warga)
+    {
+        $data['laporan'] = $this->laporan_model->get_all_record('program')->result();
+        $data['title'] = 'Rekod Laporan';
+        $data['warga'] = $warga;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/laporan_Admin', $data);
+        $this->load->view('templates/footer');
+    }
 }
