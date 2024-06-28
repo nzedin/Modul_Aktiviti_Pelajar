@@ -113,11 +113,44 @@ class Laporan_model extends CI_Model {
 
     public function get_transcript($studentID)
     {
-        $this->db->select('studentID, studentName');
+        $this->db->select('student.*, COALESCE(committee.committee, "Ahli Aktif") as committee, kepimpinan.*, student.studentID');
         $this->db->from('student');
-        $this->db->where('studentID', $studentID);
+        $this->db->join('kepimpinan', 'kepimpinan.studentID = student.studentID', 'left');
+        $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID', 'left');
+        $this->db->where('student.studentID', $studentID);
         
-        return $this->db->get();
+        $query = $this->db->get();
+        return $query;
     }
 
+    public function get_student_transcript($studentID)
+    {
+        // Get student basic information
+        $student_info = $this->db->select('*')
+                                 ->from('student')
+                                 ->where('studentID', $studentID)
+                                 ->get()
+                                 ->row();
+    
+        // Get student transcript details
+        $this->db->select('
+            student.studentID,
+            student.studentName,
+            COALESCE(club.clubName, "Tiada") as club,
+            COALESCE(committee.committee, "Tiada") as committee,
+            COALESCE(categoryrole.categoryrole, "Tiada") as categoryrole,
+            COALESCE(committee.merit, "0") as merit
+        ');
+        $this->db->from('student');
+        $this->db->join('kepimpinan', 'kepimpinan.studentID = student.studentID', 'left');
+        $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID', 'left');
+        $this->db->join('categoryrole', 'categoryrole.categoryRoleID = committee.categoryRoleID', 'left');
+        $this->db->join('club', 'club.clubID = kepimpinan.clubID', 'left');
+        $this->db->where('student.studentID', $studentID);
+    
+        $transcript = $this->db->get()->result();
+    
+        return ['student_info' => $student_info, 'transcript' => $transcript];
+    }
+    
 }

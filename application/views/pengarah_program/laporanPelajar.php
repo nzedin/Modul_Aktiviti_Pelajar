@@ -32,11 +32,12 @@
           </div>
           <div class="card-footer">
             <div style="text-align: center;">
-              <a href="#" class="btn btn-secondary" style="width:15%;border-radius:0%;" data-toggle="modal" data-target="#nosubmission"><i class="fa fa-tasks"></i> No Submission</a>
-              <a href="#" class="btn btn-primary" style="width:15%;border-radius:0%;" data-toggle="modal" data-target="#indraft"><i class="fa fa-save"></i> In Draf</a>
-              <a href="#" class="btn btn-warning" style="width:15%;border-radius:0%;" data-toggle="modal" data-target="#pendings"><i class="fa fa-spinner"></i> Pendings</a>
-              <a href="#" class="btn btn-success" style="width:15%;border-radius:0%;" data-toggle="modal" data-target="#approved"><i class="fa fa-check"></i> Approved </a>
-              <a href="#" class="btn btn-danger" style="width:15%;border-radius:0%;" data-toggle="modal" data-target="#disapproved"><i class="fa fa-exclamation-circle"></i> Disapproved </a>
+              <input type="hidden" id="searchInput" value="">
+              <button onclick="search('Tada Data')" id="button" class="btn btn-secondary" style="width:15%;border-radius:0%;"><i class="fa fa-tasks"></i>  Tada Data</button>
+              <button onclick="search('Draf')" id="button1" class="btn btn-primary" style="width:15%;border-radius:0%;"><i class="fa fa-save"></i>  Draf</button>
+              <button onclick="search('Proses Kelulusan')" id="button2" class="btn btn-warning" style="width:15%;border-radius:0%;"><i class="fa fa-spinner"></i>  Proses Kelulusan</button>
+              <button onclick="search('Lulus')" id="button3" class="btn btn-success" style="width:15%;border-radius:0%;"><i class="fa fa-check"></i> Lulus</button>
+              <button onclick="search('Tidak Lulus')" id="button4" class="btn btn-danger" style="width:15%;border-radius:0%;"><i class="fa fa-exclamation-circle"></i> Tidak Lulus</button>
             </div>
           </div>
 
@@ -70,18 +71,18 @@
 
                                   <td style="text-align: center;"> <?php
                                         if ($list->statusApproval == null) {
-                                          echo "<span class='badge badge-secondary'>No Submission</span>";
+                                          echo "<span class='badge badge-secondary'>Tiada Data</span>";
                                         }
                                         else if ($list->statusApproval == 1) {
-                                          echo "<span class='badge badge-primary'>In Draft</span>";
+                                          echo "<span class='badge badge-primary'> Draf</span>";
                                         }
                                         else if ($list->statusApproval == 2) {
-                                          echo "<span class='badge badge-warning'>Pending</span>";
+                                          echo "<span class='badge badge-warning'>Proses Kelulusan</span>";
                                         }
                                         else if ($list->statusApproval == 3){
-                                          echo "<span class='badge badge-success'> Approved</span>";
+                                          echo "<span class='badge badge-success'> Lulus</span>";
                                         } else {
-                                          echo "<span class='badge badge-danger'> Not Approved</span>";
+                                          echo "<span class='badge badge-danger'> Tidak Lulus</span>";
                                         }
                                       ?>
                                   </td>
@@ -105,262 +106,51 @@
     </section>   
   </div>
 
-  	<!--Modal No Submission-->
-    <div class="modal fade" id="nosubmission">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header bg-secondary">
-					<div class="card-title">
-						<h5>No Submission Report</h5>
-					</div>
-					<button class="close" data-dismiss="modal"><span>&times;</span></button>
-				</div>
-				<div class="modal-body">
-				<table id="example1" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th style="text-align: center;">No.</th>
-                    <th style="text-align: center;">Badan Pelajar</th>
-                    <th style="text-align: center;">Tarikh Aktiviti</th>
-                    <th style="text-align: center;">Nama Program</th>
-                    <th style="text-align: center;">Status</th>
-                    <th style="text-align: center;">Ulasan Laporan</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-            <?php $no = 1;
-            foreach($laporan as $list): ?>
-              <?php if ($list->statusApproval == null): ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                    <td <?php if (strtotime($list->endDate) < strtotime('+15 days')):?> style="background-color: #c94c4c;color:white;"<?php endif ?>><?= $list->startDate ?></td>
-                    <td><?= ucwords(strtolower($list->programName)) ?></td>
+  <script>
+    function search(input) {
+        // Update the hidden input value
+        document.getElementById('searchInput').value = input.toLowerCase();
 
-                    <td style="text-align: center;"> <?php
-                            echo "<span class='badge badge-secondary'>No Submission</span>";
-                        ?>
-                    </td>
+        // Get table rows
+        var tableBody = document.querySelector("table tbody");
+        var rows = tableBody.rows;
+        
+        // Remove any existing "No data" row
+        var noDataRow = document.getElementById('no-data-row');
+        if (noDataRow) {
+            noDataRow.remove();
+        }
 
-                    <td style="text-align: center;">
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 ||  $list->statusApproval === null ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endif ?>
-              <?php endforeach ?>
-            </tbody>
-        </table>
-				</div>
-			</div>
-		</div>
-	</div>
+        var anyRowDisplayed = false;
 
-  	<!--Modal In Draft-->
-  <div class="modal fade" id="indraft">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header bg-primary">
-					<div class="card-title">
-						<h5>In Draft Report</h5>
-					</div>
-					<button class="close" data-dismiss="modal"><span>&times;</span></button>
-				</div>
-				<div class="modal-body">
-				<table id="example1" class="table table-bordered table-hover">
-          <thead>
-              <tr>
-                  <th style="text-align: center;">No.</th>
-                  <th style="text-align: center;">Badan Pelajar</th>
-                  <th style="text-align: center;">Tarikh Aktiviti</th>
-                  <th style="text-align: center;">Nama Program</th>
-                  <th style="text-align: center;">Status</th>
-                  <th style="text-align: center;">Ulasan Laporan</th>
-              </tr>
-          </thead>
-          
-          <tbody>
-          <?php $no = 1;
-          foreach($laporan as $list): ?>
-            <?php if ($list->statusApproval == 1): ?>
-              <tr>
-                  <td><?= $no++ ?></td>
-                  <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                  <td <?php if (strtotime($list->endDate) < strtotime('+15 days')):?> style="background-color: #c94c4c;color:white;"<?php endif ?>><?= $list->startDate ?></td>
-                  <td><?= ucwords(strtolower($list->programName)) ?></td>
+        // Loop through all table rows
+        for (var i = 0; i < rows.length; i++) {
+            var shouldDisplay = false;
+            // Loop through all table cells in this row
+            for (var j = 0; j < rows[i].cells.length; j++) {
+                var cell = rows[i].cells[j];
+                if (cell.innerText.toLowerCase().indexOf(input.toLowerCase()) > -1) {
+                    shouldDisplay = true;
+                    break;
+                }
+            }
+            // Display or hide the row based on search result
+            rows[i].style.display = shouldDisplay ? "" : "none";
+            if (shouldDisplay) {
+                anyRowDisplayed = true;
+            }
+        }
 
-                  <td style="text-align: center;"> <?php
-                          echo "<span class='badge badge-primary'>In Draft</span>";
-                      ?>
-                  </td>
+        // If no rows are displayed, insert a "No data" row
+        if (!anyRowDisplayed) {
+            var newRow = tableBody.insertRow();
+            newRow.id = 'no-data-row';
+            var newCell = newRow.insertCell(0);
+            newCell.colSpan = tableBody.rows[0].cells.length; // Set the colspan to span all columns
+            newCell.innerText = "Tiada Maklumat Data";
+            newCell.style.textAlign = "center";
+        }
+    }
+  </script>
 
-                  <td style="text-align: center;">
-                      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                      <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
-                      </div>
-                  </td>
-              </tr>
-              <?php endif ?>
-            <?php endforeach ?>
-          </tbody>
-      </table>
-				</div>
-			</div>
-		</div>
-	</div>
- 
-  	<!--Modal Pendings-->
-  <div class="modal fade" id="pendings">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header bg-warning">
-					<div class="card-title">
-						<h5>Pending Report</h5>
-					</div>
-					<button class="close" data-dismiss="modal"><span>&times;</span></button>
-				</div>
-				<div class="modal-body">
-				<table id="example1" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th style="text-align: center;">No.</th>
-                    <th style="text-align: center;">Badan Pelajar</th>
-                    <th style="text-align: center;">Tarikh Aktiviti</th>
-                    <th style="text-align: center;">Nama Program</th>
-                    <th style="text-align: center;">Status</th>
-                    <th style="text-align: center;">Ulasan Laporan</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-            <?php $no = 1;
-            foreach($laporan as $list): ?>
-              <?php if ($list->statusApproval == 2): ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                    <td <?php if (strtotime($list->endDate) < strtotime('+15 days')):?> style="background-color: #c94c4c;color:white;"<?php endif ?>><?= $list->startDate ?></td>
-                    <td><?= ucwords(strtolower($list->programName)) ?></td>
-
-                    <td style="text-align: center;"> <?php
-                            echo "<span class='badge badge-warning'>Pending</span>";
-                        ?>
-                    </td>
-
-                    <td style="text-align: center;">
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null  ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endif ?>
-              <?php endforeach ?>
-            </tbody>
-        </table>
-				</div>
-			</div>
-		</div>
-	</div>
- 
-  	<!--Modal Approved-->
-    <div class="modal fade" id="approved">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header bg-success">
-					<div class="card-title">
-						<h5>Approved Report</h5>
-					</div>
-					<button class="close" data-dismiss="modal"><span>&times;</span></button>
-				</div>
-				<div class="modal-body">
-				<table id="example1" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th style="text-align: center;">No.</th>
-                    <th style="text-align: center;">Badan Pelajar</th>
-                    <th style="text-align: center;">Tarikh Aktiviti</th>
-                    <th style="text-align: center;">Nama Program</th>
-                    <th style="text-align: center;">Status</th>
-                    <th style="text-align: center;">Ulasan Laporan</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php $no = 1;
-            foreach($laporan as $list): ?>
-              <?php if ($list->statusApproval == 3): ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                    <td><?= $list->startDate ?></td>
-                    <td><?= ucwords(strtolower($list->programName)) ?></td>
-                    <td style="text-align: center;"> <?php
-                            echo "<span class='badge badge-success'>Approved</span>";
-                        ?>
-                    </td>
-                    <td style="text-align: center;">
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null  ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endif ?>
-              <?php endforeach ?>
-            </tbody>
-        </table>
-				</div>
-			</div>
-		</div>
-	</div>
-
-  <!--Modal Disapproved-->
-  <div class="modal fade" id="disapproved">
-		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
-				<div class="modal-header bg-danger">
-					<div class="card-title">
-						<h5>Disapproved Report</h5>
-					</div>
-					<button class="close" data-dismiss="modal"><span>&times;</span></button>
-				</div>
-				<div class="modal-body">
-				<table id="example1" class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th style="text-align: center;">No.</th>
-                    <th style="text-align: center;">Badan Pelajar</th>
-                    <th style="text-align: center;">Tarikh Aktiviti</th>
-                    <th style="text-align: center;">Nama Program</th>
-                    <th style="text-align: center;">Status</th>
-                    <th style="text-align: center;">Ulasan Laporan</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php $no = 1;
-            foreach($laporan as $list): ?>
-              <?php if ($list->statusApproval == 4): ?>
-                <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                    <td <?php if (strtotime($list->endDate) < strtotime('+15 days')):?> style="background-color: #c94c4c;color:white;"<?php endif ?>><?= $list->startDate ?></td>
-                    <td><?= ucwords(strtolower($list->programName)) ?></td>
-                    <td style="text-align: center;"> <?php
-                            echo "<span class='badge badge-danger'>Not Approved</span>";
-                        ?>
-                    </td>
-                    <td style="text-align: center;">
-                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null  ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
-                        </div>
-                    </td>
-                </tr>
-                <?php endif ?>
-              <?php endforeach ?>
-            </tbody>
-        </table>
-				</div>
-			</div>
-		</div>
-	</div>
- 
+  

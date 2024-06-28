@@ -53,20 +53,14 @@
                           
                           <tbody>
                             <?php $no = 1; foreach($laporan as $list): ?>
+                              <?php if(strtotime($list->endDate) < strtotime(date('Y-m-d'))): ?>
                                 <tr>
                                   <td><?= $no++ ?></td>
                                   <td><?= ucwords(strtolower($list->clubName)) ?></td>
                                   <td><?= ucwords(strtolower($list->programName)) ?></td>
                                   <td style="text-align: center;"><?= $list->dateApply ?></td>
                                   <td <?php if (strtotime($list->endDate) < strtotime(date('Y-m-d'))) { echo 'style="background-color: #3ae965;text-align: center;"';}else{echo 'style="background-color: #90daff;text-align: center;"';}?>>
-                                  <?php
-                                    if (strtotime($list->endDate) < strtotime(date('Y-m-d'))) {
-                                      echo "Selesai";
-                                    }
-                                    else{
-                                      echo 'Belum Selesai';
-                                    } 
-                                  ?>
+                                  <?php echo "Selesai";  ?>
                                   </td>
                                   <td style="text-align: center;"><?= $list->startDate ?><br>-<br><?= $list->endDate ?></td>
                                   <td><?= ucwords(strtolower($list->programLocation)) ?>, <br><?= ucwords(strtolower($list->stateName)) ?></td>
@@ -74,6 +68,7 @@
                                       email
                                   </td>
                                 </tr>
+                                <?php endif ?>
                             <?php endforeach ?>
                           </tbody>
                       

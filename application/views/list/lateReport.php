@@ -63,12 +63,12 @@
                                       <td style="text-align: center;"> 
                                         <?php
                                           if ($list->statusApproval == 2) {
-                                            echo "<span class='badge badge-warning'>Pending</span>";
+                                            echo "<span class='badge badge-warning'>Proses Kelulusan</span>";
                                           }
                                           else if ($list->statusApproval == 3){
-                                            echo "<span class='badge badge-success'> Approved</span>";
+                                            echo "<span class='badge badge-success'> Lulus</span>";
                                           } else {
-                                            echo "<span class='badge badge-danger'> Not Approved</span>";
+                                            echo "<span class='badge badge-danger'> Tidak Lulus</span>";
                                           }
                                         ?>
                                       </td>

@@ -18,58 +18,53 @@
     
     <section class="content">
         <div class="container-fluid">
-
             <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Carian Transkrip Pelajar</h3>
-
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
-           
                 <div class="card-body">
-                    <form id="transcript" method="POST" action="<?= base_url('laporan/search_transcript/'.$warga) ?>">
-                        <div class="card-body">              
-                            <div class="card-footer"> 
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Matrik Pelajar: </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="studentID" name="studentID" placeholder="Matrik Pelajar">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" id="submitBtn" class="btn btn-info"><i class="fas fa-search"></i> Cari</button>
-                                    </div>
+                    <div class="card-body">              
+                        <div class="card-footer"> 
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Matrik Pelajar: </label>
+                                <div class="col-sm-8">
+                                    <input type="text" id="studentID" class="form-control" name="studentID" placeholder="Matrik Pelajar">
                                 </div>
-                            </div> 
-                        </div>
-                    </form>
+                                <div class="col-sm-2">
+                                    <button onclick="search()" id="submitBtn" class="btn btn-info"><i class="fas fa-search"></i> Cari</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
             </div>
             
-            <!-- Student Transcript Result Section -->
-            <div id="resultSection" class="card card-info" style="display: none;">
-                <div class="card-header">
-                    <h3 class="card-title">Student Transcript</h3>
-                </div>
+            <div id="resultSection" class="card card-info card-outline" style="display: none;">
+                
                 <div class="card-body">
                     <div id="resultTable">
-                        <!-- Result table will be inserted here -->
-                        <table id="example1" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">No.</th>
-                                    <th style="text-align: center;">Matrik Pelajar</th>
-                                    <th style="text-align: center;">Nama Pelajar</th>
-                                    <th style="text-align: center;">Transkrip</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Data will be appended here -->
-                            </tbody>
-                        </table>
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">No.</th>
+                                        <th style="text-align: center;">Matrik Pelajar</th>
+                                        <th style="text-align: center;">Nama Pelajar</th>
+                                        <th style="text-align: center;">Jawatan</th>
+                                        <th style="text-align: center;">Transkrip</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    <!-- Data will be appended here -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,43 +73,42 @@
 </div>
 
 <script>
-$(document).ready(function() {
-    $('#transcript').on('submit', function(event) {
-        event.preventDefault(); 
+    function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
 
+    function search() {
+        var studentID = document.getElementById("studentID").value;
         $.ajax({
-            url: $(this).attr('action'),
-            method: $(this).attr('method'),
-            data: $(this).serialize(),
-            dataType: 'json', // Ensure the response is handled as JSON
-            success: function(response) {
-                
-                    let students = response.students; // Ensure this matches the actual response data
-                    let tableBody = '';
-
-                    students.forEach((student, index) => {
-                        tableBody += `
-                            <tr>
-                                <td style="text-align: center;">${index + 1}</td>
-                                <td style="text-align: center;">${student.studentID}</td>
-                                <td style="text-align: center;">${student.studentName}</td>
-                                <td style="text-align: center;">
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a href="#"><button type="button" class="btn btn-info">Transkrip</button></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
+            type: 'POST',
+            url: '<?php echo base_url('laporan/search_transcript'); ?>',
+            data: { studentID: studentID },
+            dataType: 'json',
+            success: function(data) {
+                $('#resultSection').show(); // Show the result section
+                $('#table-body').html(''); // Clear the table body
+                if (Array.isArray(data) && data.length > 0) {
+                    $.each(data, function(index, item) {
+                        $('#table-body').append('<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + toTitleCase(item.studentID) + '</td>' +
+                            '<td>' + toTitleCase(item.studentName) + '</td>' +
+                            '<td>' + toTitleCase(item.committee) + '</td>' +
+                            '<td style="text-align:center;">' +
+                            '<button onclick="window.open(\'<?php echo base_url('laporan/curricular_transcript/'); ?>' + item.studentID + '\')" class="btn btn-primary">' +
+                            '<i class="fa fa-file-text" aria-hidden="true"></i> Transkrip</button>' +
+                            '</td>' +
+                        '</tr>');
                     });
-
-                    $('#example1 tbody').html(tableBody);
-                    $('#resultSection').show();
-                
+                } else {
+                    $('#table-body').append('<tr><td colspan="4" style="text-align: center;">Tiada Maklumat Data</td></tr>');
+                }
             },
             error: function(xhr, status, error) {
-                alert('There was an error submitting the form: ' + error);
+                console.error("Error occurred: " + status + " - " + error);
             }
         });
-    });
-});
+    }
 </script>

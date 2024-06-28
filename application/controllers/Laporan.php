@@ -259,20 +259,42 @@ class Laporan extends CI_Controller {
         
     }
 
-    public function search_transcript($warga)
+    public function search_transcript()
     {
         $studentID = $this->input->post('studentID');
         
         $result = $this->laporan_model->get_transcript($studentID);
-    
+        
         if ($result->num_rows() > 0) {
-            $data['student'] = $result->result();
-            $response = array('success' => true, 'student' => $data['student']);
+            $data = array();
+            $uniqueStudentIDs = array();
+            foreach ($result->result() as $row) {
+                if (!in_array($row->studentID, $uniqueStudentIDs)) {
+                    $committee = !empty($row->kepimpinanID) ? $row->committee : 'Ahli Aktif';
+                    
+                    $data[] = array(
+                        'studentID' => $row->studentID,
+                        'studentName' => $row->studentName,
+                        'committee' => $committee,
+                    );
+                    $uniqueStudentIDs[] = $row->studentID;
+                }
+            }
+            echo json_encode($data);
         } else {
-            $response = array('success' => false, 'message' => 'No transcript found');
+            echo json_encode(array());
         }
-    
-        echo json_encode($response);
+    }
+
+    public function curricular_transcript($studentID)
+    {
+        $data = $this->laporan_model->get_student_transcript($studentID);
+        $data['title'] = 'Transkrip Kokurikulum';
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('form/transkrip_kokurikulum', $data);
+
+        
     }
     
     public function late_Reasons($warga)
