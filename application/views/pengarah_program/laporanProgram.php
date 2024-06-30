@@ -262,7 +262,7 @@
                                                 <label for="comment" class="col-sm-4 col-form-label">Ulasan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <textarea class="form-control" id="comment" name="comment" placeholder="Ulasan"><?= ucwords(strtolower($program->comment)) ?></textarea>
+                                                    <textarea class="form-control" id="comment" name="comment" placeholder="Ulasan"></textarea>
                                                 </div>
                                             </div> 
                                         </div>
@@ -352,7 +352,7 @@
                                             <label for="programUmt" class="col-sm-4 col-form-label">Penyertaan Program (UMT)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="programUmt" name="programUmt" placeholder="Penyertaan Program (UMT)"><?= $program->programUmt ?></textarea>
+                                                <textarea class="form-control" id="programUmt" name="programUmt" placeholder="Penyertaan Program (UMT)" required><?= $program->programUmt ?></textarea>
                                             </div>
                                         </div>
 
@@ -360,7 +360,7 @@
                                             <label for="programLuar" class="col-sm-4 col-form-label">Penyertaan Program (Luar)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="programLuar" name="programLuar" placeholder="Penyertaan Program (Luar) (cth; VVIP,Perasmi,Penceramah,Jururlatih dll)"><?= $program->programLuar ?></textarea>
+                                                <textarea class="form-control" id="programLuar" name="programLuar" placeholder="Penyertaan Program (Luar) (cth; VVIP,Perasmi,Penceramah,Jururlatih dll)" required><?= $program->programLuar ?></textarea>
                                             </div>
                                         </div>
 
@@ -368,7 +368,7 @@
                                             <label for="pencapaian" class="col-sm-4 col-form-label">Pencapaian (Sekiranya ada)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="pencapaian" name="pencapaian" placeholder="Pencapaian (Sekiranya ada)"><?= $program->pencapaian ?></textarea>
+                                                <textarea class="form-control" id="pencapaian" name="pencapaian" placeholder="Pencapaian (Sekiranya ada)" required><?= $program->pencapaian ?></textarea>
                                             </div>
                                         </div>
 
@@ -376,7 +376,7 @@
                                             <label for="syor" class="col-sm-4 col-form-label">Syor</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="syor" name="syor" placeholder="Syor"><?= $program->syor ?></textarea>
+                                                <textarea class="form-control" id="syor" name="syor" placeholder="Syor" required><?= $program->syor ?></textarea>
                                             </div>
                                         </div>
 
@@ -384,7 +384,7 @@
                                             <label for="objektif" class="col-sm-4 col-form-label">Objektif</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="objektif" name="objektif" placeholder="Objektif"><?= $program->objektif ?></textarea>
+                                                <textarea class="form-control" id="objektif" name="objektif" placeholder="Objektif" required><?= $program->objektif ?></textarea>
                                             </div>
                                         </div>
 
@@ -446,7 +446,7 @@
                                                 <label for="lainLainKelulusan" class="col-sm-4 col-form-label">Lain-lain Kelulusan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <textarea class="form-control" id="lainLainKelulusan" name="lainLainKelulusan" placeholder="Maklumat Lain-lain Kelulusan"><?= $program->lainLainKelulusan ?></textarea>
+                                                    <textarea class="form-control" id="lainLainKelulusan" name="lainLainKelulusan" placeholder="Maklumat Lain-lain Kelulusan" required><?= $program->lainLainKelulusan ?></textarea>
                                                 </div>
                                             </div>
 
@@ -455,7 +455,7 @@
                                                     <label for="sebabLewat" class="col-sm-4 col-form-label">Alasan Kelewatan</label>
                                                     <p>:</p>
                                                     <div class="col-sm-7">
-                                                        <textarea class="form-control" id="sebabLewat" name="sebabLewat" placeholder="Sebab Lewat"><?= $program->sebabLewat ?></textarea>
+                                                        <textarea class="form-control" id="sebabLewat" name="sebabLewat" placeholder="Sebab Lewat" required><?= $program->sebabLewat ?></textarea>
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -640,5 +640,3 @@ $(document).ready(function() {
     });
 });
 </script>
-</script>
-

@@ -33,11 +33,11 @@
           <div class="card-footer">
             <div style="text-align: center;">
               <input type="hidden" id="searchInput" value="">
-              <button onclick="search('Tada Data')" id="button" class="btn btn-secondary" style="width:15%;border-radius:0%;"><i class="fa fa-tasks"></i>  Tada Data</button>
+              <button onclick="search('Tiada Data')" id="button" class="btn btn-secondary" style="width:15%;border-radius:0%;"><i class="fa fa-tasks"></i>  Tada Data</button>
               <button onclick="search('Draf')" id="button1" class="btn btn-primary" style="width:15%;border-radius:0%;"><i class="fa fa-save"></i>  Draf</button>
-              <button onclick="search('Proses Kelulusan')" id="button2" class="btn btn-warning" style="width:15%;border-radius:0%;"><i class="fa fa-spinner"></i>  Proses Kelulusan</button>
-              <button onclick="search('Lulus')" id="button3" class="btn btn-success" style="width:15%;border-radius:0%;"><i class="fa fa-check"></i> Lulus</button>
-              <button onclick="search('Tidak Lulus')" id="button4" class="btn btn-danger" style="width:15%;border-radius:0%;"><i class="fa fa-exclamation-circle"></i> Tidak Lulus</button>
+              <button onclick="search('Proses')" id="button2" class="btn btn-warning" style="width:15%;border-radius:0%;"><i class="fa fa-spinner"></i>  Proses Kelulusan</button>
+              <button onclick="search('Dilulus')" id="button3" class="btn btn-success" style="width:15%;border-radius:0%;"><i class="fa fa-check"></i> Diluluskan</button>
+              <button onclick="search('Tidak')" id="button4" class="btn btn-danger" style="width:15%;border-radius:0%;"><i class="fa fa-exclamation-circle"></i> Tidak Lulus</button>
             </div>
           </div>
 
@@ -70,19 +70,34 @@
                                   <td><?= ucwords(strtolower($list->programName)) ?></td>
 
                                   <td style="text-align: center;"> <?php
+
+                                        $currentTimestamp = time();
+                                        $endDateTimestamp = strtotime($list->endDate);
+                                        $difference = $currentTimestamp - $endDateTimestamp;
+                                        $daysLate = floor($difference / (60 * 60 * 24));
+
                                         if ($list->statusApproval == null) {
                                           echo "<span class='badge badge-secondary'>Tiada Data</span>";
+                                          if (strtotime($list->endDate) < strtotime('+15 days')){
+                                            echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
+                                          }
                                         }
                                         else if ($list->statusApproval == 1) {
                                           echo "<span class='badge badge-primary'> Draf</span>";
+                                          if (strtotime($list->endDate) < strtotime('+15 days')){
+                                            echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
+                                          }
                                         }
                                         else if ($list->statusApproval == 2) {
                                           echo "<span class='badge badge-warning'>Proses Kelulusan</span>";
                                         }
                                         else if ($list->statusApproval == 3){
-                                          echo "<span class='badge badge-success'> Lulus</span>";
+                                          echo "<span class='badge badge-success'> Diluluskan</span>";
                                         } else {
                                           echo "<span class='badge badge-danger'> Tidak Lulus</span>";
+                                          if (strtotime($list->endDate) < strtotime('+15 days')){
+                                            echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
+                                          }
                                         }
                                       ?>
                                   </td>
@@ -126,14 +141,13 @@
         // Loop through all table rows
         for (var i = 0; i < rows.length; i++) {
             var shouldDisplay = false;
-            // Loop through all table cells in this row
-            for (var j = 0; j < rows[i].cells.length; j++) {
-                var cell = rows[i].cells[j];
-                if (cell.innerText.toLowerCase().indexOf(input.toLowerCase()) > -1) {
-                    shouldDisplay = true;
-                    break;
-                }
+            
+            // Check only the 5th column (index 4)
+            var cell = rows[i].cells[4];
+            if (cell.innerText.toLowerCase().indexOf(input.toLowerCase()) > -1) {
+                shouldDisplay = true;
             }
+
             // Display or hide the row based on search result
             rows[i].style.display = shouldDisplay ? "" : "none";
             if (shouldDisplay) {

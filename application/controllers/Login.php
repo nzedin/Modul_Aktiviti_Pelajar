@@ -48,27 +48,29 @@ class Login extends CI_Controller {
 
 
 
-    public function login(){
+    public function login() {
+        $this->load->library('encryption');
         
-            $wargaID = $this->input->post('wargaID');
-            $password = $this->input->post('password');
-            $warga = $this->input->post('warga');
+        $wargaID = $this->input->post('wargaID');
+        $password = $this->input->post('password');
+        $warga = $this->input->post('warga');
+        $key = 'hepa123'; 
+        
+        $encrypted_password = $this->encryption->encrypt($password, array('key' => $key));
+        
+        if ($this->login_model->get_login($wargaID, $encrypted_password, $warga)) {
+            $this->session->set_userdata('wargaID', $wargaID);
+            // $this->session->mark_as_temp('wargaID', 3600);
     
+            $this->profile($warga);
             
-            if ($this->login_model->get_login($wargaID, $password, $warga)) {
-                $this->session->set_userdata('wargaID', $wargaID);
-               // $this->session->mark_as_temp('wargaID', 3600);
-    
-                $this->profile($warga);
-                
-            } else {
-                
-                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+        } else {
+            $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
                 User ID or password incorrect! </div>');
-                redirect('login', $message);
-            }
-        
+            redirect('login', $message);
+        }
     }
+    
     
     public function _rules(){
        $this->form_validation->set_rules('staffID', 'User ID', 'required', array(

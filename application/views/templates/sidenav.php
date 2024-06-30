@@ -202,12 +202,12 @@
                   <ul class="nav nav-treeview">
                     
                     <li class="nav-item">
-                      <a href="pages/examples/lockscreen.html" class="nav-link">
+                      <a href="<?= base_url('setup/index/senarai_admin/'.$warga)?>" class="nav-link">
                         <p>Admin</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                      <a href="<?= base_url('setup/setup_parameter_surat/senarai_parameter_surat/'.$warga)?>" class="nav-link">
                         <p>Parameter Surat</p>
                       </a>
                     </li>

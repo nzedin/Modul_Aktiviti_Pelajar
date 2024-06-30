@@ -5,24 +5,20 @@ class Login_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_login($wargaID, $password, $warga) {
-        
-        if ($warga == 'staff'){
+    public function get_login($wargaID, $encrypted_password, $warga) {
+        if ($warga == 'staff') {
             $this->db->where('staffID', $wargaID);
-            $this->db->where('password', $password);
+            $this->db->where('encryptedpassword', $encrypted_password); 
             $query = $this->db->get('staff');
         } else {
             $this->db->where('studentID', $wargaID);
-            $this->db->where('studentPassword', $password);
+            $this->db->where('encrypted_password', $encrypted_password); 
             $query = $this->db->get('student');
         }
-        
-        if ($query->num_rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+    
+        return $query->num_rows() > 0;
     }
+    
 
     public function get_warga($wargaID, $table)
     {

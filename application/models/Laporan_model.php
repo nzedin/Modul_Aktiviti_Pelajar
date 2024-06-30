@@ -11,7 +11,7 @@ class Laporan_model extends CI_Model {
         $this->db->join('club', 'club.clubID = program.clubID');
         $this->db->join('laporan', 'laporan.programID = program.programID','left');
         $this->db->where('program.pengarahProg', $studentID);
-
+        $this->db->where('program.endDate <', 'CURDATE()', false);
         
         return $this->db->get();
     }
@@ -152,5 +152,22 @@ class Laporan_model extends CI_Model {
     
         return ['student_info' => $student_info, 'transcript' => $transcript];
     }
+
+    public function get_monthly_record($table, $date) {
+        $this->db->select('program.*, club.*, state.*, laporan.*, student.*, programcategory.*, DATEDIFF(program.endDate, program.startDate) AS period,
+            (laporan.bantuanKewanganHEPA + laporan.danaTabungAmanah) as total');
+        $this->db->from($table);
+        $this->db->join('club', 'club.clubID = program.clubID');
+        $this->db->join('state', 'state.stateID = program.stateID', 'left');
+        $this->db->join('laporan', 'laporan.programID = program.programID', 'left');
+        $this->db->join('student', 'student.studentID = program.pengarahProg', 'left');
+        $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID', 'left');
+        $this->db->where('laporan.statusApproval', 3);
+        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+    
+        return $this->db->get();
+    }
+    
+    
     
 }

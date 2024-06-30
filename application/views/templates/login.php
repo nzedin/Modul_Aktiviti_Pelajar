@@ -1,12 +1,50 @@
 
-<body style=" background: url(img/bg1.jpg);background-repeat:no-repeat;background-size: cover;background-attachment: fixed;" class="hold-transition login-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Background</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .login-box {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-align: center;
+            width: 35%;
+        }
+        .login-box .card-header {
+            font-size: 35px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="video-background">
+        <source src="<?= base_url('img/umtvid.mp4')?>" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div class="login-box">
-        <div class="login-logo">
-            <a style="color:white;" href="#">Modul Aktiviti Pelajar <b>UMT</b></a>
+      
+        <div class="card card-primary">
+        <div class="card-header text-center">
+            <a href="#">Modul Aktiviti Pelajar <b>UMT</b></a>
         </div>
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
+            <div class="card-body ">
             <p class="login-box-msg">Log Masuk</p>
 
             <form action="<?= base_url('login/login')?>" method="POST">
