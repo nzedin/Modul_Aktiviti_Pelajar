@@ -17,6 +17,7 @@
             width: 100px; 
             display: block; 
             margin: 0 auto;
+            
         }
         .modal#updateApproval .modal-content .path, 
         .modal#statusSuccessModal .modal-content .path, 
@@ -267,29 +268,29 @@
                                             </div> 
                                         </div>
 
-                                    <div class="card-footer">
-                                        <input type="hidden" id="status" name="status" value="0">
-                                        <button type="submit" id="submit-approve" data-bs-toggle="modal" data-bs-target="#updateApproval" class="btn btn-success" onclick="return confirm('Luluskan laporan?')"><i class="fas fa-check"></i>   Approve</button>
-                                        <button type="submit" id="submit-reject" data-bs-toggle="modal" data-bs-target="#updateApproval" onclick="return confirm('Laporan Tidak Diluluskan?')" class="btn btn-danger"><i class="fas fa-times"></i>   Reject</button>
-                                    </div>
+                                        <div class="card-footer">
+                                            <input type="hidden" id="status" name="status" value="0">
+                                            <button type="submit" id="submit-approve" class="btn btn-success"><i class="fas fa-check"></i> Lulus</button>
+                                            <button type="submit" id="submit-reject" class="btn btn-danger"><i class="fas fa-times"></i> Tidak Lulus</button>
+                                        </div>
                                 </form>
                         </div>
                     </div>
                     </div>
 
-                    <div class="modal fade" id="updateApproval" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
-                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
-                        <div class="modal-content"> 
-                            <div class="modal-body text-center p-lg-4"> 
+                <div class="modal fade" id="updateApproval" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-lg-4">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
                                     <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
-                                    <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
-                                </svg> 
-                                <h4 class="text-success mt-3">Status Approval Successfully Updated</h4> 
-                                <button onclick="window.location.href = '<?= base_url('laporan/report_submission_list/'.$warga)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
-                            </div> 
-                        </div> 
-                    </div> 
+                                    <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                                </svg>
+                                <h4 class="text-success mt-3">Status Kelulusan Berjaya Dikemaskini!</h4>
+                                <button onclick="window.location.href = '<?= base_url('laporan/report_submission_list/'.$warga)?>'" class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                     
             </div>
@@ -482,13 +483,8 @@
                                         HEPA untuk kelulusan laporan ini selepas mengisi borang laporan ini. Kegagalan pihak saudara/i berbuat demikian 
                                         akan melambatkan proses kelulusan dan pengeluaran sijil AJK.</p><br>
                                         <input type="hidden" id="status" name="status" value="0">
-
-                                        <?php if ($program->statusApproval == 4): ?>
-                                            <button type="submit" id="submit-hantar" data-bs-toggle="modal" data-bs-target="#successSubmit" onclick="return confirm('Borang laporan yang telah dihantar tidak dapat dikemaskini lagi. Teruskan?')" class="btn btn-primary"><i class="fas fa-check"></i>   Hantar</button>
-                                        <?php else: ?>
-                                                <button type="submit" id="submit-simpan" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#statusSuccessModal"><i class="fas fa-save"></i>   Simpan</button>
-                                                <button type="submit" id="submit-hantar" data-bs-toggle="modal" data-bs-target="#successSubmit" onclick="return confirm('Borang laporan yang telah dihantar tidak dapat dikemaskini lagi. Teruskan?')" class="btn btn-primary"><i class="fas fa-check"></i>   Hantar</button>
-                                        <?php endif ?>
+                                        <button type="submit" id="submit-simpan" class="btn btn-info" ><i class="fas fa-save"></i>   Simpan</button>
+                                        <button type="submit" id="submit-hantar" class="btn btn-primary"><i class="fas fa-check"></i>   Hantar</button>
                                 </div>
                                 </form>
                         </div>
@@ -502,8 +498,9 @@
                                         <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
                                         <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
                                     </svg> 
-                                    <h4 class="text-success mt-3">Report Successfully Saved!</h4> 
-                                    <button type="button" class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
+                                    <h4 class="text-success mt-3">Laporan Berjaya Disimpan!</h4> 
+                                    <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button> 
+
                                 </div> 
                             </div> 
                         </div> 
@@ -517,7 +514,7 @@
                                     <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
                                     <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" X2="34.4" y2="92.2" /> 
                                 </svg> 
-                                <h4 class="text-danger mt-3">Report Unseccessfully Saved!</h4> 
+                                <h4 class="text-danger mt-3">Laporan Tidak Berjaya Disimpan!</h4> 
                                 <button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">Ok</button> 
                             </div> 
                         </div> 
@@ -531,8 +528,8 @@
                                     <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
                                     <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
                                 </svg> 
-                                <h4 class="text-success mt-3">Report Successfully Submit!</h4> 
-                                <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Close</button> 
+                                <h4 class="text-success mt-3">Laporan Berjaya Dihantar!</h4> 
+                                <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button> 
                             </div> 
                         </div> 
                     </div> 
@@ -548,29 +545,10 @@
 <script>
 $(document).ready(function() {
     $('#reportForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        if ($(event.originalEvent.submitter).attr('id') === 'submit-hantar') {
-            var statusValue = 2; 
-            $('#status').val(statusValue); 
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response.success) {
-                        $('#successSubmit').modal('show');
-                    } 
-                },
-                error: function(xhr, status, error) {
-                    // Handle the error
-                    $('#statusErrorsModal').modal('show'); 
-                    alert('There was an error submitting the form: ' + error);
-                }
-            });
-        }
+        event.preventDefault(); 
 
         if ($(event.originalEvent.submitter).attr('id') === 'submit-simpan') {
+            $('textarea').removeAttr('required');
             var statusValue = 1; 
             $('#status').val(statusValue); 
             $.ajax({
@@ -578,9 +556,8 @@ $(document).ready(function() {
                 method: $(this).attr('method'),
                 data: $(this).serialize(),
                 success: function(response) {
-                    if (response.success) {
                         $('#statusSuccessModal').modal('show');
-                    }
+                    
                 },
                 error: function(xhr, status, error) {
                     // Handle the error
@@ -589,54 +566,62 @@ $(document).ready(function() {
                 }
             });
         }
+
+        if ($(event.originalEvent.submitter).attr('id') === 'submit-hantar') {
+            let confirmMessage = 'Borang laporan yang telah dihantar tidak dapat dikemaskini lagi. Teruskan?'
+            $('textarea').attr('required', 'required');
+
+            
+            if (confirm(confirmMessage)) {
+                var statusValue = 2; 
+                $('#status').val(statusValue); 
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                            $('#successSubmit').modal('show');
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the error
+                        $('#statusErrorsModal').modal('show'); 
+                        alert('There was an error submitting the form: ' + error);
+                    }
+                });
+            }
+
+            
+        }
+
 
     });
 });
 
+
 $(document).ready(function() {
     $('#approval').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
+        let submitId = $(event.originalEvent.submitter).attr('id');
+        let confirmMessage = submitId === 'submit-approve' ? 'Luluskan laporan?' : 'Laporan Tidak Diluluskan?';
 
-        if ($(event.originalEvent.submitter).attr('id') === 'submit-approve') {
-            var statusValue = 3; 
+        if (confirm(confirmMessage)) {
+            var statusValue = submitId === 'submit-approve' ? 3 : 4; 
             $('#status').val(statusValue); 
             $.ajax({
                 url: $(this).attr('action'),
                 method: $(this).attr('method'),
                 data: $(this).serialize(),
                 success: function(response) {
-                    if (response.success) {
                         $('#updateApproval').modal('show');
-                    } 
+                    
                 },
                 error: function(xhr, status, error) {
-                    // Handle the error
                     $('#statusErrorsModal').modal('show'); 
                     alert('There was an error submitting the form: ' + error);
                 }
             });
         }
-
-        if ($(event.originalEvent.submitter).attr('id') === 'submit-reject') {
-            var statusValue = 4; 
-            $('#status').val(statusValue); 
-            $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response.success) {
-                        $('#updateApproval').modal('show');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the error
-                    $('#statusErrorsModal').modal('show'); 
-                    alert('There was an error submitting the form: ' + error);
-                }
-            });
-        }
-
     });
 });
 </script>

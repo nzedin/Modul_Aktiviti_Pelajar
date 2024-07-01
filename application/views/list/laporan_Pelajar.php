@@ -85,7 +85,7 @@
                                   <td style="text-align: center;"><?= $list->dateSubmission ?></td>
                                   <td style="text-align: center;"><?php
                                       if ($list->comment == null) {
-                                        echo "<span class='badge badge-secondary'>Not Assign</span>";
+                                        echo "<span class='badge badge-secondary'>Tiada Maklumat</span>";
                                       }
                                       else{
                                         echo ucwords(strtolower($list->comment));
