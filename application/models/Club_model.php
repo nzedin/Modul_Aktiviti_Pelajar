@@ -203,5 +203,10 @@ class Club_model extends CI_Model {
     {
         return $this->db->get_where('staff', array('staffID' => $staffID))->row();
     }
+
+    public function selectClub($table) {
+        $this->db->order_by('clubName', 'ASC');
+        return $this->db->get($table); 
+    }
     
 }

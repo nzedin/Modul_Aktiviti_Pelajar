@@ -458,6 +458,217 @@ class Club extends CI_Controller {
             redirect('club/kepimpinan/'.$warga.'/'.$clubID);
     }
 
-  
+    public function semak_keahlian($page,$warga)
+    {
+        $data['club'] = $this->club_model->selectClub('club')->result();
+        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['title'] = 'Semak Keahlian';
+        $data['warga'] = $warga;
+        $data['page'] = $page;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/semak_keahlian', $data);
+        $this->load->view('templates/footer');
+
+        
+    }
+
+    public function daftar_jawatankuasa($page,$warga, $clubID)
+    {
+        $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
+        $data['studentSelect'] = $this->mpp_model->get_student('student')->result();
+        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['title'] = 'Semak Keahlian';
+        $data['warga'] = $warga;
+        $data['page'] = $page;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/semak_keahlian', $data);
+        $this->load->view('templates/footer');
+
+    }
+
+    
+    public function tambah_jawatankuasa($warga, $clubID){
+     
+
+        $studentID = $this->input->post('studentID');
+        $clubID = $this->input->post('clubID');
+
+            if  ($this->club_model->is_student_exists($studentID,$clubID)){
+
+        $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Matrik pelajar telah wujud!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>');
+        
+        } else {
+
+            $data = array(
+                'clubID'=> $this->input->post('clubID'),
+                'studentID'=> $this->input->post('studentID'),
+                'committeeID'=> $this->input->post('committeeID'),
+                'status'=> $this->input->post('status'),
+            );
+            $this->club_model->insert_kepimpinan($data, 'kepimpinan');
+
+            $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                Data Berjaya Disimpan!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>');
+        }
+        redirect('club/badan_pelajar/senarai_jawatankuasa/'.$warga.'/'.$clubID);
+    
+    }
+    public function carian_badan_pelajar($page, $warga)
+    {
+        $clubID = $this->input->post('clubID');
+        $data['jawatankuasa'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
+        $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
+        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['title'] = 'Semak Keahlian';
+        $data['warga'] = $warga;
+        $data['page'] = $page;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/semak_keahlian', $data);
+        $this->load->view('templates/footer');
+    }
+    
+    public function badan_pelajar($page, $warga, $clubID)
+    {
+        $data['jawatankuasa'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
+        $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
+        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['title'] = 'Semak Keahlian';
+        $data['warga'] = $warga;
+        $data['page'] = $page;
+        $wargaID = $this->session->userdata('wargaID');
+        if ($warga == 'staff') {
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+        } else {
+            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
+                $data['student_type'] = "both";
+            }
+            else if ($this->login_model->ahli_kelab($wargaID)) {
+                $data['student_type'] = "member";
+            }
+            else if ($this->login_model->pengarah_program($wargaID)){
+                $data['student_type'] = "programdirector";
+            } else {
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
+                Pelajar tidak dibenarkan akses! </div>');
+                redirect('login', $message);
+            }
+
+            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+
+        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidenav', $data);
+        $this->load->view('list/semak_keahlian', $data);
+        $this->load->view('templates/footer');
+    }
+
+
+    public function delete_jawatankuasa($warga, $clubID, $kepimpinanID){
+        $where = array('kepimpinanID' => $kepimpinanID);
+
+            $this->club_model->delete_data($where, 'kepimpinan');
+            $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data Berjaya Dipadam!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></div>');
+            
+            redirect('club/badan_pelajar/senarai_jawatankuasa/'.$warga.'/'.$clubID);
+    }
+
+
+    public function edit_jawatankuasa($warga, $kepimpinanID){
+        $clubID = $this->input->post('clubID');
+        $data = array(
+                'kepimpinanID'=>$kepimpinanID,
+                'clubID'=> $this->input->post('clubID'),
+                'studentID'=> $this->input->post('studentID'),
+                'committeeID'=> $this->input->post('committeeID'),
+                'status'=> $this->input->post('status'),
+            );
+            $this->club_model->update_kepimpinan($data, 'kepimpinan');
+            $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data Berjaya Dikemaskini!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button></div>');
+        
+            redirect('club/badan_pelajar/senarai_jawatankuasa/'.$warga.'/'.$clubID);
+        
+    }
    
 }

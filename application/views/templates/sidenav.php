@@ -100,8 +100,8 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/charts/uplot.html" class="nav-link">
-                        <p>Semak Keahlian</p>
+                    <a href="<?= base_url('club/semak_keahlian/carian_jawatankuasa/'.$warga)?>" class="nav-link">
+                    <p>Semak Keahlian</p>
                       </a>
                     </li>
                   </ul>
