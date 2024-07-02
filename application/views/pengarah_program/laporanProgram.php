@@ -106,8 +106,24 @@
 </head>
 <body>
 <div class="content-wrapper">
-    <section class="content-header" >
         <?php if ($warga=='staff'):?>
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1><?= $title ?></h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Admin</li>
+                                <li class="breadcrumb-item">Laporan(Admin)</li>
+                                <li class="breadcrumb-item active"><?= $title ?></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    <section class="content-header" >
             <div class="card card-widget widget-user" style="width: 95%; margin:5% auto;">
                 <div class="row">
                     <div  id="printContent" class="card-body">
@@ -295,6 +311,24 @@
                     
             </div>
         <?php else: ?>
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1><?= $title ?></h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Admin</li>
+                                <li class="breadcrumb-item">Laporan</li>
+                                <li class="breadcrumb-item active"><?= $title ?></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-header" ></section>
+
             <div class="card card-widget widget-user" style="width: 95%; margin:5% auto;">
                 <div class="row">
                     <div  id="printContent" class="card-body">
