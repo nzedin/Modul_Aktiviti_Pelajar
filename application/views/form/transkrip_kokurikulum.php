@@ -115,10 +115,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>NAMA BADAN PELAJAR</th>
-                    <th>JAWATAN</th>
+                    <th width="49%">NAMA BADAN PELAJAR</th>
+                    <th width="25%">JAWATAN</th>
                     <th>KATEGORI</th>
-                    <th>MERIT</th>
+                    <th width="8%">MERIT</th>
                 </tr>
             </thead>
             <tbody>
@@ -143,9 +143,59 @@
                 <?php else: ?>
                     <tr>
                         <td colspan="4" style="text-align:center;">TIADA</td>
+                        <?php $totalMerit = 0; ?>
                     </tr>
                 <?php endif; ?>
             </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="49%">NAMA ORGANISASI</th>
+                    <th width="25%">JAWATAN</th>
+                    <th>KATEGORI</th>
+                    <th width="8%">MERIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($transcriptMPP)): ?>
+                    <?php 
+                    $totalMerit2 = 0; // Initialize total merit
+                    
+                    foreach ($transcriptMPP as $record): 
+                        $totalMerit2 += $record->merit; // Summing up merit values
+                    ?>
+                        <tr>
+                            <td>MAJLIS PERWAKILAN PELAJAR</td>
+                            <td><?= strtoupper($record->committee) ?></td>
+                            <td><?= strtoupper($record->categoryrole) ?></td>
+                            <td style="text-align:center;"><?= $record->merit ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3" class="total">JUMLAH MERIT</td>
+                        <td class="calc"><?= $totalMerit2 ?></td> <!-- Display total merit here -->
+                    </tr>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="3" style="text-align:center;">TIADA</td>
+                        <td style="text-align:center;">0</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="total">JUMLAH MERIT</td>
+                        <td class="calc">0</td> <!-- Display total merit here -->
+                    </tr>
+                    <?php $totalMerit2 = 0; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="text-align: right;padding-right: 40px;">JUMLAH KESELURUHAN MERIT</th>
+                    <th width="8%"><?= $totalMerit + $totalMerit2 ?></th> <!-- Sum of totalMerit and totalMerit2 -->
+                </tr>
+            </thead>
         </table>
     </div>
 </body>

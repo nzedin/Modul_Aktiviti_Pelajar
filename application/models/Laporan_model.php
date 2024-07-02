@@ -149,8 +149,23 @@ class Laporan_model extends CI_Model {
         $this->db->where('student.studentID', $studentID);
     
         $transcript = $this->db->get()->result();
+
+        $this->db->select('
+            mpp.studentID,
+            student.studentName,
+            COALESCE(committee.committee, "Tiada") as committee,
+            COALESCE(categoryrole.categoryrole, "Tiada") as categoryrole,
+            COALESCE(committee.merit, "0") as merit
+        ');
+        $this->db->from('mpp');
+        $this->db->join('student', 'mpp.studentID = student.studentID', 'left');
+        $this->db->join('committee', 'committee.committeeID = mpp.positionMpp', 'left');
+        $this->db->join('categoryrole', 'categoryrole.categoryRoleID = committee.categoryRoleID', 'left');
+        $this->db->where('student.studentID', $studentID);
     
-        return ['student_info' => $student_info, 'transcript' => $transcript];
+        $transcriptMPP = $this->db->get()->result();
+    
+        return ['student_info' => $student_info, 'transcript' => $transcript, 'transcriptMPP' => $transcriptMPP];
     }
 
     public function get_monthly_record($table, $date) {

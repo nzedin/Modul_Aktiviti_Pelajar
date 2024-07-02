@@ -499,21 +499,22 @@ class Laporan extends CI_Controller {
     }
 
     public function update_remark($laporanID){
-
         $remark = $this->input->post('remark');
-
+    
         if ($this->laporan_model->is_report_exist($laporanID)) {
-
             $data = array(
                 'laporanID' => $laporanID,
                 'remark' => $remark,
             );
-
             $this->laporan_model->update_report($data, 'laporan');
+            $response = array('success' => true);
+        } else {
+            $response = array('success' => false);
         }
     
-        $response = array('success' => true);
-        echo json_encode($response);  exit;
-}
+        echo json_encode($response);
+        exit;
+    }
+    
     
 }

@@ -1,9 +1,95 @@
 <head>
+
     <style>
-        th {
-            text-align: center;
+        p {
+            padding: 6px;
         }
-      
+        .modal#statusErrorsModal .modal-content,
+        .modal#updateRemark .modal-content {
+            border-radius: 30px;
+        }
+        .modal#statusErrorsModal .modal-content svg ,
+        .modal#updateRemark .modal-content svg {
+            width: 100px; 
+            display: block; 
+            margin: 0 auto;
+            
+        }
+        .modal#statusErrorsModal .modal-content .path,
+        .modal#updateRemark .modal-content .path {
+            stroke-dasharray: 1000; 
+            stroke-dashoffset: 0;
+        }
+        .modal#statusErrorsModal .modal-content .path.circle,
+        .modal#updateRemark .modal-content .path.circle  {
+            -webkit-animation: dash 0.9s ease-in-out; 
+            animation: dash 0.9s ease-in-out;
+        }
+        .modal#statusErrorsModal .modal-content .path.line,
+        .modal#updateRemark .modal-content .path.line {
+            stroke-dashoffset: 1000; 
+            -webkit-animation: dash 0.95s 0.35s ease-in-out forwards; 
+            animation: dash 0.95s 0.35s ease-in-out forwards;
+        }
+        .modal#statusErrorsModal .modal-content .path.check ,
+        .modal#updateRemark .modal-content .path.check {
+            stroke-dashoffset: -100; 
+            -webkit-animation: dash-check 0.95s 0.35s ease-in-out forwards; 
+            animation: dash-check 0.95s 0.35s ease-in-out forwards;
+        }
+
+        @-webkit-keyframes dash { 
+            0% {
+                stroke-dashoffset: 1000;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes dash { 
+            0% {
+                stroke-dashoffset: 1000;
+            }
+            100%{
+                stroke-dashoffset: 0;
+            }
+        }
+        @-webkit-keyframes dash { 
+            0% {
+                stroke-dashoffset: 1000;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes dash { 
+            0% {
+                stroke-dashoffset: 1000;}
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @-webkit-keyframes dash-check { 
+            0% {
+                stroke-dashoffset: -100;
+            }
+            100% {
+                stroke-dashoffset: 900;
+            }
+        }
+        @keyframes dash-check {
+            0% {
+                stroke-dashoffset: -100;
+            }
+            100% {
+                stroke-dashoffset: 900;
+            }
+        }
+        .box00{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -43,7 +129,7 @@
 
           <div class="card-body">
               
-              <form id="reportForm" action="<?= base_url('laporan/update_remark/'.$laporanID->laporanID)?>" method="POST" enctype="multipart/form-data">
+              <form id="reportForm" action="<?= base_url('laporan/update_remark/'.$laporanID->laporanID)?>" method="POST">
   
               <input type="hidden" id="laporanID" name="laporanID" value="<?= $laporanID->laporanID ?>">
 
@@ -68,9 +154,8 @@
           </div> 
         </div>
       </div>
-    </section> 
 
-                      <div class="modal fade" id="updateRemark" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                    <div class="modal fade" id="updateRemark" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                         <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
                             <div class="modal-content"> 
                                 <div class="modal-body text-center p-lg-4"> 
@@ -100,8 +185,12 @@
                           </div> 
                       </div> 
                     </div>
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css"></script>
             <script>
-              $(document).ready(function() {
+               $(document).ready(function() {
                 $('#reportForm').on('submit', function(event) {
                     event.preventDefault(); 
 
@@ -110,9 +199,8 @@
                             method: $(this).attr('method'),
                             data: $(this).serialize(),
                             success: function(response) {
-                              if(response == true){
                                     $('#updateRemark').modal('show');
-                            }
+                              
                             },
                             error: function(xhr, status, error) {
                                 // Handle the error
@@ -124,7 +212,7 @@
                 });
               });
             </script>
-      
+    </section>                     
     <?php else: ?>
     
     <section class="content">

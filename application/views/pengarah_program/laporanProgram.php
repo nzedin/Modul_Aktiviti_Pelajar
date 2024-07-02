@@ -116,7 +116,7 @@
                                 <h2 class="card-title"><?= $title ?></h2>
                             </div>
 
-                            <form id="approval" action="<?= base_url('laporan/update_Approval/'.$program->programID)?>" method="POST">
+                            <form id="approval" action="<?= base_url('laporan/update_Approval/'.$program->laporanID)?>" method="POST">
                             <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Maklumat Program</b></h5>
                                 <div style="width: 90%; margin: auto;" class="card-body">
                                         
