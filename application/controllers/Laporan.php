@@ -473,6 +473,7 @@ class Laporan extends CI_Controller {
         $data['title'] = 'Statistik Bulanan';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
+    
         if ($warga == 'staff') {
             $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
         } else {
@@ -483,20 +484,31 @@ class Laporan extends CI_Controller {
             } else if ($this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "programdirector";
             } else {
-                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">
-                Pelajar tidak dibenarkan akses! </div>');
+                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">Pelajar tidak dibenarkan akses!</div>');
                 redirect('login', $message);
             }
-    
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
         }
+    
+        // Fetch additional data for charts
+        $data['total_registered_students'] = $this->laporan_model->get_total_registered_students($date);
+        $data['total_attendance'] = $this->laporan_model->get_total_attendance($date);
+        $data['financial_aid'] = $this->laporan_model->get_financial_aid($date);
+        $data['programs_by_category'] = $this->laporan_model->get_programs_by_category($date);
+        $data['attendance_trends'] = $this->laporan_model->get_attendance_trends($date);
+    
         $data['json_laporan'] = json_encode($data['laporan']);
-
+        $data['json_total_registered_students'] = json_encode($data['total_registered_students']);
+        $data['json_total_attendance'] = json_encode($data['total_attendance']);
+        $data['json_financial_aid'] = json_encode($data['financial_aid']);
+        $data['json_programs_by_category'] = json_encode($data['programs_by_category']);
+        $data['json_attendance_trends'] = json_encode($data['attendance_trends']);
+    
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidenav', $data);
         $this->load->view('list/statistic_Report', $data);
         $this->load->view('templates/footer');
     }
+    
 
     public function update_remark($laporanID){
         $remark = $this->input->post('remark');

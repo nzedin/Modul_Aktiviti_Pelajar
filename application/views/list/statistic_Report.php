@@ -8,7 +8,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url('dist/temp')?>/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-  <link rel="stylesheet" href="<?= base_url('dist/temp')?>/dist/css/adminlte.min.css">   
+    <link rel="stylesheet" href="<?= base_url('dist/temp')?>/dist/css/adminlte.min.css">   
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class="content-wrapper">
@@ -29,153 +31,169 @@
         </div>
     </section>
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <!-- LINE CHART -->
-                    <div class="card card-info">
-                        <div class="card-header">
-                            <h3 class="card-title">Jumlah Bantuan Kewangan</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart">
-                                <canvas id="financialAidChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-
-                    <!-- PIE CHART -->
-                    <div class="card card-danger">
-                        <div class="card-header">
-                            <h3 class="card-title">Jumlah Program Mengikut Kategori</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="categoryChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <!-- PIE CHART -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Pie Chart</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
-                <!-- /.col (LEFT) -->
+              </div>
+              <div class="card-body">
+                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
             </div>
-            <!-- /.row -->
+
+            <!-- DONUT CHART -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Donut Chart</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <!-- BAR CHART -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Bar Chart</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+
+            <!-- LINE CHART -->
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Line Chart</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- /.container-fluid -->
+      </div>
     </section>
-</div>
+  </div>
+
 <script src="<?= base_url('dist/temp')?>/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 <script src="<?= base_url('dist/temp')?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
 <script src="<?= base_url('dist/temp')?>/plugins/chart.js/Chart.min.js"></script>
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <script>
-$(function () {
-    // Fetch the data passed from the controller
-    var laporanData = <?= $json_laporan ?>;
-    
-    // Prepare data for the financial aid chart
-    var labels = [];
-    var financialAidData = [];
-    laporanData.forEach(function(item) {
-        labels.push(item.programName);
-        financialAidData.push(item.bantuanKewanganHEPA + item.danaTabungAmanah);
+  $(document).ready(function() {
+    $('#generateReportBtn').on('click', function() {
+      var month = $('#monthDropdown').val();
+      var year = $('#yearDropdown').val();
+      var date = `${year}-${month}`;
+
+      fetch(`/controller/statistic/${warga}/${date}`)
+        .then(response => response.json())
+        .then(data => {
+          // Update charts with new data
+          updatePieChart(data.json_total_registered_students, data.json_total_attendance);
+          updateDonutChart(data.json_financial_aid);
+          updateBarChart(data.json_programs_by_category);
+          updateLineChart(data.json_attendance_trends);
+        });
     });
 
-    var financialAidChartCanvas = $('#financialAidChart').get(0).getContext('2d');
-    var financialAidChartData = {
-        labels: labels,
-        datasets: [{
-            label: 'Jumlah Bantuan Kewangan',
-            backgroundColor: 'rgba(60,141,188,0.9)',
-            borderColor: 'rgba(60,141,188,0.8)',
-            pointRadius: false,
-            pointColor: '#3b8bba',
-            pointStrokeColor: 'rgba(60,141,188,1)',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: financialAidData
-        }]
-    };
-
-    var financialAidChartOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-            display: true
-        },
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    display: false
-                }
-            }],
-            yAxes: [{
-                gridLines: {
-                    display: false
-                }
-            }]
-        }
-    };
-
-    new Chart(financialAidChartCanvas, {
-        type: 'line',
-        data: financialAidChartData,
-        options: financialAidChartOptions
-    });
-
-    // Prepare data for the category chart
-    var categoryCounts = {};
-    laporanData.forEach(function(item) {
-        var category = item.programCategoryID;
-        if (categoryCounts[category]) {
-            categoryCounts[category]++;
-        } else {
-            categoryCounts[category] = 1;
-        }
-    });
-
-    var categoryLabels = Object.keys(categoryCounts);
-    var categoryData = Object.values(categoryCounts);
-
-    var categoryChartCanvas = $('#categoryChart').get(0).getContext('2d');
-    var categoryChartData = {
-        labels: categoryLabels,
-        datasets: [{
-            label: 'Jumlah Program Mengikut Kategori',
-            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            data: categoryData
-        }]
-    };
-
-    var categoryChartOptions = {
-        maintainAspectRatio: false,
-        responsive: true
-    };
-
-    new Chart(categoryChartCanvas, {
+    function updatePieChart(totalStudents, totalAttendance) {
+      var ctx = $('#pieChart').get(0).getContext('2d');
+      new Chart(ctx, {
         type: 'pie',
-        data: categoryChartData,
-        options: categoryChartOptions
-    });
-});
+        data: {
+          labels: ['Total Registered Students', 'Total Attendance'],
+          datasets: [{
+            data: [totalStudents, totalAttendance],
+            backgroundColor: ['#FF6384', '#36A2EB']
+          }]
+        }
+      });
+    }
+
+    function updateDonutChart(financialAid) {
+      var ctx = $('#donutChart').get(0).getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Bantuan Kewangan HEPA', 'Dana Tabung Amanah', 'Total Cost'],
+          datasets: [{
+            data: [financialAid.bantuanKewanganHEPA, financialAid.danaTabungAmanah, financialAid.totalCost],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        }
+      });
+    }
+
+    function updateBarChart(programsByCategory) {
+      var ctx = $('#barChart').get(0).getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: programsByCategory.map(program => program.categoryName),
+          datasets: [{
+            data: programsByCategory.map(program => program.program_count),
+            backgroundColor: '#36A2EB'
+          }]
+        }
+      });
+    }
+
+    function updateLineChart(attendanceTrends) {
+      var ctx = $('#lineChart').get(0).getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: attendanceTrends.map(trend => trend.submission_date),
+          datasets: [{
+            data: attendanceTrends.map(trend => trend.total_attendance),
+            backgroundColor: '#FF6384',
+            fill: false
+          }]
+        }
+      });
+    }
+  });
 </script>
 </body>
 </html>

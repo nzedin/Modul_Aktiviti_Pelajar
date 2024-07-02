@@ -182,6 +182,8 @@ class Laporan_model extends CI_Model {
     
         return $this->db->get();
     }
+
+
     
     public function get_studentEmail($studentID) {
 
@@ -228,6 +230,52 @@ class Laporan_model extends CI_Model {
         
         return $this->db->get();
     }
+
+
+
+    
+    public function get_total_registered_students($date) {
+        $this->db->select('COUNT(*) as total_students');
+        $this->db->from('penyertaan');
+        $this->db->join('laporan', 'laporan.programID = penyertaan.programID');
+        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+        return $this->db->get()->row()->total_students;
+    }
+    
+    public function get_total_attendance($date) {
+        $this->db->select('COUNT(*) as total_attendance');
+        $this->db->from('kehadiran');
+        $this->db->join('laporan', 'laporan.programID = kehadiran.programID');
+        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+        return $this->db->get()->row()->total_attendance;
+    }
+    
+    public function get_financial_aid($date) {
+        $this->db->select('SUM(laporan.bantuanKewanganHEPA) as bantuanKewanganHEPA, SUM(laporan.danaTabungAmanah) as danaTabungAmanah, SUM(laporan.totalCost) as totalCost');
+        $this->db->from('laporan');
+        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+        return $this->db->get()->row();
+    }
+    
+    public function get_programs_by_category($date) {
+        $this->db->select('programcategory.programCategoryName, COUNT(*) as program_count');
+        $this->db->from('program');
+        $this->db->join('laporan', 'laporan.programID = program.programID');
+        $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID');
+        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+        $this->db->group_by('programcategory.programCategoryName');
+        return $this->db->get()->result();
+    }
+    
+    public function get_attendance_trends($date) {
+        $this->db->select('DATE(laporan.dateSubmission) as submission_date, COUNT(*) as total_attendance');
+        $this->db->from('kehadiran');
+        $this->db->join('laporan', 'laporan.programID = kehadiran.programID');
+        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+        $this->db->group_by('DATE(laporan.dateSubmission)');
+        return $this->db->get()->result();
+    }
+    
 
     
 }
