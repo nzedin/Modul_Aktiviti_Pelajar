@@ -183,7 +183,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="<?= base_url('laporan/laporan_admin/'.$warga)?>" class="nav-link">
+                      <a href="<?= base_url('laporan/laporan_admin/rekod_laporan/'.$warga)?>" class="nav-link">
                         <p>Laporan</p>
                       </a>
                     </li>

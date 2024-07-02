@@ -203,5 +203,16 @@ class Laporan_model extends CI_Model {
         
         return $this->db->get();
     }
+
+    public function get_report_by_id($laporanID)
+    {
+        $this->db->select('laporan.*, program.programName');
+        $this->db->from('laporan');
+        $this->db->join('program', 'laporan.programID = program.programID', 'left');
+        $this->db->where('laporanID', $laporanID);
+        
+        return $this->db->get();
+    }
+
     
 }
