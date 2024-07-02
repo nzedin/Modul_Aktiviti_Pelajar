@@ -1,13 +1,7 @@
 <?php
 defined("BASEPATH") OR exit("No direct script access allowed");
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
 
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
 class Club extends CI_Controller {
 
     public function __construct(){
@@ -17,6 +11,8 @@ class Club extends CI_Controller {
         $this->load->model('login_model');
         $this->load->model('mpp_model');
         $this->load->model('committee_model');
+        $this->load->library("email");
+        $this->load->model('laporan_model');
       
     }
     public function index($warga)
@@ -290,11 +286,9 @@ class Club extends CI_Controller {
 
     public function addkepimpinan($warga, $clubID){
      
-
             $studentID = $this->input->post('studentID');
             $clubID = $this->input->post('clubID');
-            $studentEmail = $this->input->post('studentEmail');
-
+            
             if  ($this->club_model->is_student_exists($studentID,$clubID)){
 
             $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -313,6 +307,60 @@ class Club extends CI_Controller {
                     'status'=> $this->input->post('status'),
                 );
                 $this->club_model->insert_kepimpinan($data, 'kepimpinan');
+
+                $committeeID = $this->input->post('committeeID');
+                $status = $this->input->post('status');
+                $sendEmailResult = $this->laporan_model->get_studentEmail($studentID)->result();
+                $clubNameResult = $this->laporan_model->get_clubName($clubID)->result();
+                $committeeNameResult = $this->laporan_model->get_committeeName($committeeID)->result();
+
+                $sendEmail = [];
+                foreach ($sendEmailResult as $row) {
+                    $sendEmail[] = $row->studentEmail;
+                }
+
+                $committeeName = '';
+                if (!empty($committeeNameResult)) {
+                    $committeeName = $committeeNameResult[0]->committee;
+                }
+
+                $clubName = '';
+                if (!empty($clubNameResult)) {
+                    $clubName = ucwords($clubNameResult[0]->clubName); 
+                }
+
+                if ((strcasecmp($committeeName, "Presiden") == 0) && strcasecmp($status, "AKTIF") == 0) {
+        
+                    $config = array (
+                        'protocol' => 'smtp',
+                        'smtp_host' => 'ssl://smtp.gmail.com',
+                        'smtp_timeout' => 30,
+                        'smtp_port' => 465,
+                        'smtp_user' => 'zulkaedahnur@gmail.com', 
+                        'smtp_pass' => 'jkuviswjxemxkmce',
+                        'charset' => 'utf-8',
+                        'mailtype' => 'html',
+                        'newline' => '\r\n'
+                    );
+                    $this->email->initialize($config);
+        
+                    $this->email->set_newline("\r\n");
+                    $this->email->set_crlf("\r\n");
+        
+                    $this->email->from('zulkaedahnur@gmail.com', 'Hal Ehwal Pelajar & Alumni');
+                    $this->email->to($sendEmail);
+        
+                    $this->email->subject('Perlantikan Presiden Badan Pelajar');
+                    $this->email->message('
+                        Assalamualaikum dan Salam Sejahtera <br><br> 
+                        Saudara/i, <br><br> 
+                        <u><b>Perlantikan Presiden Bagi Badan Pelajar '. $clubName .' </b></u><br><br>
+                        Saudara/i telah didaftarkan sebagai presiden bagi kelab berikut di dalam sistem aktiviti pelajar.');
+
+                    $this->email->send();
+
+        
+                }
 
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!

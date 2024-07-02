@@ -127,10 +127,12 @@
                                            <td> Penasihat 1 </td>
                                            <td> <?php echo ucwords(strtolower($profile->advisor1_name)); ?></td>
                                        </tr>
+                                       <?php if( $profile->advisor2_name != null ): ?>
                                        <tr>
-                                           <td> Penasihat 2 </td>
-                                           <td><?php echo ucwords(strtolower($profile->advisor2_name)); ?></td>
+                                            <td> Penasihat 2 </td>
+                                            <td><?php echo ucwords(strtolower($profile->advisor2_name)); ?></td>
                                        </tr>
+                                       <?php endif ?>
                                        <tr>
                                            <td> Objective </td>
                                            <td><?php echo ucwords(strtolower($profile->objective)); ?></td>

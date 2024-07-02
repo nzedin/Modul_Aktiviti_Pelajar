@@ -18,7 +18,7 @@ class Laporan_model extends CI_Model {
 
     public function get_all_program($table) {
 
-        $this->db->select('program.*, club.*, state.*, laporan.*');
+        $this->db->select('program.*, club.*, state.*, laporan.*,program.programID');
         $this->db->from($table);
         $this->db->join('club', 'club.clubID = program.clubID');
         $this->db->join('state', 'state.stateID = program.stateID','left');
@@ -168,6 +168,40 @@ class Laporan_model extends CI_Model {
         return $this->db->get();
     }
     
+    public function get_studentEmail($studentID) {
+
+        $this->db->select('studentEmail');
+        $this->db->from('student');
+        $this->db->where('studentID', $studentID);
+        
+        return $this->db->get();
+    }
     
+    public function get_programName($programID) {
+
+        $this->db->select('programName');
+        $this->db->from('program');
+        $this->db->where('programID', $programID);
+        
+        return $this->db->get();
+    }
+
+    public function get_clubName($clubID) {
+
+        $this->db->select('clubName');
+        $this->db->from('club');
+        $this->db->where('clubID', $clubID);
+        
+        return $this->db->get();
+    }
+
+    public function get_committeeName($committeeID) {
+
+        $this->db->select('committee');
+        $this->db->from('committee');
+        $this->db->where('committeeID', $committeeID);
+        
+        return $this->db->get();
+    }
     
 }

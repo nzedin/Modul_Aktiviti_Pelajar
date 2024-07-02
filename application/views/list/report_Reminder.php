@@ -54,21 +54,24 @@
                           <tbody>
                             <?php $no = 1; foreach($laporan as $list): ?>
                               <?php if(strtotime($list->endDate) < strtotime(date('Y-m-d'))): ?>
-                                <tr>
-                                  <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                                  <td><?= ucwords(strtolower($list->programName)) ?></td>
-                                  <td style="text-align: center;"><?= $list->dateApply ?></td>
-                                  <td <?php if (strtotime($list->endDate) < strtotime(date('Y-m-d'))) { echo 'style="background-color: #3ae965;text-align: center;"';}else{echo 'style="background-color: #90daff;text-align: center;"';}?>>
-                                  <?php echo "Selesai";  ?>
-                                  </td>
-                                  <td style="text-align: center;"><?= $list->startDate ?><br>-<br><?= $list->endDate ?></td>
-                                  <td><?= ucwords(strtolower($list->programLocation)) ?>, <br><?= ucwords(strtolower($list->stateName)) ?></td>
-                                  <td style="text-align: center;">
-                                      email
-                                  </td>
-                                </tr>
+                                <?php if($list->statusApproval != 2 && $list->statusApproval != 3): ?>
+
+                                  <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= ucwords(strtolower($list->clubName)) ?></td>
+                                    <td><?= ucwords(strtolower($list->programName)) ?></td>
+                                    <td style="text-align: center;"><?= $list->dateApply ?></td>
+                                    <td <?php if (strtotime($list->endDate) < strtotime(date('Y-m-d'))) { echo 'style="background-color: #3ae965;text-align: center;"';}else{echo 'style="background-color: #90daff;text-align: center;"';}?>>
+                                    <?php echo "Selesai";  ?>
+                                    </td>
+                                    <td style="text-align: center;"><?= $list->startDate ?><br>-<br><?= $list->endDate ?></td>
+                                    <td><?= ucwords(strtolower($list->programLocation)) ?>, <br><?= ucwords(strtolower($list->stateName)) ?></td>
+                                    <td style="text-align: center;">
+                                    <a href="<?= base_url('email/send_email/' . $list->pengarahProg .'/'. $list->programID); ?> " ><button type="button" class="btn btn-info">Hantar Email</button></a>
+                                    </td>
+                                  </tr>
                                 <?php endif ?>
+                              <?php endif ?>
                             <?php endforeach ?>
                           </tbody>
                       
