@@ -9,6 +9,8 @@ class Kehadiran extends CI_Controller {
         $this->load->model('kehadiran_model');
         $this->load->model('login_model');
         $this->load->model('mpp_model');
+        $this->load->library('encryption');
+
         
     }
     public function index($warga, $studentID)
@@ -304,8 +306,12 @@ class Kehadiran extends CI_Controller {
         $studentID = $this->input->post('studentID');
         $programID = $this->input->post('programID');
         $password = $this->input->post('password');
+        $key = 'hepa123'; 
+
+        $encrypted_password = $this->encryption->encrypt($password, array('key' => $key));
+
         
-        if  ($this->kehadiran_model->is_student_umt($studentID, $password)){
+        if  ($this->kehadiran_model->is_student_umt($studentID, $encrypted_password)){
 
 
             if  ($this->kehadiran_model->is_student_exists($studentID,$programID)){
@@ -349,8 +355,11 @@ class Kehadiran extends CI_Controller {
         $studentID = $this->input->post('studentID');
         $programID = $this->input->post('programID');
         $password = $this->input->post('password');
+        $key = 'hepa123'; 
         
-        if  ($this->kehadiran_model->is_student_umt($studentID, $password)){
+        $encrypted_password = $this->encryption->encrypt($password, array('key' => $key));
+        
+        if  ($this->kehadiran_model->is_student_umt($studentID, $encrypted_password )){
 
 
             if  ($this->kehadiran_model->is_student_register($studentID,$programID)){

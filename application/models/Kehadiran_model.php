@@ -84,7 +84,7 @@ class Kehadiran_model extends CI_Model {
     {
         
             $this->db->where('studentID', $studentID);
-            $this->db->where('studentPassword', $password);
+            $this->db->where('encrypted_password', $password);
             $query = $this->db->get('student');
         
         if ($query->num_rows() > 0) {

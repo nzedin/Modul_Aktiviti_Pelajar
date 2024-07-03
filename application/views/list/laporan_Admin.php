@@ -248,11 +248,11 @@
                   <i class="fas fa-search"></i> Cari
                 </button>
               </div>
-              <div class="col-2">
-              <button style="float:left;" onclick="report()" id="generateReportBtn" class="btn btn-primary">
-              <i class="fa fa-cogs"></i> Laporan Bulanan
+            <!-- <div class="col-2">
+                <button style="float:left;" onclick="report()" id="generateReportBtn" class="btn btn-primary">
+                  <i class="fa fa-cogs"></i> Laporan Bulanan
                 </button>
-              </div>
+              </div>-->
             </div>
             </div>
           </div>       
