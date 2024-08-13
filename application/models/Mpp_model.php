@@ -5,10 +5,10 @@ class Mpp_model extends CI_Model {
    
     public function get_mpp($table)
     {
-        $this->db->select('MPP.*, STUDENT.*, COMMITTEE.COMMITTEE');
+        $this->db->select('mpp.*, student.*, committee.committee');
         $this->db->from($table);
-        $this->db->join('STUDENT', 'STUDENT.STUDENTID = MPP.STUDENTID');
-        $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = MPP.POSITIONMPP');
+        $this->db->join('student', 'student.studentID = mpp.studentID');
+        $this->db->join('committee', 'committee.committeeID = mpp.positionMPP');
         return $this->db->get();
     }
     public function get_student($table)
@@ -18,7 +18,7 @@ class Mpp_model extends CI_Model {
 
     public function studentopt($studentID)
     {
-        return $this->db->get_where('STUDENT', array('STUDENTID' => $studentID))->row();
+        return $this->db->get_where('student', array('studentID' => $studentID))->row();
     }
 
     public function insert_data($data,$table)
@@ -28,8 +28,8 @@ class Mpp_model extends CI_Model {
 
     public function is_mpp_exists($studentID)
     {
-        $this->db->where('STUDENTID', $studentID);
-        $query = $this->db->get('MPP');
+        $this->db->where('studentID', $studentID);
+        $query = $this->db->get('mpp');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -40,7 +40,7 @@ class Mpp_model extends CI_Model {
 
      public function update_data($data,$table)
      {
-        $this->db->where('MPPID',$data['MPPID']);
+        $this->db->where('mppID',$data['mppID']);
         $this->db->update($table,$data);
      }
 
@@ -51,11 +51,11 @@ class Mpp_model extends CI_Model {
     
     public function get_profile($mppID) {
 
-        $this->db->where('MPPID', $mppID);
-        $this->db->selecT('MPP.*, STUDENT.*, COMMITTEE.*');
-        $this->db->from('MPP');
-        $this->db->join('STUDENT', 'STUDENT.STUDENTID = MPP.STUDENTID');
-        $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = MPP.POSITIONMPP');
+        $this->db->where('mppID', $mppID);
+        $this->db->select('mpp.*, student.*, committee.*');
+        $this->db->from('mpp');
+        $this->db->join('student', 'student.studentID = mpp.studentID');
+        $this->db->join('committee', 'committee.committeeID = mpp.positionMpp');
         $query = $this->db->get();
 
         return $query->row();
@@ -63,19 +63,19 @@ class Mpp_model extends CI_Model {
 
     public function adminmpp($checkboxData) {
         foreach ($checkboxData as $data) {
-            $mppID = $data['MPPID'];
-            $adminMPP = $data['ADMINMPP'];
+            $mppID = $data['mppID'];
+            $adminMPP = $data['adminMPP'];
     
-            $this->db->set('ADMINMPP', $adminMPP);
-            $this->db->where('MPPID', $mppID);
-            $this->db->update('MPP');
+            $this->db->set('adminMPP', $adminMPP);
+            $this->db->where('mppID', $mppID);
+            $this->db->update('mpp');
         }
     }
     public function selectSesi() {
         $this->db->distinct(); 
-        $this->db->select('SESI');
-        $this->db->order_by('SESI', 'ASC');
-        $query = $this->db->get('STUDENT'); 
+        $this->db->select('sesi');
+        $this->db->order_by('sesi', 'ASC');
+        $query = $this->db->get('student'); 
     
         return $query->result(); 
     }

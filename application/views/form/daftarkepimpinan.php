@@ -30,7 +30,7 @@
       <div class="container-fluid">
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Maklumat Pendaftaran Badan Pelajar <?= ucwords(strtolower($clubID->CLUBNAME)); ?></h3>
+            <h3 class="card-title">Maklumat Pendaftaran Badan Pelajar <?= ucwords(strtolower($clubID->clubName)); ?></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -40,17 +40,17 @@
             </div>
           </div>
           
-          <form action="<?= base_url('club/addkepimpinan/'.$warga .'/'. $clubID->CLUBID)?>" method="POST">
+          <form action="<?= base_url('club/addkepimpinan/'.$warga .'/'. $clubID->clubID)?>" method="POST">
           <div class="card-body">
           
-               <input type="hidden" id="clubID" name="clubID" value="<?= $clubID->CLUBID; ?>">
+               <input type="hidden" id="clubID" name="clubID" value="<?= $clubID->clubID; ?>">
 
                 <div class="form-group">
                   <label>Matrik Pelajar</label>
                   <select name="studentID" class="form-control select2bs4" style="width: 100%;" required>
                   <option value="" selected disabled>Pilih Matrik Pelajar</option>
                   <?php foreach ($studentSelect as $stud): ?>
-                        <option value="<?= $stud->STUDENTID; ?>"><?= $stud->STUDENTID; ?></option>
+                        <option value="<?= $stud->studentID; ?>"><?= $stud->studentID; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -76,7 +76,7 @@
                     <option value="" selected disabled>Pilih Jawatan</option>
                     <?php foreach ($committee as $com): ?>
                         <?php if ($com->categoryrole == 'BADAN PELAJAR'): ?>
-                          <option value="<?= $com->COMMITTEEID; ?>"><?= $com->COMMITTEE; ?></option>
+                          <option value="<?= $com->committeeID; ?>"><?= $com->committee; ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
                     

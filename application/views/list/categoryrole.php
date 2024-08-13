@@ -61,7 +61,7 @@
                          foreach($categoryrole as $categoryrole): ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td style="text-align: left;"><?= ucwords(strtolower($categoryrole->CATEGORYROLE)) ?></td>
+                                <td style="text-align: left;"><?= ucwords(strtolower($categoryrole->categoryrole)) ?></td>
                                 <td style="text-align: center;">
                                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                         <button data-toggle="modal" data-target="#editcategoryrole<?= $categoryrole->categoryRoleID ?>"  class="btn btn-warning"><i class="fas fa-edit">Edit</i></button>

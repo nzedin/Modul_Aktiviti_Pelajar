@@ -31,17 +31,10 @@
       <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <?php
-                    $tempDir = "images/"; 
-                    $fileName = $staff->STAFFIMG;
-                    $pngAbsoluteFilePath = $tempDir.$fileName;
-                    $imageData = file_get_contents($pngAbsoluteFilePath);
-                    $image = base64_encode($imageData);
-                  ?>
-                  <img src="data:image/png;base64, <?=$image?> " class="img-circle elevation-2" alt="User Image">
+              <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($staff->staffImg); ?>" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-            <?php echo ucwords(strtolower($staff->STAFFNAME)); ?>
+            <?php echo ucwords(strtolower($staff->staffName)); ?>
             </div>
         </div>
       </a> 
@@ -251,17 +244,10 @@
           <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <?php
-                      $tempDir = "images/"; 
-                      $fileName = $student->STUIMG;
-                      $pngAbsoluteFilePath = $tempDir.$fileName;
-                      $imageData = file_get_contents($pngAbsoluteFilePath);
-                      $image = base64_encode($imageData);
-                    ?>
-                    <img src="data:image/png;base64, <?=$image?> " class="img-circle elevation-2" alt="User Image">
+                  <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <?php echo ucwords(strtolower($student->STUDENTNAME)); ?>
+                <?php echo ucwords(strtolower($student->studentName)); ?>
                 </div>
             </div>
           </a> 
@@ -321,7 +307,7 @@
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->STUDENTID)?>" class="nav-link">
+                          <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
                             <p>Pendaftaran & Kehadiran</p>
                           </a>
                         </li>
@@ -357,7 +343,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                         <li class="nav-item">
-                          <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->STUDENTID)?>" class="nav-link">
+                          <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
                             <p>Laporan Program</p>
                           </a>
                         </li>
@@ -395,16 +381,10 @@
           <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                  <?php
-                    $tempDir = "images/"; 
-                    $fileName = $student->STUIMG;
-                    $pngAbsoluteFilePath = $tempDir.$fileName;
-                    $imageData = file_get_contents($pngAbsoluteFilePath);
-                    $image = base64_encode($imageData);
-                  ?>
-                  <img src="data:image/png;base64, <?=$image?> " class="img-circle elevation-2" alt="User Image">                </div>
+                  <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
+                </div>
                 <div class="info">
-                <?php echo ucwords(strtolower($student->STUDENTNAME)); ?>
+                <?php echo ucwords(strtolower($student->studentName)); ?>
                 </div>
             </div>
           </a> 
@@ -514,16 +494,10 @@
           <a href="<?= base_url('login/profile/'. $warga)?>" class="nav-item">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                  <?php
-                    $tempDir = "images/"; 
-                    $fileName = $student->STUIMG;
-                    $pngAbsoluteFilePath = $tempDir.$fileName;
-                    $imageData = file_get_contents($pngAbsoluteFilePath);
-                    $image = base64_encode($imageData);
-                  ?>
-                  <img src="data:image/png;base64, <?=$image?> " class="img-circle elevation-2" alt="User Image">                </div>
+                  <img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" class="img-circle elevation-2" alt="User Image">
+                </div>
                 <div class="info">
-                <?php echo ucwords(strtolower($student->STUDENTNAME)); ?>
+                <?php echo ucwords(strtolower($student->studentName)); ?>
                 </div>
             </div>
           </a> 
@@ -665,7 +639,7 @@
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->STUDENTID)?>" class="nav-link">
+                          <a href="<?= base_url('kehadiran/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
                             <p>Pendaftaran & Kehadiran</p>
                           </a>
                         </li>
@@ -701,7 +675,7 @@
                       </a>
                       <ul class="nav nav-treeview">
                         <li class="nav-item">
-                          <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->STUDENTID)?>" class="nav-link">
+                          <a href="<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>" class="nav-link">
                             <p>Laporan Program</p>
                           </a>
                         </li>

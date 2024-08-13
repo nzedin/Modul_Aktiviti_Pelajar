@@ -40,7 +40,7 @@
                   <select name="studentID" class="form-control select2bs4" style="width: 100%;">
                   <option selected disabled>Pilih Matrik Pelajar</option>
                   <?php foreach ($student as $student): ?>
-                        <option value="<?= $student->STUDENTID; ?>"><?= $student->STUDENTID; ?></option>
+                        <option value="<?= $student->studentID; ?>"><?= $student->studentID; ?></option>
                     <?php endforeach; ?>
                   </select>
                   <?= form_error('studentID', '<div class="text-small text-danger">', '</div>'); ?>
@@ -66,7 +66,7 @@
                   <select name="session" class="form-control select2bs4" style="width: 100%;">
                   <option selected disabled>Pilih Sesi</option>
                   <?php foreach ($sesi as $row): ?>
-                      <option value="<?= $row->SESI; ?>"><?= $row->SESI; ?></option>
+                      <option value="<?= $row->sesi; ?>"><?= $row->sesi; ?></option>
                   <?php endforeach; ?>
                   </select>
                   <?= form_error('session', '<div class="text-small text-danger">', '</div>'); ?>
@@ -77,8 +77,8 @@
                   <select name="positionMpp" class="form-control select2bs4" style="width: 100%;">
                     <option selected disabled>Pilih Jawatan</option>
                     <?php foreach ($committee as $com): ?>
-                        <?php if ($com->CATEGORYROLE == 'MPP'): ?>
-                          <option value="<?= $com->COMMITTEEID; ?>"><?= $com->COMMITTEE; ?></option>
+                        <?php if ($com->categoryrole == 'MPP'): ?>
+                          <option value="<?= $com->committeeID; ?>"><?= $com->committee; ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
                     

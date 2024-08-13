@@ -37,87 +37,87 @@
         </div>
         <!-- /.login-logo -->
         <div class="card card-primary">
-            <div class="card-header">
-                <h6 style="text-align:center;"><b><?= $programID->PROGRAMNAME; ?></b></h6>
-            </div>
+        <div class="card-header">
+            <h6 style="text-align:center;"><b><?= $programID->programName; ?></b></h6>
+        </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sila login menggunakan UmtID untuk Pengesahan Kehadiran</p>
+            <p class="login-box-msg">Sila login menggunakan UmtID untuk Pengesahan Kehadiran</p>
 
-                <?php if( $title == "eKehadiran" ): ?>
+            <?php if( $title == "eKehadiran" ): ?>
 
-                    <form action="<?= base_url('kehadiran/scanner')?>" method="POST">
-                        
-                        <input type="hidden" id="programID" name="programID" value="<?= $programID->PROGRAMID; ?>">
+            <form action="<?= base_url('kehadiran/scanner')?>" method="POST">
+                
+            <input type="hidden" id="programID" name="programID" value="<?= $programID->programID; ?>">
 
-                        <div class="input-group mb-3">
-                        <input type="text" name="studentID" class="form-control" placeholder="Username" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                        </div>
-                        
-                        <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <?= $this->session->flashdata('reminder'); ?>
-                        <div class="row">
-                        <div class="col-8">
-                        
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                    
-                        <!-- /.col -->
-                        </div>
-                    </form>
+                <div class="input-group mb-3">
+                <input type="text" name="studentID" class="form-control" placeholder="Username" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+                </div>
+                <?= $this->session->flashdata('reminder'); ?>
+                <div class="row">
+                <div class="col-8">
+                
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+               
+                <!-- /.col -->
+                </div>
+            </form>
 
-                <?php endif; ?>
+            <?php endif; ?>
 
-                <?php if( $title == "ePendaftaran" ): ?>
-                    <form action="<?= base_url('kehadiran/qscanner')?>" method="POST">
-                    
-                        <input type="hidden" id="programID" name="programID" value="<?= $programID->PROGRAMID; ?>">
+            <?php if( $title == "ePendaftaran" ): ?>
+                <form action="<?= base_url('kehadiran/qscanner')?>" method="POST">
+                
+            <input type="hidden" id="programID" name="programID" value="<?= $programID->programID; ?>">
 
-                        <div class="input-group mb-3">
-                        <input type="text" name="studentID" class="form-control" placeholder="Username" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                        </div>
-                        
-                        <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                        </div>
-                        <?= $this->session->flashdata('reminder'); ?>
-                        <div class="row">
-                        <div class="col-8">
-                        
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                    
-                        <!-- /.col -->
-                        </div>
-                    </form>
-                <?php endif; ?>
+                <div class="input-group mb-3">
+                <input type="text" name="studentID" class="form-control" placeholder="Username" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+                </div>
+                <?= $this->session->flashdata('reminder'); ?>
+                <div class="row">
+                <div class="col-8">
+                
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+               
+                <!-- /.col -->
+                </div>
+            </form>
+            <?php endif; ?>
             
             </div>
             <!-- /.login-card-body -->

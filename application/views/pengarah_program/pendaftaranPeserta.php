@@ -22,7 +22,7 @@
       <div class="container-fluid">
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Penyertaan <?= ucwords(strtolower($programID->PROGRAMNAME)); ?></h3>
+            <h3 class="card-title">Penyertaan <?= ucwords(strtolower($programID->programName)); ?></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -32,17 +32,17 @@
             </div>
           </div>
           
-          <form action="<?= base_url('kehadiran/tambahpenyertaan/'.$warga .'/'. $programID->PROGRAMID)?>" method="POST">
+          <form action="<?= base_url('kehadiran/tambahpenyertaan/'.$warga .'/'. $programID->programID)?>" method="POST">
           <div class="card-body">
           
-               <input type="hidden" id="programID" name="programID" value="<?= $programID->PROGRAMID; ?>">
+               <input type="hidden" id="programID" name="programID" value="<?= $programID->programID; ?>">
 
                 <div class="form-group">
                   <label>Matrik Pelajar</label>
                   <select name="studentID" class="form-control select2bs4" style="width: 100%;" required>
                   <option value="" selected disabled>Pilih Matrik Pelajar</option>
                   <?php foreach ($studentID as $student): ?>
-                        <option value="<?= $student->STUDENTID; ?>"><?= $student->STUDENTID; ?></option>
+                        <option value="<?= $student->studentID; ?>"><?= $student->studentID; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -73,7 +73,7 @@
 
 <div class="card card-info">
   <div class="card-header">
-    <h3 class="card-title">Senarai Penyertaan <?= ucwords(strtolower($programID->PROGRAMNAME)); ?></h3>
+    <h3 class="card-title">Senarai Penyertaan <?= ucwords(strtolower($programID->programName)); ?></h3>
 
     <div class="card-tools">
       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -110,11 +110,11 @@
                   foreach($penyertaan as $join): ?>
                       <tr>
                           <td><?= $no++ ?></td>
-                          <td><?= ucwords(strtolower($join->STUDENTID)) ?></td>
-                          <td><?= ucwords(strtolower($join->STUDENTNAME)) ?></td>
+                          <td><?= ucwords(strtolower($join->studentID)) ?></td>
+                          <td><?= ucwords(strtolower($join->studentName)) ?></td>
                           <td style="text-align: center;">
-                              <input type="hidden" class="penyertaanID" value="<?= $join->PENYERTAANID ?>">
-                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-penyertaanid="<?= $join->PENYERTAANID ?>" <?= $join->PENYERTAANID == 1 ? 'checked' : '' ?>>
+                              <input type="hidden" class="penyertaanID" value="<?= $join->penyertaanID ?>">
+                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-penyertaanid="<?= $join->penyertaanID ?>" <?= $join->penyertaanID == 1 ? 'checked' : '' ?>>
                           </td>
                       </tr>
                       <?php endforeach ?>
@@ -178,7 +178,7 @@
 
                   $.ajax({
                       type: "POST",
-                      url: "<?= base_url('kehadiran/deletepenyertaan/'.$warga.'/'.$programID->PROGRAMID) ?>",
+                      url: "<?= base_url('kehadiran/deletepenyertaan/'.$warga.'/'.$programID->programID) ?>",
                       data: { checkboxData: checkboxData },
                       success: function(response) {
                           

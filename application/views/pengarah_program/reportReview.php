@@ -25,14 +25,14 @@
                                <div style="width: 90%; margin: auto;" class="card-body">
                                     
 
-                               <input type="hidden" id="programID" name="programID" value="<?= $program->PROGRAMID; ?>">
-                               <input type="hidden" id="laporanID" name="laporanID" value="<?= $program->LAPORANID; ?>">
+                               <input type="hidden" id="programID" name="programID" value="<?= $program->programID; ?>">
+                               <input type="hidden" id="laporanID" name="laporanID" value="<?= $program->laporanID; ?>">
 
                                     <div class="form-group row">
                                         <label for="programName" class="col-sm-4 col-form-label">Nama Program</label>
                                         <p >:</p>
                                         <div class="col-sm-7">
-                                            <p id="programName"> <?= ucwords(strtolower($program->PROGRAMNAME)) ?></p>
+                                            <p id="programName"> <?= ucwords(strtolower($program->programName)) ?></p>
                                         </div>
                                     </div>
 
@@ -40,7 +40,7 @@
                                         <label for="clubName" class="col-sm-4 col-form-label">Anjuran Badan Pelajar</label>
                                         <p >:</p>
                                         <div class="col-sm-7">
-                                            <p id="clubName"> <?= ucwords(strtolower($program->CLUBNAME)) ?></p>
+                                            <p id="clubName"> <?= ucwords(strtolower($program->clubName)) ?></p>
                                         </div>
                                     </div>
 
@@ -48,13 +48,13 @@
                                         <label for="date" class="col-sm-4 col-form-label">Tarikh Pelaksanaan Program</label>
                                         <p >:</p>
                                         <div class="col-sm-2">
-                                            <p id="date"> <?= $program->STARTDATE ?> </p>
+                                            <p id="date"> <?= $program->startDate ?> </p>
                                         </div>
                                         <div class="col-sm-2">
                                             <p id="date"><b>sehingga</b></p>
                                         </div>
                                         <div class="col-sm-2">
-                                            <p id="date"> <?= $program->ENDDATE ?></p>
+                                            <p id="date"> <?= $program->endDate ?></p>
                                         </div>
                                     </div>
 
@@ -62,7 +62,7 @@
                                         <label for="tempat" class="col-sm-4 col-form-label">Tempat</label>
                                         <p >:</p>
                                         <div class="col-sm-7">
-                                            <p id="tempat"> <?= ucwords(strtolower($program->PROGRAMLOCATION)) ?></p>
+                                            <p id="tempat"> <?= ucwords(strtolower($program->programLocation)) ?></p>
                                         </div>
                                     </div>
 
@@ -70,7 +70,7 @@
                                         <label for="programUmt" class="col-sm-4 col-form-label">Penyertaan Program (UMT)</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="programUmt"> <?= ucwords(strtolower($program->PROGRAMUMT)) ?></p>
+                                            <p id="programUmt"> <?= ucwords(strtolower($program->programUmt)) ?></p>
                                         </div>
                                     </div>
 
@@ -78,7 +78,7 @@
                                         <label for="programLuar" class="col-sm-4 col-form-label">Penyertaan Program (Luar)</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="programLuar"> <?= ucwords(strtolower($program->PROGRAMLUAR)) ?></p>
+                                            <p id="programLuar"> <?= ucwords(strtolower($program->programLuar)) ?></p>
                                         </div>
                                     </div>
 
@@ -86,7 +86,7 @@
                                         <label for="pencapaian" class="col-sm-4 col-form-label">Pencapaian (Sekiranya ada)</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="pencapaian"> <?= ucwords(strtolower($program->PENCAPAIAN)) ?></p>
+                                            <p id="pencapaian"> <?= ucwords(strtolower($program->pencapaian)) ?></p>
                                         </div>
                                     </div>
 
@@ -94,7 +94,7 @@
                                         <label for="syor" class="col-sm-4 col-form-label">Syor</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="syor"> <?= ucwords(strtolower($program->SYOR)) ?></p>
+                                            <p id="syor"> <?= ucwords(strtolower($program->syor)) ?></p>
                                         </div>
                                     </div>
 
@@ -102,7 +102,7 @@
                                         <label for="objektif" class="col-sm-4 col-form-label">Objektif</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="objektif"> <?= ucwords(strtolower($program->OBJEKTIF)) ?></p>
+                                            <p id="objektif"> <?= ucwords(strtolower($program->objektif)) ?></p>
                                         </div>
                                     </div>
 
@@ -116,7 +116,7 @@
                                         <label for="bantuanKewanganHEPA" class="col-sm-4 col-form-label">Bantuan Kewangan HEPA</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="bantuanKewanganHEPA">RM <?= ucwords(strtolower($program->BANTUANKEWANGANHEPA)) ?></p>
+                                            <p id="bantuanKewanganHEPA">RM <?= ucwords(strtolower($program->bantuanKewanganHEPA)) ?></p>
                                         </div>
                                     </div>
 
@@ -124,7 +124,7 @@
                                         <label for="danaTabungAmanah" class="col-sm-4 col-form-label">Dana Tabung Amanah</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="danaTabungAmanah">RM <?= ucwords(strtolower($program->DANATABUNGAMANAH)) ?></p>
+                                            <p id="danaTabungAmanah">RM <?= ucwords(strtolower($program->danaTabungAmanah)) ?></p>
                                         </div>
                                     </div>
 
@@ -132,7 +132,7 @@
                                         <label for="kelulusanKenderaan" class="col-sm-4 col-form-label">Kelulusan Kenderaan</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="kelulusanKenderaan"> <?= ucwords(strtolower($program->KELULUSANKENDERAAN)) ?></p>
+                                            <p id="kelulusanKenderaan"> <?= ucwords(strtolower($program->kelulusanKenderaan)) ?></p>
                                         </div>
                                     </div>
 
@@ -140,7 +140,7 @@
                                         <label for="kelulusanSijil" class="col-sm-4 col-form-label">Kelulusan Sijil</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="kelulusanSijil" p><?= $program->KELULUSANSIJIL ?>  keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
+                                            <p id="kelulusanSijil" p><?= $program->kelulusanSijil ?>  keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
                                         </div>
                                     </div>
 
@@ -148,29 +148,29 @@
                                         <label for="lainLainKelulusan" class="col-sm-4 col-form-label">Lain-lain Kelulusan</label>
                                         <p>:</p>
                                         <div class="col-sm-7">
-                                            <p id="lainLainKelulusan"> <?= ucwords(strtolower($program->LAINLAINKELULUSAN)) ?></p>
+                                            <p id="lainLainKelulusan"> <?= ucwords(strtolower($program->lainLainKelulusan)) ?></p>
                                         </div>
                                     </div>
 
-                                    <?php if (strtotime($program->ENDDATE) < strtotime('+15 days')) { ?>
+                                    <?php if (strtotime($program->endDate) < strtotime('+15 days')) { ?>
                                         <div class="form-group row">
                                             <label for="sebabLewat" class="col-sm-4 col-form-label">Alasan Kelewatan</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="sebabLewat"> <?= ucwords(strtolower($program->SEBABLEWAT)) ?></p>
+                                                <p id="sebabLewat"> <?= ucwords(strtolower($program->sebabLewat)) ?></p>
                                             </div>
                                         </div>
                                     <?php } ?>
                                 </div>
 
                                 
-                                <?php if ($program->STATUSAPPROVAL == 3 || $program->STATUSAPPROVAL == 4): ?>
+                                <?php if ($program->statusApproval == 3 || $program->statusApproval == 4): ?>
                                     <div class="card-footer">
                                         <div style="padding: 0 5%;" class="form-group row">
                                             <label for="comment" class="col-sm-4 col-form-label">Ulasan</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="comment"> <?= ucwords(strtolower($program->COMMENT)) ?></p>
+                                                <p id="comment"> <?= ucwords(strtolower($program->comment)) ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                        </div>
 
                         <div class="col-12">
-                            <button type="button" onclick="window.print(location.href='<?= base_url('laporan/print_Report/'.$program->PROGRAMID)?>')" class="btn btn-info float-right"><i class="fa fa-print" aria-hidden="true"></i>  Print</button>
+                            <button type="button" onclick="window.print(location.href='<?= base_url('laporan/print_Report/'.$program->programID)?>')" class="btn btn-info float-right"><i class="fa fa-print" aria-hidden="true"></i>  Print</button>
                         </div>
                    </div>
                 </div> 

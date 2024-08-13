@@ -14,14 +14,7 @@
                             <div style="margin-top: 20px;"class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-md-3">
-                                        <?php
-                                            $tempDir = "images/"; 
-                                            $fileName = $profile->STUIMG;
-                                            $pngAbsoluteFilePath = $tempDir.$fileName;
-                                            $imageData = file_get_contents($pngAbsoluteFilePath);
-                                            $image = base64_encode($imageData);
-                                        ?>
-                                        <img src="data:image/png;base64, <?=$image?> " class="img-circle img-fluid" alt="User Image">    
+                                        <img class="img-circle img-fluid" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($profile->stuImg); ?>" alt="User Avatar">
                                     </div>
                                 </div>
                             </div>
@@ -32,43 +25,43 @@
                                         <tbody>
                                         <tr>
                                             <td> ID Pelajar </td>
-                                            <td> <?php echo ucwords(strtolower($profile->STUDENTID)); ?> </td>
+                                            <td> <?php echo ucwords(strtolower($profile->studentID)); ?> </td>
                                         </tr>
                                         <tr>
                                             <td> Nama Pelajar </td>
-                                            <td><?php echo ucwords(strtolower($profile->STUDENTNAME)); ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->studentName)); ?></td>
                                         </tr>
                                         <tr>
                                             <td> No. Telefon </td>
-                                            <td><?php echo $profile->PHONENO; ?></td>
+                                            <td><?php echo $profile->phoneNo; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Email </td>
-                                            <td><?php echo $profile->STUDENTEMAIL; ?></td>
+                                            <td><?php echo $profile->studentEmail; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Fakulti </td>
-                                            <td> <?php echo ucwords(strtolower($profile->FACULTY)); ?></td>
+                                            <td> <?php echo ucwords(strtolower($profile->faculty)); ?></td>
                                         </tr>
                                         <tr>
                                             <td> Program </td>
-                                            <td><?php echo ucwords(strtolower($profile->PROGRAM)); ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->program)); ?></td>
                                         </tr>
                                         <tr>
                                             <td> Semester </td>
-                                            <td><?php echo $profile->SEMESTER; ?></td>
+                                            <td><?php echo $profile->semester; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Status </td>
-                                            <td><?php echo ucwords(strtolower($profile->STATUS)) ; ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->status)) ; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Jawatan </td>
-                                            <td><?php echo ucwords(strtolower($profile->COMMITTEE)) ; ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->committee)) ; ?></td>
                                         </tr>
                                         <tr>
                                             <td> Sesi Pelantikan </td>
-                                            <td><?php echo $profile->SESSION; ?></td>
+                                            <td><?php echo $profile->session; ?></td>
                                         </tr>   
                                         </tbody>
                                     </table>
@@ -77,6 +70,9 @@
                     </div>
                 </div>
             
+                <div style="text-align: right; margin:0 20px 20px 0" >
+                    <button type="button" style="width:20%;" onclick="window.open('<?= base_url('mpp/printPage/'.$profile->mppID) ?>').print()" class="btn btn-info"><i class="fa fa-print">  Print </i></button>
+                </div>
             </div>
             <?php endif; ?>
             <?php if( $type == "kelab" ): ?>
@@ -86,14 +82,14 @@
                    <div  id="printContent" class="card-body">
                        <div style="width: 98%; margin: auto;" class="card card-outline card-info">
                            <div class="card-header">
-                               <h2 class="card-title"><?= $title ?> <?= ucwords(strtolower($clubID->CLUBNAME)); ?></h2>
+                               <h2 class="card-title"><?= $title ?> <?= ucwords(strtolower($clubID->clubName)); ?></h2>
                            </div>
 
                            <div style="margin-top: 20px;"class="container">
                                <div class="row justify-content-center">
                                    <div class="col-md-3">
                                     <?php if( $profile->logo != null ): ?>
-                                       <img class="img img-fluid" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($profile->LOGO); ?>" alt="User Avatar">
+                                       <img class="img img-fluid" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($profile->logo); ?>" alt="User Avatar">
                                        <?php else: ?>
                                         <img class="img img-fluid" src="<?= base_url('img/pic.jpeg')?>" alt="User Avatar">
                                     <?php endif; ?>
@@ -109,37 +105,37 @@
                                        <tbody>
                                        <tr>
                                            <td> Tarikh Penubuhan </td>
-                                           <td> <?php echo $profile->ESTABLISHDATE; ?> </td>
+                                           <td> <?php echo $profile->establishDate; ?> </td>
                                        </tr>
                                        <tr>
                                            <td> No. Rujukan </td>
-                                           <td> <?php echo $profile->REFNO; ?> </td>
+                                           <td> <?php echo $profile->refNo; ?> </td>
                                        </tr>
                                        <tr>
                                            <td> Nama Kelab </td>
-                                           <td><?php echo ucwords(strtolower($profile->CLUBNAME)); ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->clubName)); ?></td>
                                        </tr>
                                        <tr>
                                            <td> Nama Singkatan </td>
-                                           <td><?php echo $profile->SHORTNAME; ?></td>
+                                           <td><?php echo $profile->shortName; ?></td>
                                        </tr>
                                        <tr>
                                            <td> Kategori Badan Pelajar </td>
-                                           <td><?php echo ucwords(strtolower($profile->CATEGORY)); ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->category)); ?></td>
                                        </tr>
                                        <tr>
                                            <td> Penasihat 1 </td>
-                                           <td> <?php echo ucwords(strtolower($profile->ADVISOR1_NAME)); ?></td>
+                                           <td> <?php echo ucwords(strtolower($profile->advisor1_name)); ?></td>
                                        </tr>
-                                       <?php if( $profile->ADVISOR2_NAME != null ): ?>
+                                       <?php if( $profile->advisor2_name != null ): ?>
                                        <tr>
                                             <td> Penasihat 2 </td>
-                                            <td><?php echo ucwords(strtolower($profile->ADVISOR2_NAME)); ?></td>
+                                            <td><?php echo ucwords(strtolower($profile->advisor2_name)); ?></td>
                                        </tr>
                                        <?php endif ?>
                                        <tr>
                                            <td> Objective </td>
-                                           <td><?php echo ucwords(strtolower($profile->OBJECTIVE)); ?></td>
+                                           <td><?php echo ucwords(strtolower($profile->objective)); ?></td>
                                        </tr>
                                        </tbody>
                                    </table>
@@ -159,17 +155,17 @@
                                            <td> <b>Status </b></td>
                                        </tr>
 
-                                        <?php if( $profile->COMMITTEE == null ): ?>
+                                        <?php if( $profile->committee == null ): ?>
                                             <tr>
                                                     <td  colspan="4"  style="text-align: center;"> <?php echo 'Kepimpinan tidak didaftarkan.' ?></td>
                                             </tr>
                                         <?php else: ?>
                                             <?php foreach( $kepimpinan as $kep ): ?>
                                                 <tr>
-                                                    <td> <?= ucwords(strtolower($kep->COMMITTEE)) ?></td>
-                                                    <td> <?= ucwords(strtolower($kep->STUDENTID)) ?> </td>
-                                                    <td> <?= ucwords(strtolower($kep->STUDENTNAME)) ?> </td>
-                                                    <td> <?= ucwords(strtolower($kep->STATUS)); ?> </td>
+                                                    <td> <?= ucwords(strtolower($kep->committee)) ?></td>
+                                                    <td> <?= ucwords(strtolower($kep->studentID)) ?> </td>
+                                                    <td> <?= ucwords(strtolower($kep->studentName)) ?> </td>
+                                                    <td> <?= ucwords(strtolower($kep->status)); ?> </td>
                                                 </tr>
                                             <?php endforeach ?>
                                         <?php endif; ?>

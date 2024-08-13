@@ -29,7 +29,7 @@
                                     <select name="clubID" class="form-control select2bs4" style="width: 100%;" required>
                                         <option value="" selected disabled>Pilih Badan Pelajar</option>
                                         <?php foreach ($club as $cl): ?>
-                                            <option value="<?= $cl->CLUBID; ?>"><?= ucwords(strtolower($cl->CLUBNAME)); ?></option>
+                                            <option value="<?= $cl->clubID; ?>"><?= ucwords(strtolower($cl->clubName)); ?></option>
                                         <?php endforeach; ?>
                                         
                                     </select>
