@@ -65,37 +65,37 @@
                           foreach($laporan as $list): ?>
                               <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($list->clubName)) ?></td>
+                                  <td><?= ucwords(strtolower($list->CLUBNAME)) ?></td>
                                   <td><?= $list->startDate ?></td>
-                                  <td><?= ucwords(strtolower($list->programName)) ?></td>
+                                  <td><?= ucwords(strtolower($list->PROGRAMNAME)) ?></td>
 
                                   <td style="text-align: center;"> <?php
 
                                         $currentTimestamp = time();
-                                        $endDateTimestamp = strtotime($list->endDate);
+                                        $endDateTimestamp = strtotime($list->ENDDATE);
                                         $difference = $currentTimestamp - $endDateTimestamp;
                                         $daysLate = floor($difference / (60 * 60 * 24));
 
                                         if ($list->statusApproval == null) {
                                           echo "<span class='badge badge-secondary'>Tiada Data</span>";
-                                          if (strtotime($list->endDate) < strtotime('+15 days')){
+                                          if (strtotime($list->ENDDATE) < strtotime('+15 days')){
                                             echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
                                           }
                                         }
                                         else if ($list->statusApproval == 1) {
                                           echo "<span class='badge badge-primary'> Draf</span>";
-                                          if (strtotime($list->endDate) < strtotime('+15 days')){
+                                          if (strtotime($list->ENDDATE) < strtotime('+15 days')){
                                             echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
                                           }
                                         }
-                                        else if ($list->statusApproval == 2) {
+                                        else if ($list->STATUSAPPROVAL == 2) {
                                           echo "<span class='badge badge-warning'>Proses Kelulusan</span>";
                                         }
-                                        else if ($list->statusApproval == 3){
+                                        else if ($list->STATUSAPPROVAL == 3){
                                           echo "<span class='badge badge-success'> Diluluskan</span>";
                                         } else {
                                           echo "<span class='badge badge-danger'> Tidak Lulus</span>";
-                                          if (strtotime($list->endDate) < strtotime('+15 days')){
+                                          if (strtotime($list->ENDDATE) < strtotime('+15 days')){
                                             echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
                                           }
                                         }
@@ -104,7 +104,7 @@
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                      <a href="<?= base_url($list->statusApproval == 1 || $list->statusApproval == 4 || $list->statusApproval === null ? 'laporan/laporanProgram/' . $warga . '/' . $list->programID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
+                                      <a href="<?= base_url($list->STATUSAPPROVAL == 1 || $list->STATUSAPPROVAL == 4 || $list->STATUSAPPROVAL === null ? 'laporan/laporanProgram/' . $warga . '/' . $list->PROGRAMID : 'laporan/submit_Report/' . $warga . '/' . $list->PROGRAMID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
                                       </div>
                                   </td>
                               </tr>

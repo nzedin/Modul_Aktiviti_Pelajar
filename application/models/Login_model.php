@@ -5,15 +5,15 @@ class Login_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_login($wargaID, $encrypted_password, $warga) {
+    public function get_login($wargaID, $password, $warga) {
         if ($warga == 'staff') {
-            $this->db->where('staffID', $wargaID);
-            $this->db->where('encryptedpassword', $encrypted_password); 
-            $query = $this->db->get('staff');
+            $this->db->where('STAFFID', $wargaID);
+            $this->db->where('ENCRYPTEDPASSWORD', $password); 
+            $query = $this->db->get('STAFF');
         } else {
-            $this->db->where('studentID', $wargaID);
-            $this->db->where('encrypted_password', $encrypted_password); 
-            $query = $this->db->get('student');
+            $this->db->where('STUDENTID', $wargaID);
+            $this->db->where('ENCRYPTED_PASSWORD', $password); 
+            $query = $this->db->get('STUDENT');
         }
     
         return $query->num_rows() > 0;
@@ -22,17 +22,17 @@ class Login_model extends CI_Model {
 
     public function get_warga($wargaID, $table)
     {
-        if ($table == 'staff'){
-            $this->db->where('staffID', $wargaID);
+        if ($table == 'STAFF'){
+            $this->db->where('STAFFID', $wargaID);
             $this->db->select('*');
-            $this->db->from('staff');
-            $this->db->where('staffID', $wargaID);
+            $this->db->from('STAFF');
+            $this->db->where('STAFFID', $wargaID);
             $query = $this->db->get();
         } else {
-            $this->db->where('studentID', $wargaID);
+            $this->db->where('STUDENTID', $wargaID);
             $this->db->select('*');
-            $this->db->from('student');
-            $this->db->where('studentID', $wargaID);
+            $this->db->from('STUDENT');
+            $this->db->where('STUDENTID', $wargaID);
             $query = $this->db->get();
         }
         
@@ -41,14 +41,14 @@ class Login_model extends CI_Model {
 
     public function ahli_kelab($studentID)
 {
-    $this->db->select('kepimpinan.*, student.*, committee.*, categoryrole.*');
-    $this->db->from('kepimpinan');
-    $this->db->join('student', 'student.studentID = kepimpinan.studentID'); 
-    $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID');
-    $this->db->join('categoryrole', 'committee.categoryRoleID = categoryrole.categoryRoleID');
-    $this->db->where("(committee = 'presiden' OR committee = 'Presiden' OR committee = 'Setiausaha' OR committee = 'setiausaha')");
-    $this->db->where("(categoryrole = 'Badan Pelajar' OR categoryrole = 'badan pelajar' OR categoryrole = 'Club' OR categoryrole = 'club')" );
-    $this->db->where('kepimpinan.studentID', $studentID);
+    $this->db->select('KEPIMPINAN.*, STUDENT.*, COMMITTEE.*, CATEGORYROLE.*');
+    $this->db->from('KEPIMPINAN');
+    $this->db->join('STUDENT', 'STUDENT.STUDENTID = KEPIMPINAN.STUDENTID'); 
+    $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = KEPIMPINAN.COMMITTEEID');
+    $this->db->join('CATEGORYROLE', 'COMMITTEE.CATEGORYROLEID = CATEGORYROLE.CATEGORYROLEID');
+    $this->db->where("(COMMITTEE = 'PRESIDEN' OR COMMITTEE = 'PRESIDEN' OR COMMITTEE = 'SETIAUSAHA' OR COMMITTEE = 'SETIAUSAHA')");
+    $this->db->where("(CATEGORYROLE = 'BADAN PELAJAR' OR CATEGORYROLE = 'BADAN PELAJAR' OR CATEGORYROLE = 'CLUB' OR CATEGORYROLE = 'CLUB')" );
+    $this->db->where('KEPIMPINAN.STUDENTID', $studentID);
 
     $query = $this->db->get();
 
@@ -61,8 +61,8 @@ class Login_model extends CI_Model {
 
     public function pengarah_program($studentID)
     {
-        $this->db->where('pengarahProg', $studentID);
-        $query = $this->db->get('program');
+        $this->db->where('PENGARAHPROG', $studentID);
+        $query = $this->db->get('PROGRAM');
         
         if ($query->num_rows() > 0) {
             return true;

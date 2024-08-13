@@ -6,9 +6,9 @@ class Committee_model extends CI_Model {
     public function get_committee($table)
     {
 
-        $this->db->select('committee.*, categoryrole.categoryrole as categoryrole_name');
+        $this->db->select('COMMITTEE.*, CATEGORYROLE.CATEGORYROLE AS CATEGORYROLE_NAME');
         $this->db->from($table);
-        $this->db->join('categoryrole', 'categoryrole.categoryRoleID = committee.categoryRoleID');
+        $this->db->join('CATEGORYROLE', 'CATEGORYROLE.CATEGORYROLEID = COMMITTEE.CATEGORYROLEID');
         return $this->db->get();
       
     }
@@ -21,9 +21,9 @@ class Committee_model extends CI_Model {
 
     public function is_committee_exists($committee, $categoryRoleID)
     {
-        $this->db->where('committee', $committee);
-        $this->db->where('categoryRoleID', $categoryRoleID);
-        $query = $this->db->get('committee');
+        $this->db->where('COMMITTEE', $committee);
+        $this->db->where('CATEGORYROLEID', $categoryRoleID);
+        $query = $this->db->get('COMMITTEE');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -34,11 +34,11 @@ class Committee_model extends CI_Model {
 
     public function is_edit_exist($committee, $categoryRoleID, $excludeCommitteeID)
     {
-        $this->db->where('committee', $committee);
-        $this->db->where('categoryRoleID', $categoryRoleID);
+        $this->db->where('COMMITTEE', $committee);
+        $this->db->where('CATEGORYROLEID', $categoryRoleID);
         
-        $this->db->where('committeeID !=', $excludeCommitteeID);
-        $query = $this->db->get('committee');
+        $this->db->where('COMMITTEEID !=', $excludeCommitteeID);
+        $query = $this->db->get('COMMITTEE');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -56,7 +56,7 @@ class Committee_model extends CI_Model {
 
      public function update_data($data,$table)
      {
-        $this->db->where('committeeID',$data['committeeID']);
+        $this->db->where('COMMITTEEID',$data['COMMITTEEID']);
         $this->db->update($table,$data);
      }
 
@@ -66,9 +66,9 @@ class Committee_model extends CI_Model {
      }
 
      public function selectRole() {
-        $this->db->select('committee.*, categoryrole.*');
-        $this->db->from('committee');
-        $this->db->join('categoryrole', 'categoryrole.categoryRoleID = committee.categoryRoleID');
+        $this->db->select('COMMITTEE.*, CATEGORYROLE.*');
+        $this->db->from('COMMITTEE');
+        $this->db->join('CATEGORYROLE', 'CATEGORYROLE.CATEGORYROLEID = COMMITTEE.CATEGORYROLEID');
         return $this->db->get();        
     }
 }
