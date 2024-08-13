@@ -40,7 +40,7 @@
             <?php if (isset($message)): ?>
                 <?= $message; ?>
             <?php endif; ?>
-            <p><?= strtoupper($student->studentName); ?> [<?= strtoupper($student->studentID); ?>]</p>
+            <p><?= strtoupper($student->STUDENTNAME); ?> [<?= strtoupper($student->STUDENTID); ?>]</p>
             </div>
             <!-- /.login-card-body -->
         </div>

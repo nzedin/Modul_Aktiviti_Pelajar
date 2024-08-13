@@ -22,7 +22,7 @@
       <div class="container-fluid">
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Daftar Kehadiran <?= ucwords(strtolower($programID->programName)); ?></h3>
+            <h3 class="card-title">Daftar Kehadiran <?= ucwords(strtolower($programID->PROGRAMNAME)); ?></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -32,17 +32,17 @@
             </div>
           </div>
           
-          <form action="<?= base_url('kehadiran/tambahkehadiran/'.$warga .'/'. $programID->programID)?>" method="POST">
+          <form action="<?= base_url('kehadiran/tambahkehadiran/'.$warga .'/'. $programID->PROGRAMID)?>" method="POST">
           <div class="card-body">
           
-               <input type="hidden" id="programID" name="programID" value="<?= $programID->programID; ?>">
+               <input type="hidden" id="programID" name="programID" value="<?= $programID->PROGRAMID; ?>">
 
                 <div class="form-group">
                   <label>Matrik Pelajar</label>
                   <select name="studentID" class="form-control select2bs4" style="width: 100%;" required>
                   <option value="" selected disabled>Pilih Matrik Pelajar</option>
                   <?php foreach ($studentID as $student): ?>
-                        <option value="<?= $student->studentID; ?>"><?= $student->studentID; ?></option>
+                        <option value="<?= $student->STUDENTID; ?>"><?= $student->STUDENTID; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -73,7 +73,7 @@
 
 <div class="card card-info">
   <div class="card-header">
-    <h3 class="card-title">Senarai Kehadiran <?= ucwords(strtolower($programID->programName)); ?></h3>
+    <h3 class="card-title">Senarai Kehadiran <?= ucwords(strtolower($programID->PROGRAMNAME)); ?></h3>
 
     <div class="card-tools">
       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -111,13 +111,13 @@
                   foreach($kehadiran as $hadir): ?>
                       <tr>
                           <td><?= $no++ ?></td>
-                          <td><?= ucwords(strtolower($hadir->studentID)) ?></td>
-                          <td><?= ucwords(strtolower($hadir->studentName)) ?></td>
+                          <td><?= ucwords(strtolower($hadir->STUDENTID)) ?></td>
+                          <td><?= ucwords(strtolower($hadir->STUDENTNAME)) ?></td>
                           <td style="text-align: center;">
                               <?php 
                               $registered = false;
                               foreach($penyertaan as $join): 
-                                  if ($hadir->studentID == $join->studentID) {
+                                  if ($hadir->STUDENTID == $join->STUDENTID) {
                                       $registered = true; 
                                       break; 
                                   }
@@ -128,8 +128,8 @@
                               </span>
                           </td>
                           <td style="text-align: center;">
-                              <input type="hidden" class="kehadiranID" value="<?= $hadir->kehadiranID ?>">
-                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-kehadiranid="<?= $hadir->kehadiranID ?>" <?= $hadir->kehadiranID == 1 ? 'checked' : '' ?>>
+                              <input type="hidden" class="kehadiranID" value="<?= $hadir->KEHADIRANID ?>">
+                              <input type="checkbox" class="adminCheckbox table-admin-checkbox" data-kehadiranid="<?= $hadir->KEHADIRANID ?>" <?= $hadir->KEHADIRANID == 1 ? 'checked' : '' ?>>
                           </td>
                       </tr>
                       <?php endforeach ?>
@@ -193,7 +193,7 @@
 
                   $.ajax({
                       type: "POST",
-                      url: "<?= base_url('kehadiran/deleteatt/'.$warga.'/'.$programID->programID) ?>",
+                      url: "<?= base_url('kehadiran/deleteatt/'.$warga.'/'.$programID->PROGRAMID) ?>",
                       data: { checkboxData: checkboxData },
                       success: function(response) {
                           

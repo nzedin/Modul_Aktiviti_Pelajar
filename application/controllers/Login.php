@@ -6,6 +6,7 @@ class Login extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('login_model');
+        $this->load->library('upload');
     }
 
     public function index()
@@ -21,7 +22,7 @@ class Login extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -37,7 +38,7 @@ class Login extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -49,16 +50,13 @@ class Login extends CI_Controller {
 
 
     public function login() {
-        $this->load->library('encryption');
         
         $wargaID = $this->input->post('wargaID');
         $password = $this->input->post('password');
         $warga = $this->input->post('warga');
-        $key = 'hepa123'; 
         
-        $encrypted_password = $this->encryption->encrypt($password, array('key' => $key));
         
-        if ($this->login_model->get_login($wargaID, $encrypted_password, $warga)) {
+        if ($this->login_model->get_login($wargaID, $password, $warga)) {
             $this->session->set_userdata('wargaID', $wargaID);
             // $this->session->mark_as_temp('wargaID', 3600);
     

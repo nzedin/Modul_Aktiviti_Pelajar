@@ -12,13 +12,13 @@ class Mpp extends CI_Controller {
     public function index($warga)
     {
         $data['sesi'] = $this->mpp_model->selectSesi();
-        $data['mpp'] = $this->mpp_model->get_mpp('mpp')->result();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['mpp'] = $this->mpp_model->get_mpp('MPP')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['title'] = 'Majlis Perwakilan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -34,7 +34,7 @@ class Mpp extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -45,14 +45,14 @@ class Mpp extends CI_Controller {
 
     public function mpp($warga)
     {
-        $data['student'] = $this->mpp_model->get_student('student')->result();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['student'] = $this->mpp_model->get_student('STUDENT')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['sesi'] = $this->mpp_model->selectSesi();
         $data['title'] = 'Pelantikan MPP';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -68,7 +68,7 @@ class Mpp extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -84,7 +84,7 @@ class Mpp extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -100,7 +100,7 @@ class Mpp extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -108,13 +108,6 @@ class Mpp extends CI_Controller {
         $this->load->view('profileview/profileinfo', $data);
         $this->load->view('templates/footer');
         
-    }
-
-    public function printPage($mppID) {
-        $data['profile'] = $this->mpp_model->get_profile($mppID);
-        $data['title'] = 'Print Profile';
-        $this->load->view('profileview/print', $data);
-    
     }
 
     public function addmpp($warga){
@@ -136,13 +129,13 @@ class Mpp extends CI_Controller {
             } else {
 
                 $data = array(
-                    'studentID'=> $this->input->post('studentID'),
-                    'session'=> $this->input->post('session'),
-                    'positionMpp'=> $this->input->post('positionMpp'),
-                    'status'=> $this->input->post('status'),
-                    'adminMPP'=> $this->input->post('adminMPP') == '1' ? 1 : 0,
+                    'STUDENTID'=> $this->input->post('studentID'),
+                    'SESSION'=> $this->input->post('session'),
+                    'POSITIONMPP'=> $this->input->post('positionMpp'),
+                    'STATUS'=> $this->input->post('status'),
+                    'ADMINMPP'=> $this->input->post('adminMPP') == '1' ? 1 : 0,
                 );
-                $this->mpp_model->insert_data($data, 'mpp');
+                $this->mpp_model->insert_data($data, 'MPP');
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -172,10 +165,9 @@ class Mpp extends CI_Controller {
         $studentInfo = $this->mpp_model->studentopt($studentID); 
     
         $response = array(
-            'studentName' => $studentInfo->studentName,
-            'program' => $studentInfo->program,
-            'semester' => $studentInfo->semester,
-            'studentEmail' => $studentInfo->studentEmail
+            'studentName' => $studentInfo->STUDENTNAME,
+            'program' => $studentInfo->PROGRAM,
+            'semester' => $studentInfo->SEMESTER,
         );
     
         echo json_encode($response);
@@ -184,15 +176,15 @@ class Mpp extends CI_Controller {
     public function editmpp($warga, $mppID){
 
             $data = array(
-                'mppID'=>$mppID,
-                'studentID'=> $this->input->post('studentID'),
-                'session'=> $this->input->post('session'),
-                'positionMpp'=> $this->input->post('positionMpp'),
-                'status' => $this->input->post('status'),
-                'adminMPP' => $this->input->post('adminMPP') == '1' ? 1 : 0,
+                'MPPID'=>$mppID,
+                'STUDENTID'=> $this->input->post('studentID'),
+                'SESSION'=> $this->input->post('session'),
+                'POSITIONMPP'=> $this->input->post('positionMpp'),
+                'STATUS' => $this->input->post('status'),
+                'ADMINMPP' => $this->input->post('adminMPP') == '1' ? 1 : 0,
             );
 
-            $this->mpp_model->update_data($data, 'mpp');
+            $this->mpp_model->update_data($data, 'MPP');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dikemaskini!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -203,9 +195,9 @@ class Mpp extends CI_Controller {
     }
 
     public function deletempp($warga, $mppID){
-        $where = array('mppID' => $mppID);
+        $where = array('MPPID' => $mppID);
 
-            $this->mpp_model->delete_data($where, 'mpp');
+            $this->mpp_model->delete_data($where, 'MPP');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dipadam!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

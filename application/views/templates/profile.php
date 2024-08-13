@@ -23,12 +23,19 @@
               <div class="card card-widget widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-info">
-                  <h3 class="widget-user-username"><?php echo $staff->staffName; ?></h3>
-                  <h5 class="widget-user-desc"><?php echo $staff->staffPosition; ?></h5>
+                  <h3 class="widget-user-username"><?php echo $staff->STAFFNAME; ?></h3>
+                  <h5 class="widget-user-desc"><?php echo $staff->STAFFPOSITION; ?></h5>
                 </div>
 
                 <div class="widget-user-image">
-                  <img class="img-fluid rounded-circle" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($staff->staffImg); ?>" alt="User Avatar">
+                  <?php
+                      $tempDir = "images/"; 
+                      $fileName =$staff->STAFFIMG;
+                      $pngAbsoluteFilePath = $tempDir.$fileName;
+                      $imageData = file_get_contents($pngAbsoluteFilePath);
+                      $image = base64_encode($imageData);
+                  ?>
+                  <img class="img-fluid rounded-circle" src="data:image/png;base64, <?=$image?> " alt="User Avatar">
                 </div>
 
                 <div class="row">
@@ -55,27 +62,27 @@
                                           <tbody>
                                               <tr>
                                                   <td>ID Pekerja</td>
-                                                  <td><?php echo $staff->staffID; ?></td>
+                                                  <td><?php echo $staff->STAFFID; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Nama</td>
-                                                  <td><?php echo $staff->staffName; ?></td>
+                                                  <td><?php echo $staff->STAFFNAME; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Email</td>
-                                                  <td><?php echo $staff->email; ?></td>
+                                                  <td><?php echo $staff->EMAIL; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>No.Telefon</td>
-                                                  <td><?php echo $staff->staffNo; ?></td>
+                                                  <td><?php echo $staff->STAFFNO; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Jawatan</td>
-                                                  <td><?php echo $staff->staffPosition; ?></td>
+                                                  <td><?php echo $staff->STAFFPOSITION; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Department</td>
-                                                  <td><?php echo $staff->staffDept; ?></td>
+                                                  <td><?php echo $staff->STAFFDEPT; ?></td>
                                               </tr>
                                               
                                           </tbody>
@@ -112,7 +119,14 @@
                 </div>
 
                 <div class="widget-user-image">
-                  <img class="img-fluid rounded-circle" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($student->stuImg); ?>" alt="User Avatar">
+                  <?php
+                    $tempDir = "images/"; 
+                    $fileName = $student->STUIMG;
+                    $pngAbsoluteFilePath = $tempDir.$fileName;
+                    $imageData = file_get_contents($pngAbsoluteFilePath);
+                    $image = base64_encode($imageData);
+                  ?>
+                  <img class="img-fluid rounded-circle" src="data:image/png;base64, <?=$image?> " alt="User Avatar">
                 </div>
 
                 <div class="row">
@@ -139,35 +153,35 @@
                                           <tbody>
                                               <tr>
                                                   <td>Matrik Pelajar</td>
-                                                  <td><?php echo $student->studentID; ?></td>
+                                                  <td><?php echo $student->STUDENTID; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Nama</td>
-                                                  <td><?php echo $student->studentName; ?></td>
+                                                  <td><?php echo $student->STUDENTNAME; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Email</td>
-                                                  <td><?php echo $student->studentEmail; ?></td>
+                                                  <td><?php echo $student->STUDENTEMAIL; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>No.Telefon</td>
-                                                  <td><?php echo $student->phoneNo; ?></td>
+                                                  <td><?php echo $student->PHONENO; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Fakulti</td>
-                                                  <td><?php echo $student->faculty; ?></td>
+                                                  <td><?php echo $student->FACULTY; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Program</td>
-                                                  <td><?php echo $student->program; ?></td>
+                                                  <td><?php echo $student->PROGRAM; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Semester</td>
-                                                  <td><?php echo $student->semester; ?></td>
+                                                  <td><?php echo $student->SEMESTER; ?></td>
                                               </tr>
                                               <tr>
                                                   <td>Sesi</td>
-                                                  <td><?php echo $student->sesi; ?></td>
+                                                  <td><?php echo $student->SESI; ?></td>
                                               </tr>
                                           </tbody>
                                       </table>

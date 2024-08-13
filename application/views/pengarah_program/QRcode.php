@@ -1,29 +1,29 @@
 
 <?php if( $title == "QR Kehadiran" ): ?>
 <?php
-include('phpqrcode/qrlib.php');
-    $tempDir = "qrcodes/"; 
-  
-    $codeContents = 'http://localhost/HEPA/kehadiran/logmasuk/'.(string)$programID->programID;
+  include('phpqrcode/qrlib.php');
+      $tempDir = "qrcodes/"; 
+    
+      $codeContents = 'http://localhost/HEPA/kehadiran/logmasuk/'.(string)$programID->PROGRAMID;
 
-    
-    // we need to generate filename somehow, 
-    // with md5 or with database ID used to obtains $codeContents...
-    $fileName = '005_file_'.md5($codeContents).'.png';
-    
-    $pngAbsoluteFilePath = $tempDir.$fileName;
-    
-    // generating
-    if (!file_exists($pngAbsoluteFilePath)) {
-        QRcode::png($codeContents, $pngAbsoluteFilePath);
-    } 
+      
+      // we need to generate filename somehow, 
+      // with md5 or with database ID used to obtains $codeContents...
+      $fileName = '005_file_'.md5($codeContents).'.png';
+      
+      $pngAbsoluteFilePath = $tempDir.$fileName;
+      
+      // generating
+      if (!file_exists($pngAbsoluteFilePath)) {
+          QRcode::png($codeContents, $pngAbsoluteFilePath);
+      } 
 
-    
-    // Read the image file
-$imageData = file_get_contents($pngAbsoluteFilePath);
+      
+      // Read the image file
+  $imageData = file_get_contents($pngAbsoluteFilePath);
 
-// Convert image data to base64 encoded string
-$qrCode = base64_encode($imageData);
+  // Convert image data to base64 encoded string
+  $qrCode = base64_encode($imageData);
 ?>
 <body>
 <div class="content-wrapper">
@@ -42,7 +42,7 @@ $qrCode = base64_encode($imageData);
                     <div style="width:95%; margin-left:auto;margin-right:auto;" class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title">
-                        Kehadiran <?= ucwords(strtolower($programID->programName)); ?>
+                        Kehadiran <?= ucwords(strtolower($programID->PROGRAMNAME)); ?>
                         </h3>
                     </div>
                     <div class="card-body" style="text-align:center;">
@@ -64,7 +64,7 @@ $qrCode = base64_encode($imageData);
 include('phpqrcode/qrlib.php');
     $tempDir = "qrpendaftaran/"; 
   
-    $codeContents = 'http://localhost/HEPA/kehadiran/logmasukpendaftaran/'.(string)$programID->programID;
+    $codeContents = 'http://localhost/HEPA/kehadiran/logmasukpendaftaran/'.(string)$programID->PROGRAMID;
 
     
     // we need to generate filename somehow, 
@@ -102,7 +102,7 @@ $qrCode = base64_encode($imageData);
                     <div style="width:95%; margin-left:auto;margin-right:auto;" class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title">
-                        Pendaftaran <?= ucwords(strtolower($programID->programName)); ?>
+                        Pendaftaran <?= ucwords(strtolower($programID->PROGRAMNAME)); ?>
                         </h3>
                     </div>
                     <div class="card-body" style="text-align:center;">

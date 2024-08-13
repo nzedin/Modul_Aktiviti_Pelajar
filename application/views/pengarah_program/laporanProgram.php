@@ -132,19 +132,19 @@
                                 <h2 class="card-title"><?= $title ?></h2>
                             </div>
 
-                            <form id="approval" action="<?= base_url('laporan/update_Approval/'.$program->laporanID)?>" method="POST">
+                            <form id="approval" action="<?= base_url('laporan/update_Approval/'.$program->LAPORANID)?>" method="POST">
                             <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Maklumat Program</b></h5>
                                 <div style="width: 90%; margin: auto;" class="card-body">
                                         
 
-                                <input type="hidden" id="programID" name="programID" value="<?= $program->programID; ?>">
-                                <input type="hidden" id="laporanID" name="laporanID" value="<?= $program->laporanID; ?>">
+                                <input type="hidden" id="programID" name="programID" value="<?= $program->PROGRAMID; ?>">
+                                <input type="hidden" id="laporanID" name="laporanID" value="<?= $program->LAPORANID; ?>">
 
                                         <div class="form-group row">
                                             <label for="programName" class="col-sm-4 col-form-label">Nama Program</label>
                                             <p >:</p>
                                             <div class="col-sm-7">
-                                                <p id="programName"> <?= ucwords(strtolower($program->programName)) ?></p>
+                                                <p id="programName"> <?= ucwords(strtolower($program->PROGRAMNAME)) ?></p>
                                             </div>
                                         </div>
 
@@ -152,7 +152,7 @@
                                             <label for="clubName" class="col-sm-4 col-form-label">Anjuran Badan Pelajar</label>
                                             <p >:</p>
                                             <div class="col-sm-7">
-                                                <p id="clubName"> <?= ucwords(strtolower($program->clubName)) ?></p>
+                                                <p id="clubName"> <?= ucwords(strtolower($program->CLUBNAME)) ?></p>
                                             </div>
                                         </div>
 
@@ -160,13 +160,13 @@
                                             <label for="date" class="col-sm-4 col-form-label">Tarikh Pelaksanaan Program</label>
                                             <p >:</p>
                                             <div class="col-sm-2">
-                                                <p id="date"> <?= $program->startDate ?> </p>
+                                                <p id="date"> <?= $program->STARTDATE ?> </p>
                                             </div>
                                             <div class="col-sm-2">
                                                 <p id="date"><b>sehingga</b></p>
                                             </div>
                                             <div class="col-sm-2">
-                                                <p id="date"> <?= $program->endDate ?></p>
+                                                <p id="date"> <?= $program->ENDDATE ?></p>
                                             </div>
                                         </div>
 
@@ -174,7 +174,7 @@
                                             <label for="tempat" class="col-sm-4 col-form-label">Tempat</label>
                                             <p >:</p>
                                             <div class="col-sm-7">
-                                                <p id="tempat"> <?= ucwords(strtolower($program->programLocation)) ?></p>
+                                                <p id="tempat"> <?= ucwords(strtolower($program->PROGRAMLOCATION)) ?></p>
                                             </div>
                                         </div>
 
@@ -182,7 +182,7 @@
                                             <label for="programUmt" class="col-sm-4 col-form-label">Penyertaan Program (UMT)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="programUmt"> <?= ucwords(strtolower($program->programUmt)) ?></p>
+                                                <p id="programUmt"> <?= ucwords(strtolower($program->PROGRAMUMT)) ?></p>
                                             </div>
                                         </div>
 
@@ -190,7 +190,7 @@
                                             <label for="programLuar" class="col-sm-4 col-form-label">Penyertaan Program (Luar)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="programLuar"> <?= ucwords(strtolower($program->programLuar)) ?></p>
+                                                <p id="programLuar"> <?= ucwords(strtolower($program->PROGRAMLUAR)) ?></p>
                                             </div>
                                         </div>
 
@@ -198,7 +198,7 @@
                                             <label for="pencapaian" class="col-sm-4 col-form-label">Pencapaian (Sekiranya ada)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="pencapaian"> <?= ucwords(strtolower($program->pencapaian)) ?></p>
+                                                <p id="pencapaian"> <?= ucwords(strtolower($program->PENCAPAIAN)) ?></p>
                                             </div>
                                         </div>
 
@@ -206,7 +206,7 @@
                                             <label for="syor" class="col-sm-4 col-form-label">Syor</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="syor"> <?= ucwords(strtolower($program->syor)) ?></p>
+                                                <p id="syor"> <?= ucwords(strtolower($program->SYOR)) ?></p>
                                             </div>
                                         </div>
 
@@ -214,7 +214,7 @@
                                             <label for="objektif" class="col-sm-4 col-form-label">Objektif</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <p id="Objektif"> <?= ucwords(strtolower($program->objektif)) ?></p>
+                                                <p id="Objektif"> <?= ucwords(strtolower($program->OBJEKTIF)) ?></p>
                                             </div>
                                         </div>
 
@@ -228,7 +228,7 @@
                                                 <label for="bantuanKewanganHEPA" class="col-sm-4 col-form-label">Bantuan Kewangan HEPA (RM)</label>
                                                 <p>: </p>
                                                 <div class="col-sm-7">
-                                                    <input type="number" class="form-control" id="bantuanKewanganHEPA" name="bantuanKewanganHEPA" value="<?= $program->bantuanKewanganHEPA ?>" placeholder="Bantuan Kewangan HEPA">
+                                                    <input type="number" class="form-control" id="bantuanKewanganHEPA" name="bantuanKewanganHEPA" value="<?= $program->BANTUANKEWANGANHEPA ?>" placeholder="Bantuan Kewangan HEPA">
                                                 </div>
                                             </div>
 
@@ -236,7 +236,7 @@
                                                 <label for="danaTabungAmanah" class="col-sm-4 col-form-label">Dana Tabung Amanah (RM)</label>
                                                 <p>: </p>
                                                 <div class="col-sm-7">
-                                                    <input type="number" class="form-control" id="danaTabungAmanah" name="danaTabungAmanah" value="<?= $program->danaTabungAmanah ?>" placeholder="Dana Tabung Amanah">
+                                                    <input type="number" class="form-control" id="danaTabungAmanah" name="danaTabungAmanah" value="<?= $program->DANATABUNGAMANAH ?>" placeholder="Dana Tabung Amanah">
                                                 </div>
                                             </div>
 
@@ -244,7 +244,7 @@
                                                 <label for="kelulusanKenderaan" class="col-sm-4 col-form-label">Kelulusan Kenderaan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="kelulusanKenderaan" name="kelulusanKenderaan" value="<?= ucwords(strtolower($program->kelulusanKenderaan)) ?>" placeholder="Kelulusan Kenderaan">
+                                                    <input type="text" class="form-control" id="kelulusanKenderaan" name="kelulusanKenderaan" value="<?= ucwords(strtolower($program->KELULUSANKENDERAAN)) ?>" placeholder="Kelulusan Kenderaan">
                                                 </div>
                                             </div>
 
@@ -252,7 +252,7 @@
                                                 <label for="kelulusanSijil" class="col-sm-4 col-form-label">Kelulusan Sijil</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <input type="number" class="form-control" id="kelulusanSijil" name="kelulusanSijil" value="<?= $program->kelulusanSijil ?>" placeholder="Kelulusan Sijil"> keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
+                                                    <input type="number" class="form-control" id="kelulusanSijil" name="kelulusanSijil" value="<?= $program->KELULUSANSIJIL ?>" placeholder="Kelulusan Sijil"> keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
                                                     
                                                 </div>
                                             </div>
@@ -261,16 +261,16 @@
                                                 <label for="lainLainKelulusan" class="col-sm-4 col-form-label">Lain-lain Kelulusan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <p id="lainLainKelulusan"> <?= ucwords(strtolower($program->lainLainKelulusan)) ?></p>
+                                                    <p id="lainLainKelulusan"> <?= ucwords(strtolower($program->LAINLAINKELULUSAN)) ?></p>
                                                 </div>
                                             </div>
 
-                                            <?php if (strtotime($program->endDate) < strtotime('+15 days')) { ?>
+                                            <?php if (strtotime($program->ENDDATE) < strtotime('+15 days')) { ?>
                                                 <div class="form-group row">
                                                     <label for="sebabLewat" class="col-sm-4 col-form-label">Alasan Kelewatan</label>
                                                     <p>:</p>
                                                     <div class="col-sm-7">
-                                                        <p id="sebabLewat"> <?= ucwords(strtolower($program->sebabLewat)) ?></p>
+                                                        <p id="sebabLewat"> <?= ucwords(strtolower($program->SEBABLEWAT)) ?></p>
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -337,19 +337,19 @@
                                 <h2 class="card-title"><?= $title ?></h2>
                             </div>
 
-                            <form id="reportForm" action="<?= base_url('laporan/saveReport/'.$program->programID)?>" method="POST">
+                            <form id="reportForm" action="<?= base_url('laporan/saveReport/'.$program->PROGRAMID)?>" method="POST">
                             <h5  style="background: #F2F4F4; padding: 10px; margin:10px;"><b>Maklumat Program</b></h5>
                                 <div style="width: 90%; margin: auto;" class="card-body">
                                         
 
-                                <input type="hidden" id="programID" name="programID" value="<?= $program->programID; ?>">
-                                <input type="hidden" id="laporanID" name="laporanID" value="<?= $program->laporanID; ?>">
+                                <input type="hidden" id="programID" name="programID" value="<?= $program->PROGRAMID; ?>">
+                                <input type="hidden" id="laporanID" name="laporanID" value="<?= $program->LAPORANID; ?>">
 
                                         <div class="form-group row">
                                             <label for="programName" class="col-sm-4 col-form-label">Nama Program</label>
                                             <p >:</p>
                                             <div class="col-sm-7">
-                                                <p id="programName"> <?= ucwords(strtolower($program->programName)) ?></p>
+                                                <p id="programName"> <?= ucwords(strtolower($program->PROGRAMNAME)) ?></p>
                                             </div>
                                         </div>
 
@@ -357,7 +357,7 @@
                                             <label for="clubName" class="col-sm-4 col-form-label">Anjuran Badan Pelajar</label>
                                             <p >:</p>
                                             <div class="col-sm-7">
-                                                <p id="clubName"> <?= ucwords(strtolower($program->clubName)) ?></p>
+                                                <p id="clubName"> <?= ucwords(strtolower($program->CLUBNAME)) ?></p>
                                             </div>
                                         </div>
 
@@ -365,13 +365,13 @@
                                             <label for="date" class="col-sm-4 col-form-label">Tarikh Pelaksanaan Program</label>
                                             <p >:</p>
                                             <div class="col-sm-2">
-                                                <p id="date"> <?= $program->startDate ?> </p>
+                                                <p id="date"> <?= $program->STARTDATE ?> </p>
                                             </div>
                                             <div class="col-sm-2">
                                                 <p id="date"><b>sehingga</b></p>
                                             </div>
                                             <div class="col-sm-2">
-                                                <p id="date"> <?= $program->endDate ?></p>
+                                                <p id="date"> <?= $program->ENDDATE ?></p>
                                             </div>
                                         </div>
 
@@ -379,7 +379,7 @@
                                             <label for="tempat" class="col-sm-4 col-form-label">Tempat</label>
                                             <p >:</p>
                                             <div class="col-sm-7">
-                                                <p id="tempat"> <?= ucwords(strtolower($program->programLocation)) ?></p>
+                                                <p id="tempat"> <?= ucwords(strtolower($program->PROGRAMLOCATION)) ?></p>
                                             </div>
                                         </div>
 
@@ -387,7 +387,7 @@
                                             <label for="programUmt" class="col-sm-4 col-form-label">Penyertaan Program (UMT)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="programUmt" name="programUmt" placeholder="Penyertaan Program (UMT)" required><?= $program->programUmt ?></textarea>
+                                                <textarea class="form-control" id="programUmt" name="programUmt" placeholder="Penyertaan Program (UMT)" required><?= $program->PROGRAMUMT ?></textarea>
                                             </div>
                                         </div>
 
@@ -395,7 +395,7 @@
                                             <label for="programLuar" class="col-sm-4 col-form-label">Penyertaan Program (Luar)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="programLuar" name="programLuar" placeholder="Penyertaan Program (Luar) (cth; VVIP,Perasmi,Penceramah,Jururlatih dll)" required><?= $program->programLuar ?></textarea>
+                                                <textarea class="form-control" id="programLuar" name="programLuar" placeholder="Penyertaan Program (Luar) (cth; VVIP,Perasmi,Penceramah,Jururlatih dll)" required><?= $program->PROGRAMLUAR ?></textarea>
                                             </div>
                                         </div>
 
@@ -403,7 +403,7 @@
                                             <label for="pencapaian" class="col-sm-4 col-form-label">Pencapaian (Sekiranya ada)</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="pencapaian" name="pencapaian" placeholder="Pencapaian (Sekiranya ada)" required><?= $program->pencapaian ?></textarea>
+                                                <textarea class="form-control" id="pencapaian" name="pencapaian" placeholder="Pencapaian (Sekiranya ada)" required><?= $program->PENCAPAIAN ?></textarea>
                                             </div>
                                         </div>
 
@@ -411,7 +411,7 @@
                                             <label for="syor" class="col-sm-4 col-form-label">Syor</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="syor" name="syor" placeholder="Syor" required><?= $program->syor ?></textarea>
+                                                <textarea class="form-control" id="syor" name="syor" placeholder="Syor" required><?= $program->SYOR ?></textarea>
                                             </div>
                                         </div>
 
@@ -419,7 +419,7 @@
                                             <label for="objektif" class="col-sm-4 col-form-label">Objektif</label>
                                             <p>:</p>
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" id="objektif" name="objektif" placeholder="Objektif" required><?= $program->objektif ?></textarea>
+                                                <textarea class="form-control" id="objektif" name="objektif" placeholder="Objektif" required><?= $program->OBJEKTIF ?></textarea>
                                             </div>
                                         </div>
 
@@ -433,10 +433,10 @@
                                                 <label for="bantuanKewanganHEPA" class="col-sm-4 col-form-label">Bantuan Kewangan HEPA</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <?php if ($program->bantuanKewanganHEPA == null): ?>
+                                                    <?php if ($program->BANTUANKEWANGANHEPA == null): ?>
                                                         <p id="bantuanKewanganHEPA">RM 0.00</p>
                                                     <?php else: ?>
-                                                        <p id="bantuanKewanganHEPA">RM <?= ucwords(strtolower($program->bantuanKewanganHEPA)) ?></p>
+                                                        <p id="bantuanKewanganHEPA">RM <?= ucwords(strtolower($program->BANTUANKEWANGANHEPA)) ?></p>
                                                     <?php endif ?>
                                                 </div>
                                             </div>
@@ -445,10 +445,10 @@
                                                 <label for="danaTabungAmanah" class="col-sm-4 col-form-label">Dana Tabung Amanah</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <?php if ($program->danaTabungAmanah == null): ?>
+                                                    <?php if ($program->DANATABUNGAMANAH == null): ?>
                                                         <p id="danaTabungAmanah">RM 0.00</p>
                                                     <?php else: ?>
-                                                        <p id="danaTabungAmanah">RM <?= ucwords(strtolower($program->danaTabungAmanah)) ?></p>
+                                                        <p id="danaTabungAmanah">RM <?= ucwords(strtolower($program->DANATABUNGAMANAH)) ?></p>
                                                     <?php endif ?>
                                                 </div>
                                             </div>
@@ -457,10 +457,10 @@
                                                 <label for="kelulusanKenderaan" class="col-sm-4 col-form-label">Kelulusan Kenderaan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <?php if ($program->kelulusanKenderaan == null || $program->kelulusanKenderaan == '' ): ?>
+                                                    <?php if ($program->KELULUSANKENDERAAN == null || $program->KELULUSANKENDERAAN == '' ): ?>
                                                         <p id="kelulusanKenderaan">-</p>
                                                     <?php else: ?>
-                                                        <p id="kelulusanKenderaan"><?= $program->kelulusanKenderaan ?> </p>
+                                                        <p id="kelulusanKenderaan"><?= $program->KELULUSANKENDERAAN ?> </p>
                                                     <?php endif ?>
                                                 </div>
                                             </div>
@@ -469,10 +469,10 @@
                                                 <label for="kelulusanSijil" class="col-sm-4 col-form-label">Kelulusan Sijil</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <?php if ($program->kelulusanSijil == null): ?>
+                                                    <?php if ($program->KELULUSANSIJIL == null): ?>
                                                         <p id="kelulusanSijil">0 keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
                                                     <?php else: ?>
-                                                        <p id="kelulusanSijil" p><?= $program->kelulusanSijil ?>  keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
+                                                        <p id="kelulusanSijil" p><?= $program->KELULUSANSIJIL ?>  keping sijil sahaja. Sijil akan ditandatangani oleh TNC(HEPA) manakala selebihnya oleh Ketua Penolong Pendaftar HEPA</p>
                                                     <?php endif ?>
                                                 </div>
                                             </div>
@@ -481,26 +481,26 @@
                                                 <label for="lainLainKelulusan" class="col-sm-4 col-form-label">Lain-lain Kelulusan</label>
                                                 <p>:</p>
                                                 <div class="col-sm-7">
-                                                    <textarea class="form-control" id="lainLainKelulusan" name="lainLainKelulusan" placeholder="Maklumat Lain-lain Kelulusan" required><?= $program->lainLainKelulusan ?></textarea>
+                                                    <textarea class="form-control" id="lainLainKelulusan" name="lainLainKelulusan" placeholder="Maklumat Lain-lain Kelulusan" required><?= $program->LAINLAINKELULUSAN ?></textarea>
                                                 </div>
                                             </div>
 
-                                            <?php if (strtotime($program->endDate) < strtotime('+15 days')) { ?>
+                                            <?php if (strtotime($program->ENDDATE) < strtotime('+15 days')) { ?>
                                                 <div class="form-group row">
                                                     <label for="sebabLewat" class="col-sm-4 col-form-label">Alasan Kelewatan</label>
                                                     <p>:</p>
                                                     <div class="col-sm-7">
-                                                        <textarea class="form-control" id="sebabLewat" name="sebabLewat" placeholder="Sebab Lewat" required><?= $program->sebabLewat ?></textarea>
+                                                        <textarea class="form-control" id="sebabLewat" name="sebabLewat" placeholder="Sebab Lewat" required><?= $program->SEBABLEWAT ?></textarea>
                                                     </div>
                                                 </div>
                                             <?php } ?>
 
-                                            <?php if ($program->statusApproval == 4): ?>
+                                            <?php if ($program->STATUSAPPROVAL == 4): ?>
                                                 <div class="form-group row">
                                                     <label for="comment" class="col-sm-4 col-form-label">Ulasan</label>
                                                     <p>:</p>
                                                     <div class="col-sm-7">
-                                                        <p id="comment"> <?= ucwords(strtolower($program->comment)) ?></p>
+                                                        <p id="comment"> <?= ucwords(strtolower($program->COMMENT)) ?></p>
                                                     </div>
                                                 </div>
                                             <?php endif ?>
@@ -533,7 +533,7 @@
                                         <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
                                     </svg> 
                                     <h4 class="text-success mt-3">Laporan Berjaya Disimpan!</h4> 
-                                    <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button> 
+                                    <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->STUDENTID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button> 
 
                                 </div> 
                             </div> 
@@ -563,7 +563,7 @@
                                     <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
                                 </svg> 
                                 <h4 class="text-success mt-3">Laporan Berjaya Dihantar!</h4> 
-                                <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->studentID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button> 
+                                <button onclick="window.location.href = '<?= base_url('laporan/index/'.$warga.'/'.$student->STUDENTID)?>'"  class="btn btn-success" style="margin: 10px;width:50%;" data-bs-dismiss="modal">Selesai</button> 
                             </div> 
                         </div> 
                     </div> 
