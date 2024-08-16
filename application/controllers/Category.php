@@ -11,12 +11,12 @@ class Category extends CI_Controller {
     }
     public function index($warga)
     {
-        $data['category'] = $this->category_model->get_category('category')->result();
+        $data['categories'] = $this->category_model->get_category('CATEGORY')->result();
         $data['title'] = 'Kategori Badan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -32,7 +32,7 @@ class Category extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -43,12 +43,12 @@ class Category extends CI_Controller {
 
     public function category($warga)
     {
-        $data['category'] = $this->category_model->get_category('category')->result();
+        $data['category'] = $this->category_model->get_category('CATEGORY')->result();
         $data['title'] = 'Kategori Badan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -64,7 +64,7 @@ class Category extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -91,10 +91,10 @@ class Category extends CI_Controller {
                 </div>');
             } else {
                 $data = array(
-                    'category' => $category,
-                    'descCategory' => $descCategory
+                    'CATEGORY' => $category,
+                    'DESCCATEGORY' => $descCategory
                 );
-                $this->category_model->insert_data($data, 'category');
+                $this->category_model->insert_data($data, 'CATEGORY');
     
                 $this->session->set_flashdata('reminder', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
@@ -134,12 +134,12 @@ class Category extends CI_Controller {
                 </div>');
             } else {
             $data = array(
-                'categoryID'=>$categoryID,
-                'category'=> $this->input->post('category'),
-                'descCategory' => $descCategory
+                'CATEGORYID'=>$categoryID,
+                'CATEGORY'=> $this->input->post('category'),
+                'DESCCATEGORY' => $descCategory
             );
 
-            $this->category_model->update_data($data, 'category');
+            $this->category_model->update_data($data, 'CATEGORY');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dikemaskini!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -152,9 +152,9 @@ class Category extends CI_Controller {
     }
 
     public function deletecategory($warga, $categoryID){
-        $where = array('categoryID' => $categoryID);
+        $where = array('CATEGORYID' => $categoryID);
 
-            $this->category_model->delete_data($where, 'category');
+            $this->category_model->delete_data($where, 'CATEGORY');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dipadam!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
