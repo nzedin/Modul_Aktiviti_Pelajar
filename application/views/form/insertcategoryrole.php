@@ -40,8 +40,8 @@
             
                 <div class="form-group">
                   <label>Kategori Jawatankuasa</label>
-                  <input type="text" class="form-control" name="categoryrole" id="categoryrole" placeholder="Kategori Jawatankuasa" >
-                  <?= form_error('categoryrole', '<div class="text-small text-danger">', '</div>'); ?>
+                  <input type="text" class="form-control" name="catrole" id="catrole" placeholder="Kategori Jawatankuasa" >
+                  <?= form_error('catrole', '<div class="text-small text-danger">', '</div>'); ?>
                 </div>
                 
               

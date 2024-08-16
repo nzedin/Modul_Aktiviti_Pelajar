@@ -11,8 +11,8 @@ class Category_model extends CI_Model {
     
     public function is_category_exists($category)
     {
-        $this->db->where('category', $category);
-        $query = $this->db->get('category');
+        $this->db->where('CATEGORY', $category);
+        $query = $this->db->get('CATEGORY');
 
         if ($query->num_rows() > 0) {
             return true;
@@ -23,9 +23,9 @@ class Category_model extends CI_Model {
 
     public function is_edit_exists($category, $categoryID)
     {
-        $this->db->where('category', $category);
-        $this->db->where('categoryID !=', $categoryID);
-        $query = $this->db->get('category');
+        $this->db->where('CATEGORY', $category);
+        $this->db->where('CATEGORYID !=', $categoryID);
+        $query = $this->db->get('CATEGORY');
 
         if ($query->num_rows() > 0) {
             return true;
@@ -42,7 +42,7 @@ class Category_model extends CI_Model {
 
      public function update_data($data,$table)
      {
-        $this->db->where('categoryID',$data['categoryID']);
+        $this->db->where('CATEGORYID',$data['CATEGORYID']);
         $this->db->update($table,$data);
      }
 

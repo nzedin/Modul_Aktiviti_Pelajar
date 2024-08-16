@@ -11,12 +11,12 @@ class Categoryrole extends CI_Controller {
     }
     public function index($warga)
     {
-        $data['categoryrole'] = $this->categoryrole_model->get_categoryrole('categoryrole')->result();
+        $data['categoryrole'] = $this->categoryrole_model->get_categoryrole('CATEGORYROLE')->result();
         $data['title'] = 'Kategori Jawatankuasa';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -32,7 +32,7 @@ class Categoryrole extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -43,12 +43,12 @@ class Categoryrole extends CI_Controller {
 
     public function categoryrole($warga)
     {
-        $data['categoryrole'] = $this->categoryrole_model->get_categoryrole('categoryrole')->result();
+        $data['categoryrole'] = $this->categoryrole_model->get_categoryrole('CATEGORYROLE')->result();
         $data['title'] = 'Kategori Jawatankuasa';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         }else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -64,7 +64,7 @@ class Categoryrole extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -79,7 +79,7 @@ class Categoryrole extends CI_Controller {
         if ($this->form_validation->run() == FALSE){
            $this->categoryrole($warga);
         } else {
-            $categoryrole = $this->input->post('categoryrole');
+            $categoryrole = $this->input->post('catrole');
     
             if ($this->categoryrole_model->is_categoryrole_exists($categoryrole)) {
                 $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -90,9 +90,9 @@ class Categoryrole extends CI_Controller {
                 </div>');
             } else {
                 $data = array(
-                    'categoryrole' => $categoryrole,
+                    'CATEGORYROLE' => $categoryrole,
                 );
-                $this->categoryrole_model->insert_data($data, 'categoryrole');
+                $this->categoryrole_model->insert_data('CATEGORYROLE', $data);
     
                 $this->session->set_flashdata('reminder', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
@@ -107,7 +107,7 @@ class Categoryrole extends CI_Controller {
     }
 
     public function _rules(){
-       $this->form_validation->set_rules('categoryrole', 'Kategori Jawatankuasa', 'required', array(
+       $this->form_validation->set_rules('catrole', 'Kategori Jawatankuasa', 'required', array(
         'required'=>'%s Mandatory!'
        )) ;
        
@@ -119,7 +119,7 @@ class Categoryrole extends CI_Controller {
         if ($this->form_validation->run() == FALSE){
             $this->index($warga);
         } else {
-            $categoryrole = $this->input->post('categoryrole');
+            $categoryrole = $this->input->post('catrole');
 
             if ($this->categoryrole_model->is_categoryrole_exists($categoryrole)) {
                 $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -130,11 +130,11 @@ class Categoryrole extends CI_Controller {
                 </div>');
             } else {
                 $data = array(
-                    'categoryRoleID'=>$categoryRoleID,
-                    'categoryrole'=> $this->input->post('categoryrole'),
+                    'CATEGORYROLEID'=>$categoryRoleID,
+                    'CATEGORYROLE'=> $this->input->post('catrole'),
                 );
 
-                $this->categoryrole_model->update_data($data, 'categoryrole');
+                $this->categoryrole_model->update_data($data, 'CATEGORYROLE');
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Data Berjaya Dikemaskini!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -154,8 +154,8 @@ class Categoryrole extends CI_Controller {
               <span aria-hidden="true">&times;</span>
             </button></div>');
         } else {
-            $where = array('categoryRoleID' => $categoryRoleID);
-            $this->categoryrole_model->delete_data($where, 'categoryrole');
+            $where = array('CATEGORYROLEID' => $categoryRoleID);
+            $this->categoryrole_model->delete_data($where, 'CATEGORYROLE');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">Data Berjaya Dipadam!</div>');
         }
     

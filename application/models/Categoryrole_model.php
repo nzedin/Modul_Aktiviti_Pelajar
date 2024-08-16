@@ -11,8 +11,8 @@ class Categoryrole_model extends CI_Model {
     
     public function is_categoryrole_exists($categoryrole)
     {
-        $this->db->where('categoryrole', $categoryrole);
-        $query = $this->db->get('categoryrole');
+        $this->db->where('CATEGORYROLE', $categoryrole);
+        $query = $this->db->get('CATEGORYROLE');
 
         if ($query->num_rows() > 0) {
             return true;
@@ -22,14 +22,14 @@ class Categoryrole_model extends CI_Model {
     }
 
 
-    public function insert_data($data,$table)
+    public function insert_data($table,$data)
     {
         $this->db->insert($table,$data);
      }
 
      public function update_data($data,$table)
      {
-        $this->db->where('categoryRoleID',$data['categoryRoleID']);
+        $this->db->where('CATEGORYROLEID',$data['CATEGORYROLEID']);
         $this->db->update($table,$data);
      }
 
@@ -39,8 +39,8 @@ class Categoryrole_model extends CI_Model {
      }
 
      public function has_dependent_records($categoryRoleID) {
-        $this->db->where('categoryRoleID', $categoryRoleID);
-        $query = $this->db->get('committee');
+        $this->db->where('CATEGORYROLEID', $categoryRoleID);
+        $query = $this->db->get('COMMITTEE');
     
         if ($query->num_rows() > 0) {
             return true;

@@ -59,16 +59,16 @@
                         
                         <tbody>
                         <?php $no = 1;
-                         foreach($category as $category): ?>
+                         foreach($categories as $category): ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td style="text-align: left;"><?= ucwords(strtolower($category->category)) ?></td>
-                                <td style="text-align: left;"><?= ucwords(strtolower($category->descCategory)) ?></td>
+                                <td style="text-align: left;"><?= ucwords(strtolower($category->CATEGORY)) ?></td>
+                                <td style="text-align: left;"><?= ucwords(strtolower($category->DESCCATEGORY)) ?></td>
                                 <td style="text-align: center;">
                                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <button data-toggle="modal" data-target="#editcategory<?= $category->categoryID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
+                                        <button data-toggle="modal" data-target="#editcategory<?= $category->CATEGORYID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
 
-                                        <div class="modal fade" id="editcategory<?= $category->categoryID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editcategory<?= $category->CATEGORYID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
@@ -78,18 +78,18 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      <form action="<?= base_url('category/editcategory/'. $warga.'/'.$category->categoryID) ?>" method="POST">
+                                                      <form action="<?= base_url('category/editcategory/'. $warga.'/'.$category->CATEGORYID) ?>" method="POST">
                                                           <div style="text-align: left;" class="card-body">
                                                             
                                                                 <div class="form-group">
                                                                   <label>Kategori Badan Pelajar</label>
-                                                                  <input type="text" class="form-control" name="category" id="category" value="<?= $category->category ?>" >
+                                                                  <input type="text" class="form-control" name="category" id="category" value="<?= $category->CATEGORY ?>" >
                                                                   <?= form_error('category', '<div class="text-small text-danger">', '</div>'); ?>
                                                                 </div>
 
                                                                 <div class="form-group">
                                                                   <label for="descCategory">Keterangan</label>
-                                                                  <textarea class="form-control" id="descCategory" name="descCategory" placeholder="Tandakan '-' sekiranya tidak berkenaan." rows="3"><?php echo $category->descCategory !== null ? htmlspecialchars($category->descCategory) : ''; ?></textarea>
+                                                                  <textarea class="form-control" id="descCategory" name="descCategory" placeholder="Tandakan '-' sekiranya tidak berkenaan." rows="3"><?php echo $category->DESCCATEGORY !== null ? htmlspecialchars($category->DESCCATEGORY) : ''; ?></textarea>
                                                                 </div>
                                                                 
                                                               <div style="text-align: right;" class="card-footer">
@@ -104,7 +104,7 @@
                                                   </div>
                                                 </div>
                                               </div>
-                                        <a href="<?= base_url('category/deletecategory/'. $warga.'/'.$category->categoryID) ?>" onclick="return confirm('Confirm delete the data?')"><button type="button" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
+                                        <a href="<?= base_url('category/deletecategory/'. $warga.'/'.$category->CATEGORYID) ?>" onclick="return confirm('Confirm delete the data?')"><button type="button" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
                                     </div>
                                     
                                 </td>

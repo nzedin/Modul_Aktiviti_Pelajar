@@ -58,15 +58,15 @@
                         
                         <tbody>
                         <?php $no = 1;
-                         foreach($categoryrole as $categoryrole): ?>
+                         foreach($categoryrole as $catrole): ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td style="text-align: left;"><?= ucwords(strtolower($categoryrole->CATEGORYROLE)) ?></td>
+                                <td style="text-align: left;"><?= ucwords(strtolower($catrole->CATEGORYROLE)) ?></td>
                                 <td style="text-align: center;">
                                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <button data-toggle="modal" data-target="#editcategoryrole<?= $categoryrole->categoryRoleID ?>"  class="btn btn-warning"><i class="fas fa-edit">Edit</i></button>
+                                        <button data-toggle="modal" data-target="#editcategoryrole<?= $catrole->CATEGORYROLEID ?>"  class="btn btn-warning"><i class="fas fa-edit">Edit</i></button>
 
-                                        <div class="modal fade" id="editcategoryrole<?= $categoryrole->categoryRoleID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editcategoryrole<?= $catrole->CATEGORYROLEID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
@@ -76,13 +76,13 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      <form action="<?= base_url('categoryrole/editcategoryrole/'.$warga.'/'. $categoryrole->categoryRoleID) ?>" method="POST">
+                                                      <form action="<?= base_url('categoryrole/editcategoryrole/'.$warga.'/'. $catrole->CATEGORYROLEID) ?>" method="POST">
                                                           <div style="text-align: left;" class="card-body">
                                                             
                                                                 <div class="form-group">
                                                                   <label>Kategori Jawatankuasa</label>
-                                                                  <input type="text" class="form-control" name="categoryrole" id="categoryrole" value="<?= $categoryrole->categoryrole ?>" >
-                                                                  <?= form_error('categoryrole', '<div class="text-small text-danger">', '</div>'); ?>
+                                                                  <input type="text" class="form-control" name="catrole" id="catrole" value="<?= $catrole->CATEGORYROLE ?>" >
+                                                                  <?= form_error('catrole', '<div class="text-small text-danger">', '</div>'); ?>
                                                                 </div>
                                                                 
                                                               <div style="text-align: right;" class="card-footer">
@@ -97,7 +97,7 @@
                                                   </div>
                                                 </div>
                                               </div>
-                                       <a href="<?= base_url('categoryrole/deletecategoryrole/'.$warga.'/'.$categoryrole->categoryRoleID) ?>" onclick="return confirm('Confirm delete the data?')"><button type="button" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a> 
+                                       <a href="<?= base_url('categoryrole/deletecategoryrole/'.$warga.'/'.$catrole->CATEGORYROLEID) ?>" onclick="return confirm('Confirm delete the data?')"><button type="button" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a> 
                                     </div>
                                     
                                 </td>
