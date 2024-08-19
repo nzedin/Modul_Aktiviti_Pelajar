@@ -53,7 +53,7 @@
                          <select name="categoryRoleID" class="form-control select2bs4" style="width: 100%;">
                          <option selected="selected">Pilih Kategori</option>
                             <?php foreach ($categoryrole as $categoryrole): ?>
-                                <option value="<?= $categoryrole->categoryRoleID; ?>"><?= $categoryrole->categoryrole; ?></option>
+                                <option value="<?= $categoryrole->CATEGORYROLEID; ?>"><?= $categoryrole->CATEGORYROLE; ?></option>
                             <?php endforeach; ?>
                          </select>
                         <?= form_error('categoryRoleID', '<div class="text-small text-danger">', '</div>'); ?>

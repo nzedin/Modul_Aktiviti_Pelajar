@@ -11,13 +11,13 @@
         }
     public function index($warga)
     {
-        $data['committee'] = $this->committee_model->get_committee('committee')->result();
-        $data['categoryrole'] = $this->committee_model->get_categoryrole('categoryrole')->result();
+        $data['committee'] = $this->committee_model->get_committee('COMMITTEE')->result();
+        $data['categoryrole'] = $this->committee_model->get_categoryrole('CATEGORYROLE')->result();
         $data['title'] = 'Jawatankuasa';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -33,7 +33,7 @@
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -45,12 +45,12 @@
     public function committee($warga)
     {
       
-        $data['categoryrole'] = $this->committee_model->get_categoryrole('categoryrole')->result();
+        $data['categoryrole'] = $this->committee_model->get_categoryrole('CATEGORYROLE')->result();
         $data['title'] = 'Jawatankuasa';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -66,7 +66,7 @@
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -93,11 +93,11 @@
                 </div>');
             } else {
                 $data = array(
-                    'committee' => $this->input->post('committee'),
-                    'merit' => $this->input->post('merit'),
-                    'categoryRoleID' => $this->input->post('categoryRoleID'),
+                    'COMMITTEE' => $this->input->post('committee'),
+                    'MERIT' => $this->input->post('merit'),
+                    'CATEGORYROLEID' => $this->input->post('categoryRoleID'),
                 );
-                $this->committee_model->insert_data($data, 'committee');
+                $this->committee_model->insert_data($data, 'COMMITTEE');
     
                 $this->session->set_flashdata('reminder', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
@@ -129,13 +129,13 @@
                 </div>');
             } else {
                 $data = array(
-                    'committeeID'=>$committeeID,
-                    'committee' => $this->input->post('committee'),
-                    'merit' => $this->input->post('merit'),
-                    'categoryRoleID' => $this->input->post('categoryRoleID'),
+                    'COMMITTEEID'=>$committeeID,
+                    'COMMITTEE' => $this->input->post('committee'),
+                    'MERIT' => $this->input->post('merit'),
+                    'CATEGORYROLEID' => $this->input->post('categoryRoleID'),
                 );
             
-                $this->committee_model->update_data($data, 'committee');
+                $this->committee_model->update_data($data, 'COMMITTEE');
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Dikemaskini!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -162,15 +162,33 @@
      }
 
     public function deletecommittee($warga, $committeeID){
-        $where = array('committeeID' => $committeeID);
 
-            $this->committee_model->delete_data($where, 'committee');
+        if ($this->committee_model->has_dependent_records($committeeID)) {
+            $this->session->set_flashdata('reminder','<div class="alert alert-warning alert-dismissible fade show" role="alert"> 
+            Rekod tidak boleh dipadam kerana ia dirujuk dalam rekod Kepimpinan Pelajar.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></div>');
+        } else if ($this->committee_model->has_dependent_record($committeeID)) {
+            $this->session->set_flashdata('reminder','<div class="alert alert-warning alert-dismissible fade show" role="alert"> 
+            Rekod tidak boleh dipadam kerana ia dirujuk dalam rekod Majlis Perwakilan Pelajar.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button></div>');
+        } else {
+
+            $where = array('COMMITTEEID' => $committeeID);
+
+            $this->committee_model->delete_data($where, 'COMMITTEE');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dipadam!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button></div>');
+        }
             
             redirect('committee/index/'.$warga);
     }
+
+    
 }

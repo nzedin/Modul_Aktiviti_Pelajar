@@ -71,4 +71,24 @@ class Committee_model extends CI_Model {
         $this->db->join('CATEGORYROLE', 'CATEGORYROLE.CATEGORYROLEID = COMMITTEE.CATEGORYROLEID');
         return $this->db->get();        
     }
+
+    public function has_dependent_records($committeeID) {
+        $this->db->where('COMMITTEEID', $committeeID);
+        $query = $this->db->get('KEPIMPINAN');
+    
+        if ($query->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function has_dependent_record($committeeID) {
+        $this->db->where('POSITIONMPP', $committeeID);
+        $query = $this->db->get('MPP');
+    
+        if ($query->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
 }

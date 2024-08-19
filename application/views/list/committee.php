@@ -63,14 +63,14 @@
                          foreach($committee as $committee): ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td><?= ucwords(strtolower($committee->committee)) ?></td>
-                                <td><?= $committee->merit ?></td>
-                                <td><?= ucwords(strtolower($committee->categoryrole_name)) ?></td>
+                                <td><?= ucwords(strtolower($committee->COMMITTEE)) ?></td>
+                                <td><?= $committee->MERIT ?></td>
+                                <td><?= ucwords(strtolower($committee->CATEGORYROLE_NAME)) ?></td>
                                 <td style="text-align: center;">
                                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <button data-toggle="modal" data-target="#editcommittee<?= $committee->committeeID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
+                                        <button data-toggle="modal" data-target="#editcommittee<?= $committee->COMMITTEEID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
 
-                                        <div class="modal fade" id="editcommittee<?= $committee->committeeID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editcommittee<?= $committee->COMMITTEEID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
@@ -80,25 +80,25 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      <form action="<?= base_url('committee/editcommittee/'. $warga.'/'.$committee->committeeID) ?>" method="POST">
+                                                      <form action="<?= base_url('committee/editcommittee/'. $warga.'/'.$committee->COMMITTEEID) ?>" method="POST">
                                                           <div style="text-align: left;" class="card-body">
                 
                                                               <div class="form-group">
                                                                 <label>Nama Jawatan</label>
-                                                                <input type="text" class="form-control" name="committee" id="committee" placeholder="Nama Jawatan" value="<?= $committee->committee ?>">
+                                                                <input type="text" class="form-control" name="committee" id="committee" placeholder="Nama Jawatan" value="<?= $committee->COMMITTEE ?>">
                                                                 <?= form_error('committee', '<div class="text-small text-danger">', '</div>'); ?>
                                                               </div>
                                                               <div class="form-group">
                                                                 <label>Merit</label>
-                                                                <input type="number" class="form-control" name="merit" id="merit" placeholder="Merit" value="<?= $committee->merit ?>">
+                                                                <input type="number" class="form-control" name="merit" id="merit" placeholder="Merit" value="<?= $committee->MERIT ?>">
                                                                 <?= form_error('merit', '<div class="text-small text-danger">', '</div>'); ?>
                                                               </div>
 
                                                               <div class="form-group">
                                                                 <label>Kategori Jawatan</label>
-                                                                <select name="categoryRoleID" class="form-control select2bs4" style="width: 100%;" value="<?= $committee->categoryroleID ?>">
+                                                                <select name="categoryRoleID" class="form-control select2bs4" style="width: 100%;" value="<?= $committee->CATEGORYROLEID ?>">
                                                                 <?php foreach ($categoryrole as $catrole): ?>
-                                                                  <option value="<?= $catrole->categoryRoleID; ?>" <?php if($committee->categoryRoleID == $catrole->categoryRoleID) echo 'selected'; ?> ><?= $catrole->categoryrole; ?></option>
+                                                                  <option value="<?= $catrole->CATEGORYROLEID; ?>" <?php if($committee->CATEGORYROLEID == $catrole->CATEGORYROLEID) echo 'selected'; ?> ><?= $catrole->CATEGORYROLE; ?></option>
                                                                 <?php endforeach; ?>
                                                                 </select>
                                                                 <?= form_error('categoryRoleID', '<div class="text-small text-danger">', '</div>'); ?>
@@ -115,7 +115,7 @@
                                                   </div>
                                                 </div>
                                               </div>
-                                        <a href="<?= base_url('committee/deletecommittee/'.$warga.'/'.$committee->committeeID) ?>" onclick="return confirm('Confirm delete the data?')"><button type="button" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
+                                        <a href="<?= base_url('committee/deletecommittee/'.$warga.'/'.$committee->COMMITTEEID) ?>" onclick="return confirm('Confirm delete the data?')"><button type="button" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
                                     </div>
                                     
                                 </td>
