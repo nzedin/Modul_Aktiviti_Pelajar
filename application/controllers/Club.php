@@ -11,20 +11,21 @@ class Club extends CI_Controller {
         $this->load->model('login_model');
         $this->load->model('mpp_model');
         $this->load->model('committee_model');
-        $this->load->library("email");
         $this->load->model('laporan_model');
+        $this->load->library("email");
+        $this->load->library('upload');
       
     }
     public function index($warga)
     {
-        $data['club'] = $this->club_model->get_club('club')->result();
-        $data['advisor'] = $this->club_model->selectStaff('staff')->result();
-        $data['category'] = $this->club_model->selectCategory('category')->result();
+        $data['club'] = $this->club_model->get_club('CLUB')->result();
+        $data['advisor'] = $this->club_model->selectStaff('STAFF')->result();
+        $data['category'] = $this->club_model->selectCategory('CATEGORY')->result();
         $data['title'] = 'Badan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -40,7 +41,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -51,13 +52,13 @@ class Club extends CI_Controller {
 
     public function club($warga)
     {
-        $data['advisor'] = $this->club_model->selectStaff('staff')->result();
-        $data['category'] = $this->club_model->selectCategory('category')->result();
+        $data['advisor'] = $this->club_model->selectStaff('STAFF')->result();
+        $data['category'] = $this->club_model->selectCategory('CATEGORY')->result();
         $data['title'] = 'Badan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -73,7 +74,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -84,15 +85,15 @@ class Club extends CI_Controller {
 
     public function kepimpinan($warga, $clubID)
     {
-        $data['kepimpinan'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
+        $data['kepimpinan'] = $this->club_model->get_kepimpinan($clubID, 'KEPIMPINAN')->result();
         $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
-        $data['student'] = $this->mpp_model->get_student('student')->result();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['student'] = $this->mpp_model->get_student('STUDENT')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
             $data['title'] = 'Kepimpinan Badan Pelajar';
             $data['title2'] = 'Daftar Kepimpinan';
         } else {
@@ -110,7 +111,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
             $data['title'] = 'Ahli Badan Pelajar';
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -121,15 +122,11 @@ class Club extends CI_Controller {
 
     public function clubmembers($warga)
     {
-        //$data['kepimpinan'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
-        //$data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
-        //$data['student'] = $this->mpp_model->get_student('student')->result();
-        //$data['committee'] = $this->committee_model->selectRole('committee')->result();
-        $data['title'] = 'Daftar Ahli Badan Pelajar';
+         $data['title'] = 'Daftar Ahli Badan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -145,10 +142,10 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
-        $data['club'] = $this->club_model->get_club_by_student('club',$wargaID)->result();
+        $data['club'] = $this->club_model->get_club_by_student('CLUB',$wargaID)->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidenav', $data);
@@ -166,14 +163,14 @@ class Club extends CI_Controller {
     public function tambahkepimpinan($warga, $clubID)
     {
         $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
-        $data['studentSelect'] = $this->mpp_model->get_student('student')->result();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['studentSelect'] = $this->mpp_model->get_student('STUDENT')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['title'] = 'Kepimpinan Badan Pelajar';
         $data['title2'] = 'Daftar Kepimpinan';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -189,7 +186,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -199,7 +196,7 @@ class Club extends CI_Controller {
     }
 
     public function profile( $type, $warga, $clubID) {
-        $data['kepimpinan'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
+        $data['kepimpinan'] = $this->club_model->get_kepimpinan($clubID, 'KEPIMPINAN')->result();
         $data['profile'] = $this->club_model->get_profile($clubID);
         $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
         $data['title'] = 'Maklumat Badan Pelajar';
@@ -207,7 +204,7 @@ class Club extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -223,7 +220,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -240,49 +237,58 @@ class Club extends CI_Controller {
     
     }
 
-    public function addclub($warga){
+    public function addclub($warga)
+    {
         $this->_rules();
 
-        if ($this->form_validation->run() == FALSE){
-           $this->club($warga);
+        if ($this->form_validation->run() == FALSE) {
+            $this->club($warga);
         } else {
-
             $clubName = $this->input->post('clubName');
             $shortName = $this->input->post('shortName');
             $advisor2 = $this->input->post('advisor2');
-            $logo = $this->input->post('logo');
+            $establishDate = DateTime::createFromFormat('Y-m-d', $this->input->post('establishDate'))->format('d-M-Y');
 
-            if  ($this->club_model->is_club_exists($clubName)){
-            $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                Data telah wujud!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>');
+            if ($this->club_model->is_club_exists($clubName)) {
+                $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Data telah wujud!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>');
             } else {
-
+                
                 $data = array(
-                    'establishDate'=> $this->input->post('establishDate'),
-                    'refNo'=> $this->input->post('refNo'),
-                    'clubName'=> $this->input->post('clubName'),
-                    'shortName'=> !empty($shortName) ? $shortName : NULL,
-                    'category'=> $this->input->post('category'),
-                    'logo'=> !empty($logo) ? $logo : NULL,
-                    'advisor1'=> $this->input->post('advisor1'),
-                    'advisor2'=> !empty($advisor2) ? $advisor2 : NULL,
-                    'objective'=> $this->input->post('objective')
-
+                    'ESTABLISHDATE' => $establishDate,
+                    'REFNO'         => $this->input->post('refNo'),
+                    'CLUBNAME'      => $this->input->post('clubName'),
+                    'SHORTNAME'     => !empty($shortName) ? $shortName : NULL,
+                    'CATEGORY'      => $this->input->post('category'),
+                    'LOGO'          => $_FILES['logo']['name'], 
+                    'ADVISOR1'      => $this->input->post('advisor1'),
+                    'ADVISOR2'      => !empty($advisor2) ? $advisor2 : NULL,
+                    'OBJECTIVE'     => $this->input->post('objective')
                 );
-                $this->club_model->insert_data($data, 'club');
-                $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
+
+               
+                $fileName = $_FILES['logo']['name'];
+            
+                $targetDirectory = "images/";
+                $targetFile = $targetDirectory . basename($fileName);
+                move_uploaded_file($_FILES['logo']['tmp_name'], $targetFile);
+
+                $this->club_model->insert_data($data, 'CLUB');
+                $this->session->set_flashdata('reminder', '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data Berjaya Disimpan!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button></div>');
             }
+
             redirect('club/index/'.$warga);
         }
     }
+
 
     public function addkepimpinan($warga, $clubID){
      
@@ -301,12 +307,12 @@ class Club extends CI_Controller {
             } else {
 
                 $data = array(
-                    'clubID'=> $this->input->post('clubID'),
-                    'studentID'=> $this->input->post('studentID'),
-                    'committeeID'=> $this->input->post('committeeID'),
-                    'status'=> $this->input->post('status'),
+                    'CLUBID'=> $this->input->post('clubID'),
+                    'STUDENTID'=> $this->input->post('studentID'),
+                    'COMMITTEEID'=> $this->input->post('committeeID'),
+                    'STATUS'=> $this->input->post('status'),
                 );
-                $this->club_model->insert_kepimpinan($data, 'kepimpinan');
+                $this->club_model->insert_kepimpinan($data, 'KEPIMPINAN');
 
                 $committeeID = $this->input->post('committeeID');
                 $status = $this->input->post('status');
@@ -398,7 +404,7 @@ class Club extends CI_Controller {
         $staff = $this->club_model->staffOption($advisor1); 
     
         $response = array(
-            'staffName' => $staff->staffName,
+            'STAFFNAME' => $staff->STAFFNAME,
         );
     
         echo json_encode($response);
@@ -409,7 +415,7 @@ class Club extends CI_Controller {
         $staff = $this->club_model->staffOption($advisor2); 
     
         $response = array(
-            'staffName' => $staff->staffName,
+            'STAFFNAME' => $staff->STAFFNAME,
         );
     
         echo json_encode($response);
@@ -426,6 +432,7 @@ class Club extends CI_Controller {
             $shortName = $this->input->post('shortName');
             $advisor2 = $this->input->post('advisor2');
             $logo = $this->input->post('logo');
+            $establishDate = DateTime::createFromFormat('Y-m-d', $this->input->post('establishDate'))->format('d-M-Y');
 
             if  ($this->club_model->is_edit_exists($clubName, $clubID)){
             $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -436,19 +443,31 @@ class Club extends CI_Controller {
             </div>');
             } else {
                 $data = array(
-                    'clubID'=>$clubID,
-                    'establishDate'=> $this->input->post('establishDate'),
-                    'refNo'=> $this->input->post('refNo'),
-                    'clubName'=> $this->input->post('clubName'),
-                    'shortName'=> !empty($shortName) ? $shortName : NULL,
-                    'category'=> $this->input->post('category'),
-                    'logo'=> !empty($logo) ? $logo : NULL,
-                    'advisor1'=> $this->input->post('advisor1'),
-                    'advisor2'=> !empty($advisor2) ? $advisor2 : NULL,
-                    'objective'=> $this->input->post('objective')
+                    'CLUBID'=>$clubID,
+                    'ESTABLISHDATE'=> $establishDate,
+                    'REFNO'=> $this->input->post('refNo'),
+                    'CLUBNAME'=> $this->input->post('clubName'),
+                    'SHORTNAME'=> !empty($shortName) ? $shortName : NULL,
+                    'CATEGORY'=> $this->input->post('category'),
+                    'LOGO'=> $_FILES['logo']['name'],
+                    'ADVISOR1'=> $this->input->post('advisor1'),
+                    'ADVISOR2'=> !empty($advisor2) ? $advisor2 : NULL,
+                    'OBJECTIVE'=> $this->input->post('objective')
                 );
 
-                $this->club_model->update_data($data, 'club');
+                $fileName = $_FILES['logo']['name'];
+            
+                $targetDirectory = "images/";
+                $targetFile = $targetDirectory . basename($fileName);
+                
+                if(file_exists($fileName)) {
+                    chmod($fileName ,0755); //Change the file permissions if allowed
+                    unlink($fileName); //remove the file
+                }
+                    
+                move_uploaded_file($_FILES['logo']['tmp_name'], $targetFile);
+
+                $this->club_model->update_data($data, 'CLUB');
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Data Berjaya Dikemaskini!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -463,13 +482,13 @@ class Club extends CI_Controller {
     public function editkepimpinan($warga, $kepimpinanID){
         $clubID = $this->input->post('clubID');
           $data = array(
-                'kepimpinanID'=>$kepimpinanID,
-                'clubID'=> $this->input->post('clubID'),
-                'studentID'=> $this->input->post('studentID'),
-                'committeeID'=> $this->input->post('committeeID'),
-                'status'=> $this->input->post('status'),
+                'KEPIMPINANID'=>$kepimpinanID,
+                'CLUBID'=> $this->input->post('clubID'),
+                'STUDENTID'=> $this->input->post('studentID'),
+                'COMMITTEEID'=> $this->input->post('committeeID'),
+                'STATUS'=> $this->input->post('status'),
             );
-            $this->club_model->update_kepimpinan($data, 'kepimpinan');
+            $this->club_model->update_kepimpinan($data, 'KEPIMPINAN');
 
             $committeeID = $this->input->post('committeeID');
             $status = $this->input->post('status');
@@ -535,9 +554,9 @@ class Club extends CI_Controller {
     }
 
     public function deleteclub($warga, $clubID){
-        $where = array('clubID' => $clubID);
+        $where = array('CLUBID' => $clubID);
 
-            $this->club_model->delete_club($where, 'club');
+            $this->club_model->delete_club($where, 'CLUB');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dipadam!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -548,9 +567,9 @@ class Club extends CI_Controller {
     }
 
     public function deletekepimpinan($warga, $clubID, $kepimpinanID){
-        $where = array('kepimpinanID' => $kepimpinanID);
+        $where = array('KEPIMPINANID' => $kepimpinanID);
 
-            $this->club_model->delete_data($where, 'kepimpinan');
+            $this->club_model->delete_data($where, 'KEPIMPINAN');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dipadam!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -562,14 +581,14 @@ class Club extends CI_Controller {
 
     public function semak_keahlian($page,$warga)
     {
-        $data['club'] = $this->club_model->selectClub('club')->result();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['club'] = $this->club_model->selectClub('CLUB')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['title'] = 'Semak Keahlian';
         $data['warga'] = $warga;
         $data['page'] = $page;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -585,7 +604,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -599,14 +618,14 @@ class Club extends CI_Controller {
     public function daftar_jawatankuasa($page,$warga, $clubID)
     {
         $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
-        $data['studentSelect'] = $this->mpp_model->get_student('student')->result();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['studentSelect'] = $this->mpp_model->get_student('STUDENT')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['title'] = 'Semak Keahlian';
         $data['warga'] = $warga;
         $data['page'] = $page;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -622,7 +641,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -651,12 +670,12 @@ class Club extends CI_Controller {
         } else {
 
             $data = array(
-                'clubID'=> $this->input->post('clubID'),
-                'studentID'=> $this->input->post('studentID'),
-                'committeeID'=> $this->input->post('committeeID'),
-                'status'=> $this->input->post('status'),
+                'CLUBID'=> $this->input->post('clubID'),
+                'STUDENTID'=> $this->input->post('studentID'),
+                'COMMITTEEID'=> $this->input->post('committeeID'),
+                'STATUS'=> $this->input->post('status'),
             );
-            $this->club_model->insert_kepimpinan($data, 'kepimpinan');
+            $this->club_model->insert_kepimpinan($data, 'KEPIMPINAN');
 
             $committeeID = $this->input->post('committeeID');
             $status = $this->input->post('status');
@@ -724,15 +743,15 @@ class Club extends CI_Controller {
     public function carian_badan_pelajar($page, $warga)
     {
         $clubID = $this->input->post('clubID');
-        $data['jawatankuasa'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
+        $data['jawatankuasa'] = $this->club_model->get_kepimpinan($clubID, 'KEPIMPINAN')->result();
         $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['title'] = 'Semak Keahlian';
         $data['warga'] = $warga;
         $data['page'] = $page;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -748,7 +767,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -759,15 +778,15 @@ class Club extends CI_Controller {
     
     public function badan_pelajar($page, $warga, $clubID)
     {
-        $data['jawatankuasa'] = $this->club_model->get_kepimpinan($clubID, 'kepimpinan')->result();
+        $data['jawatankuasa'] = $this->club_model->get_kepimpinan($clubID, 'KEPIMPINAN')->result();
         $data['clubID'] = $this->club_model->get_club_by_id($clubID)->row();
-        $data['committee'] = $this->committee_model->selectRole('committee')->result();
+        $data['committee'] = $this->committee_model->selectRole('COMMITTEE')->result();
         $data['title'] = 'Semak Keahlian';
         $data['warga'] = $warga;
         $data['page'] = $page;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -783,7 +802,7 @@ class Club extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -794,9 +813,9 @@ class Club extends CI_Controller {
 
 
     public function delete_jawatankuasa($warga, $clubID, $kepimpinanID){
-        $where = array('kepimpinanID' => $kepimpinanID);
+        $where = array('KEPIMPINANID' => $kepimpinanID);
 
-            $this->club_model->delete_data($where, 'kepimpinan');
+            $this->club_model->delete_data($where, 'KEPIMPINAN');
             $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berjaya Dipadam!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -810,13 +829,13 @@ class Club extends CI_Controller {
     public function edit_jawatankuasa($warga, $kepimpinanID){
         $clubID = $this->input->post('clubID');
         $data = array(
-                'kepimpinanID'=>$kepimpinanID,
-                'clubID'=> $this->input->post('clubID'),
-                'studentID'=> $this->input->post('studentID'),
-                'committeeID'=> $this->input->post('committeeID'),
-                'status'=> $this->input->post('status'),
+                'KEPIMPINANID'=>$kepimpinanID,
+                'CLUBID'=> $this->input->post('clubID'),
+                'STUDENTID'=> $this->input->post('studentID'),
+                'COMMITTEEID'=> $this->input->post('committeeID'),
+                'STATUS'=> $this->input->post('status'),
             );
-            $this->club_model->update_kepimpinan($data, 'kepimpinan');
+            $this->club_model->update_kepimpinan($data, 'KEPIMPINAN');
             
             $committeeID = $this->input->post('committeeID');
             $status = $this->input->post('status');

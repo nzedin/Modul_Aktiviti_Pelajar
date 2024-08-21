@@ -16,6 +16,10 @@
       </div>
     </section>
 
+    <div id="flashMessage">
+      <?= $this->session->flashdata('reminder'); ?>
+    </div>
+
     <section class="content">
       <div class="container-fluid">
         <div class="card card-info">
@@ -61,7 +65,7 @@
                   <select name="category" class="form-control select2bs4" style="width: 100%;" required>
                   <option value="" selected disabled>Pilih Kategori</option>
                   <?php foreach ($category as $row): ?>
-                      <option value="<?= $row->categoryID; ?>"><?= $row->category; ?></option>
+                      <option value="<?= $row->CATEGORYID; ?>"><?= $row->CATEGORY; ?></option>
                   <?php endforeach; ?>
                   </select>
                   <?= form_error('category', '<div class="text-small text-danger">', '</div>'); ?>
@@ -71,7 +75,7 @@
                     <label for="logo">Logo</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="logo" name="logo">
+                        <input type="file" class="custom-file-input" id="logo" name="logo" accept="image/*">
                         <label class="custom-file-label" for="logo">Choose Image</label>
                       </div>
                       
@@ -85,7 +89,7 @@
                       <select name="advisor1" id="advisor1" class="form-control select2bs4" style="width: 100%;" required>
                       <option value="" selected disabled>Pilih ID Staff</option>
                       <?php foreach ($advisor as $row): ?>
-                          <option value="<?= $row->staffID; ?>"><?= $row->staffID; ?></option>
+                          <option value="<?= $row->STAFFID; ?>"><?= $row->STAFFID; ?></option>
                       <?php endforeach; ?>
                       </select>
                         <?= form_error('advisor1', '<div class="text-small text-danger">', '</div>'); ?>
@@ -103,7 +107,7 @@
                         <select name="advisor2" id="advisor2" class="form-control select2bs4" style="width: 100%;">
                         <option  value="" selected disabled>Pilih ID Staff</option>
                         <?php foreach ($advisor as $row): ?>
-                            <option value="<?= $row->staffID; ?>"><?= $row->staffID; ?></option>
+                            <option value="<?= $row->STAFFID; ?>"><?= $row->STAFFID; ?></option>
                         <?php endforeach; ?>
                         </select>
                     </div>
@@ -149,7 +153,7 @@
                   data: {advisor1: advisor1},
                   dataType: 'json',
                   success: function(data){
-                      $('input[name="staffName1"]').val(data.staffName);
+                      $('input[name="staffName1"]').val(data.STAFFNAME);
                     
                   }
               });
@@ -164,7 +168,7 @@
                   dataType: 'json',
                   success: function(data){
                     if ( advisor2 != null) {
-                      $('input[name="staffName2"]').val(data.staffName);
+                      $('input[name="staffName2"]').val(data.STAFFNAME);
                     }else{
 
                     }

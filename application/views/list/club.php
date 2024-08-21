@@ -62,40 +62,39 @@
                           foreach($club as $kelab): ?>
                               <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= $kelab->refNo ?></td>
-                                  <td><?= ucwords(strtolower($kelab->clubName)) ?></td>
-                                  <td><?= $kelab->shortName ?></td>
+                                  <td><?= $kelab->REFNO ?></td>
+                                  <td><?= ucwords(strtolower($kelab->CLUBNAME)) ?></td>
+                                  <td><?= $kelab->SHORTNAME ?></td>
                                   <td style="text-align: center;">
-                                    
-                                  <?php if($kelab->logo): ?>
-                                      <button type="button" onclick="openLogo('<?= base64_encode($kelab->logo); ?>');" class="btn btn-primary"><i class="fa fa-eye"> Open</i></button>
-                                  <?php else: ?>
-                                    <button type="button" class="btn btn-primary" disabled><i class="fa fa-eye"> Open</i></button>
-                                  <?php endif; ?>
-                                  <script>
-                                      function openLogo(logoData) {
-                                          var logo = 'data:image/jpeg;base64,' + logoData;
-                                          var viewLogoWindow = window.open('', '_blank', 'width=595,height=842', 'name=LogoPreview');
-                                          viewLogoWindow.document.write('<html><head><title>Logo Preview</title></head><body style="margin: 0; padding: 0; text-align: center;">');
-                                          viewLogoWindow.document.write('<img src="' + logo + '" style="max-width: 100%; max-height: 100%;">');
-                                          viewLogoWindow.document.write('</body></html>');
-                                          viewLogoWindow.document.close();
-                                      }
-                                  </script>
+                                    <?php if($kelab->LOGO): ?>
+                                      <button type="button" onclick="openLogo('<?= base64_encode(file_get_contents('images/' . $kelab->LOGO)); ?>');" class="btn btn-primary"><i class="fa fa-eye"> Open</i></button>
+                                    <?php else: ?>
+                                      <button type="button" class="btn btn-primary" disabled><i class="fa fa-eye"> Open</i></button>
+                                    <?php endif; ?>
 
+                                    <script>
+                                        function openLogo(logoData) {
+                                            var logo = 'data:image/png;base64,' + logoData;
+                                            var viewLogoWindow = window.open('', '_blank', 'width=500,height=500', 'name=LogoPreview');
+                                            viewLogoWindow.document.write('<html><head><title>Logo Preview</title></head><body style="margin: 0; padding: 0; text-align: center;">');
+                                            viewLogoWindow.document.write('<img src="' + logo + '" style="max-width: 100%; max-height: 100%;">');
+                                            viewLogoWindow.document.write('</body></html>');
+                                            viewLogoWindow.document.close();
+                                        }
+                                    </script>
                                   </td>
-                                  <td><?= $kelab->advisor1_name ?></td>
+                                  <td><?= $kelab->ADVISOR1_NAME ?></td>
                                   <td style="text-align: center;">
-                                    <a href="<?= base_url('club/kepimpinan/'.$warga.'/'.$kelab->clubID) ?>"><img src="<?= base_url('img/icon.png') ?>" alt="icon" style="width:50px"></a>
+                                    <a href="<?= base_url('club/kepimpinan/'.$warga.'/'.$kelab->CLUBID) ?>"><img src="<?= base_url('img/icon.png') ?>" alt="icon" style="width:50px"></a>
                                   </td>
 
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                         <button type="button"  onclick="window.open('<?= base_url('club/profile/kelab/'.$warga .'/'.$kelab->clubID) ?>')" class="btn btn-info"><i class="fa fa-external-link">  Detail</i></button>
+                                         <button type="button"  onclick="window.open('<?= base_url('club/profile/kelab/'.$warga .'/'.$kelab->CLUBID) ?>')" class="btn btn-info"><i class="fa fa-external-link">  Detail</i></button>
                                          
-                                         <button data-toggle="modal" data-target="#editclub<?= $kelab->clubID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
+                                         <button data-toggle="modal" data-target="#editclub<?= $kelab->CLUBID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
                                          
-                                         <div class="modal fade" id="editclub<?= $kelab->clubID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal fade" id="editclub<?= $kelab->CLUBID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
@@ -105,37 +104,37 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      <form action="<?= base_url('club/editclub/'.$warga.'/'. $kelab->clubID) ?>" method="POST"  enctype="multipart/form-data">
+                                                      <form action="<?= base_url('club/editclub/'.$warga.'/'. $kelab->CLUBID) ?>" method="POST"  enctype="multipart/form-data">
                                                             <div style="text-align: left;" class="card-body">
                                                           
                                                             <div class="form-group">
                                                               <label>Tarikh Penubuhan <label style="color: red;">*</label></label>
-                                                                    <input type="date" class="form-control " value="<?= $kelab->establishDate ?>" name="establishDate" required />
+                                                                    <input type="date" class="form-control " value="<?= date('Y-m-d', strtotime($kelab->ESTABLISHDATE)) ?>" name="establishDate" required />
                                                               <?= form_error('establishDate', '<div class="text-small text-danger">', '</div>'); ?>
                                                             </div>
                                                             
                                                             <div class="form-group">
                                                               <label>No. Rujukan <label style="color: red;">*</label></label>
-                                                              <input type="text" class="form-control" value="<?= $kelab->refNo ?>" name="refNo" placeholder="Nombor Rujukan" required>
+                                                              <input type="text" class="form-control" value="<?= $kelab->REFNO ?>" name="refNo" placeholder="Nombor Rujukan" required>
                                                               <?= form_error('refNo', '<div class="text-small text-danger">', '</div>'); ?>
                                                             </div>
 
                                                             <div class="form-group">
                                                               <label>Nama Badan Pelajar <label style="color: red;">*</label></label>
-                                                              <input type="text" class="form-control" value="<?= $kelab->clubName ?>" name="clubName" placeholder="Nama Badan Pelajar" required>
+                                                              <input type="text" class="form-control" value="<?= $kelab->CLUBNAME ?>" name="clubName" placeholder="Nama Badan Pelajar" required>
                                                               <?= form_error('clubName', '<div class="text-small text-danger">', '</div>'); ?>
                                                             </div>
 
                                                             <div class="form-group">
                                                               <label>Nama Singkatan</label>
-                                                              <input type="text" class="form-control" value="<?= $kelab->shortName ?>" name="shortName" placeholder="Nama Singkatan" >
+                                                              <input type="text" class="form-control" value="<?= $kelab->SHORTNAME ?>" name="shortName" placeholder="Nama Singkatan" >
                                                             </div>
                                                             
                                                             <div class="form-group">
                                                               <label>Kategori Badan Pelajar <label style="color: red;">*</label></label>
                                                               <select name="category" class="form-control select2bs4" style="width: 100%;" required>
                                                               <?php foreach ($category as $row): ?>
-                                                                  <option value="<?= $row->categoryID; ?>" <?php if($row->categoryID == $kelab->category) echo 'selected'; ?>><?= $row->category; ?></option>
+                                                                  <option value="<?= $row->CATEGORYID; ?>" <?php if($row->CATEGORYID == $kelab->CATEGORY) echo 'selected'; ?>><?= $row->CATEGORY; ?></option>
                                                               <?php endforeach; ?>
                                                               </select>
                                                               <?= form_error('category', '<div class="text-small text-danger">', '</div>'); ?>
@@ -144,13 +143,19 @@
                                                             <div class="form-group">
                                                                 <label for="logo">Logo</label>
                                                                 <div class="input-group">
-                                                                  <?php if ($kelab->logo != null): ?>
-                                                                    <img src="data:image/png;base64,<?= base64_encode($kelab->logo); ?>" alt="Logo" class="img-thumbnail" style="width: 38px; height: 38px;">
-                                                                  <?php endif ?>
+                                                                  
                                                                     <div class="custom-file">
                                                                         <input type="file" class="custom-file-input" id="logo" name="logo" >
-                                                                        <label class="custom-file-label" for="logo">Choose Image</label>
+                                                                        <label class="custom-file-label" for="logo"> <?= $kelab->LOGO != null ? $kelab->LOGO : 'Choose Image'; ?></label>
                                                                     </div>
+                                                                    
+                                                                    <?php if ($kelab->LOGO != null): ?>
+                                                                      <div class="input-group-append">
+                                                                          <span class="input-group-text" style="cursor: pointer;" onclick="window.open('<?= base_url('images/' . $kelab->LOGO); ?>', '_blank')">
+                                                                              <i class="fa fa-file-image-o"></i>
+                                                                          </span>
+                                                                      </div>
+                                                                  <?php endif; ?>
                                                                 </div>
                                                             </div>
 
@@ -159,11 +164,11 @@
                                                                   <select name="advisor1" class="form-control select2bs4" style="width: 100%;" required>
                                                                   <option  value="" selected disabled>Pilih ID Staff</option>
                                                                   <?php foreach ($advisor as $row): ?>
-                                                                      <option value="<?= $row->staffID; ?>" <?php if($row->staffID == $kelab->advisor1_id) echo 'selected'; ?>><?= $row->staffID; ?></option>
+                                                                      <option value="<?= $row->STAFFID; ?>" <?php if($row->STAFFID == $kelab->ADVISOR1_ID) echo 'selected'; ?>><?= $row->STAFFID; ?></option>
                                                                   <?php endforeach; ?>
                                                                   </select>
                                                                     <?= form_error('advisor1', '<div class="text-small text-danger">', '</div>'); ?>
-                                                                  <input type="text" class="form-control" id="staffName1" name="staffName1" value="<?= $kelab->advisor1_name ?>" placeholder="Nama Penasihat 1" disabled>
+                                                                  <input type="text" class="form-control" id="staffName1" name="staffName1" value="<?= $kelab->ADVISOR1_NAME ?>" placeholder="Nama Penasihat 1" disabled>
                                                                
                                                             </div>
 
@@ -172,20 +177,18 @@
                                                                     <select name="advisor2" class="form-control select2bs4" style="width: 100%;">
                                                                     <option  value="" selected>Pilih ID Staff</option>
                                                                     <?php foreach ($advisor as $row): ?>
-                                                                        <option value="<?= $row->staffID; ?>" <?php if($row->staffID == $kelab->advisor2_id) echo 'selected'; ?>><?= $row->staffID; ?></option>
+                                                                        <option value="<?= $row->STAFFID; ?>" <?php if($row->STAFFID == $kelab->ADVISOR2_ID) echo 'selected'; ?>><?= $row->STAFFID; ?></option>
                                                                     <?php endforeach; ?>
                                                                     </select>
-                                                                  <input type="text" class="form-control" id="staffName2" name="staffName2" value="<?= $kelab->advisor2_name ?>" placeholder="Nama Penasihat 2" disabled>
+                                                                  <input type="text" class="form-control" id="staffName2" name="staffName2" value="<?= $kelab->ADVISOR2_NAME ?>" placeholder="Nama Penasihat 2" disabled>
                                                             </div>
 
                                                             <div class="form-group">
                                                               <label>Objektif Badan Pelajar <label style="color: red;">*</label></label><br>
-                                                              <textarea class="form-control" id="objective" name="objective" placeholder="Tandakan '-' sekiranya tidak berkenaan." rows="3" required><?= $kelab->objective ?></textarea>
+                                                              <textarea class="form-control" id="objective" name="objective" placeholder="Tandakan '-' sekiranya tidak berkenaan." rows="3" required><?= $kelab->OBJECTIVE ?></textarea>
                                                             </div>
                                                             <?= form_error('objective', '<div class="text-small text-danger">', '</div>'); ?>
 
-                                                            
-            
                                                               <div style="text-align: right;" class="card-footer">
                                                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                                                   <button type="submit" class="btn btn-info"><i class="fas fa-save"></i>   Simpan</button>
@@ -201,7 +204,7 @@
                                          
                                          
 
-                                         <a href="<?= base_url('club/deleteclub/'.$warga.'/'.$kelab->clubID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
+                                         <a href="<?= base_url('club/deleteclub/'.$warga.'/'.$kelab->CLUBID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
                                       </div>
                                       
                                   </td>
@@ -231,7 +234,7 @@
                   dataType: 'json',
                   success: function(data){
                    
-                      $('input[name="staffName1"]').val(data.staffName);
+                      $('input[name="staffName1"]').val(data.STAFFNAME);
                     
                   }
               });
@@ -246,7 +249,7 @@
                 data: {advisor2: advisor2},
                 dataType: 'json',
                 success: function(data){
-                    $('input[name="staffName2"]').val(data.staffName);
+                    $('input[name="staffName2"]').val(data.STAFFNAME);
                 }
             });
         } else {

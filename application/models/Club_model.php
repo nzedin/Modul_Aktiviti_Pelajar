@@ -3,24 +3,24 @@ defined("BASEPATH") OR exit("No direct script access allowed");
 
 class Club_model extends CI_Model {
    
+   
     public function get_club($table)
     {
-        $this->db->select('club.*, staff1.staffID AS advisor1_id, staff1.staffName AS advisor1_name, staff2.staffID AS advisor2_id, staff2.staffName AS advisor2_name, category.*');
-        $this->db->from($table);
-        $this->db->join('staff AS staff1', 'staff1.staffID = club.advisor1');
-        $this->db->join('staff AS staff2', 'staff2.staffID = club.advisor2', 'left'); 
-        $this->db->join('category', 'category.categoryID = club.category');
+        $this->db->select('CLUB.*, STAFF1.STAFFID AS ADVISOR1_ID, STAFF1.STAFFNAME AS ADVISOR1_NAME, STAFF2.STAFFID AS ADVISOR2_ID, STAFF2.STAFFNAME AS ADVISOR2_NAME, CATEGORY.CATEGORYID, CATEGORY.CATEGORY');
+        $this->db->from($table . ' CLUB');
+        $this->db->join('STAFF STAFF1', 'STAFF1.STAFFID = CLUB.ADVISOR1');
+        $this->db->join('STAFF STAFF2', 'STAFF2.STAFFID = CLUB.ADVISOR2', 'left'); 
+        $this->db->join('CATEGORY', 'CATEGORY.CATEGORYID = CLUB.CATEGORY');
 
         return $this->db->get();
-
     }
-
+    
     public function get_club_by_student($table, $studentID)
     {
-        $this->db->select('club.*, kepimpinan.*');
+        $this->db->select('CLUB.*, KEPIMPINAN.*');
         $this->db->from($table);
-        $this->db->join('kepimpinan', 'club.clubID = kepimpinan.clubID');
-        $this->db->where('kepimpinan.studentID', $studentID);
+        $this->db->join('KEPIMPINAN', 'CLUB.CLUBID = KEPIMPINAN.CLUBID');
+        $this->db->where('KEPIMPINAN.STUDENTID', $studentID);
 
         return $this->db->get();
 
@@ -28,31 +28,31 @@ class Club_model extends CI_Model {
 
     public function get_kepimpinan($clubID,$table)
     {
-        $this->db->select('kepimpinan.*, club.*, student.*, committee.*');
+        $this->db->select('KEPIMPINAN.*, CLUB.*, STUDENT.*, COMMITTEE.*');
         $this->db->from($table);
-        $this->db->join('club', 'club.clubID = kepimpinan.clubID');
-        $this->db->join('student', 'student.studentID = kepimpinan.studentID'); 
-        $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID');
-        $this->db->where('kepimpinan.clubID', $clubID);
+        $this->db->join('CLUB', 'CLUB.CLUBID = KEPIMPINAN.CLUBID');
+        $this->db->join('STUDENT', 'STUDENT.STUDENTID = KEPIMPINAN.STUDENTID'); 
+        $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = KEPIMPINAN.COMMITTEEID');
+        $this->db->where('KEPIMPINAN.CLUBID', $clubID);
 
         return $this->db->get();
     }
 
     public function get_club_by_id($clubID)
     {
-        $this->db->select('club.*');
-        $this->db->from('club');
-        $this->db->where('clubID', $clubID);
+        $this->db->select('CLUB.*');
+        $this->db->from('CLUB');
+        $this->db->where('CLUBID', $clubID);
         
         return $this->db->get();
     }
 
     public function get_student_by_id($studentID)
     {
-        $this->db->select('student.studentEmail');
-        $this->db->from('student');
+        $this->db->select('STUDENT.STUDENTEMAIL');
+        $this->db->from('STUDENT');
         
-        $this->db->where('studentID', $studentID);
+        $this->db->where('STUDENTID', $studentID);
 
         $query = $this->db->get();
 
@@ -70,18 +70,6 @@ class Club_model extends CI_Model {
 
     public function insert_data($data,$table)
     {
-            // Check if the logo_data is set in the $data array
-        if (isset($data['logo'])) {
-            // If logo_data is set, we don't need to fetch it from $_FILES
-            $logo_data = $data['logo'];
-            unset($data['logo_data']); // Remove logo_data from the $data array as it's not a column in the table
-        } elseif (!empty($_FILES['logo']['tmp_name'])) {
-            // If logo_data is not set, fetch it from $_FILES
-            $logo_data = file_get_contents($_FILES['logo']['tmp_name']);
-        }
-
-        // Assign logo_data to $data
-        $data['logo'] = $logo_data;
 
        $this->db->insert($table,$data);
     }
@@ -93,8 +81,8 @@ class Club_model extends CI_Model {
 
     public function is_club_exists($clubName)
     {
-        $this->db->where('clubName', $clubName);
-        $query = $this->db->get('club');
+        $this->db->where('CLUBNAME', $clubName);
+        $query = $this->db->get('CLUB');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -105,9 +93,9 @@ class Club_model extends CI_Model {
 
     public function is_edit_exists($clubName, $clubID)
     {
-        $this->db->where('clubName', $clubName);
-        $this->db->where('clubID !=', $clubID);
-        $query = $this->db->get('club');
+        $this->db->where('CLUBNAME', $clubName);
+        $this->db->where('CLUBID !=', $clubID);
+        $query = $this->db->get('CLUB');
 
         if ($query->num_rows() > 0) {
             return true;
@@ -118,9 +106,9 @@ class Club_model extends CI_Model {
 
     public function is_student_exists($studentID,$clubID)
     {
-        $this->db->where('studentID', $studentID);
-        $this->db->where('clubID', $clubID);
-        $query = $this->db->get('kepimpinan');
+        $this->db->where('STUDENTID', $studentID);
+        $this->db->where('CLUBID', $clubID);
+        $query = $this->db->get('KEPIMPINAN');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -132,26 +120,13 @@ class Club_model extends CI_Model {
      public function update_data($data,$table)
      {
 
-         // Check if the logo_data is set in the $data array
-         if (isset($data['logo'])) {
-            // If logo_data is set, we don't need to fetch it from $_FILES
-            $logo_data = $data['logo'];
-            unset($data['logo_data']); // Remove logo_data from the $data array as it's not a column in the table
-        } elseif (!empty($_FILES['logo']['tmp_name'])) {
-            // If logo_data is not set, fetch it from $_FILES
-            $logo_data = file_get_contents($_FILES['logo']['tmp_name']);
-        }
-
-        // Assign logo_data to $data
-        $data['logo'] = $logo_data;
-
-        $this->db->where('clubID',$data['clubID']);
+        $this->db->where('CLUBID',$data['CLUBID']);
         $this->db->update($table,$data);
      }
 
      public function update_kepimpinan($data,$table)
      {
-        $this->db->where('kepimpinanID',$data['kepimpinanID']);
+        $this->db->where('KEPIMPINANID',$data['KEPIMPINANID']);
         $this->db->update($table,$data);
      }
 
@@ -161,11 +136,11 @@ class Club_model extends CI_Model {
      }
 
      public function delete_club($where,$table){
-        if ($table === 'club') {
-            $clubID = $where['clubID'];
+        if ($table === 'CLUB') {
+            $clubID = $where['CLUBID'];
     
-            $this->db->where('clubID', $clubID);
-            $this->db->delete('kepimpinan');
+            $this->db->where('CLUBID', $clubID);
+            $this->db->delete('KEPIMPINAN');
         }
     
         $this->db->where($where);
@@ -173,15 +148,15 @@ class Club_model extends CI_Model {
      }
     
      public function get_profile($clubID) {
-        $this->db->select('club.*, staff1.staffID AS advisor1_id, staff1.staffName AS advisor1_name, staff2.staffID AS advisor2_id, staff2.staffName AS advisor2_name, category.*, kepimpinan.*, student.*, committee.*');
-        $this->db->from('club');
-        $this->db->join('staff AS staff1', 'staff1.staffID = club.advisor1');
-        $this->db->join('staff AS staff2', 'staff2.staffID = club.advisor2', 'left'); 
-        $this->db->join('category', 'category.categoryID = club.category');
-        $this->db->join('kepimpinan', 'club.clubID = kepimpinan.clubID', 'left');
-        $this->db->join('student', 'student.studentID = kepimpinan.studentID', 'left'); 
-        $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID', 'left');
-        $this->db->where('club.clubID', $clubID);
+        $this->db->select('CLUB.*, STAFF1.STAFFID AS ADVISOR1_ID, STAFF1.STAFFNAME AS ADVISOR1_NAME, STAFF2.STAFFID AS ADVISOR2_ID, STAFF2.STAFFNAME AS ADVISOR2_NAME, CATEGORY.*, KEPIMPINAN.*, STUDENT.*, COMMITTEE.*');
+        $this->db->from('CLUB');
+        $this->db->join('STAFF STAFF1', 'STAFF1.STAFFID = CLUB.ADVISOR1');
+        $this->db->join('STAFF STAFF2', 'STAFF2.STAFFID = CLUB.ADVISOR2', 'left'); 
+        $this->db->join('CATEGORY', 'CATEGORY.CATEGORYID = CLUB.CATEGORY');
+        $this->db->join('KEPIMPINAN', 'CLUB.CLUBID = KEPIMPINAN.CLUBID', 'left');
+        $this->db->join('STUDENT', 'STUDENT.STUDENTID = KEPIMPINAN.STUDENTID', 'left'); 
+        $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = KEPIMPINAN.COMMITTEEID', 'left');
+        $this->db->where('CLUB.CLUBID', $clubID);
         $query = $this->db->get();
     
         return $query->row();
@@ -190,22 +165,22 @@ class Club_model extends CI_Model {
 
 
     public function selectCategory($table) {
-        $this->db->order_by('category', 'ASC');
+        $this->db->order_by('CATEGORY', 'ASC');
         return $this->db->get($table); 
     }
     
     public function selectStaff($table) {
-        $this->db->order_by('staffID', 'ASC');
+        $this->db->order_by('STAFFID', 'ASC');
         return $this->db->get($table); 
     }
 
     public function staffOption($staffID)
     {
-        return $this->db->get_where('staff', array('staffID' => $staffID))->row();
+        return $this->db->get_where('STAFF', array('STAFFID' => $staffID))->row();
     }
 
     public function selectClub($table) {
-        $this->db->order_by('clubName', 'ASC');
+        $this->db->order_by('CLUBNAME', 'ASC');
         return $this->db->get($table); 
     }
     

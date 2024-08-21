@@ -92,8 +92,8 @@
                            <div style="margin-top: 20px;"class="container">
                                <div class="row justify-content-center">
                                    <div class="col-md-3">
-                                    <?php if( $profile->logo != null ): ?>
-                                       <img class="img img-fluid" src="<?php echo 'data:image/jpeg;base64,' . base64_encode($profile->LOGO); ?>" alt="User Avatar">
+                                    <?php if( $profile->LOGO != null ): ?>
+                                       <img class="img img-fluid" src="data:image/png;base64, <?= base64_encode(file_get_contents('images/' . $profile->LOGO)); ?>" alt="User Avatar">
                                        <?php else: ?>
                                         <img class="img img-fluid" src="<?= base_url('img/pic.jpeg')?>" alt="User Avatar">
                                     <?php endif; ?>
@@ -109,7 +109,7 @@
                                        <tbody>
                                        <tr>
                                            <td> Tarikh Penubuhan </td>
-                                           <td> <?php echo $profile->ESTABLISHDATE; ?> </td>
+                                           <td> <?php  echo date('d/m/Y', strtotime($profile->ESTABLISHDATE)); ?> </td>
                                        </tr>
                                        <tr>
                                            <td> No. Rujukan </td>
@@ -138,7 +138,7 @@
                                        </tr>
                                        <?php endif ?>
                                        <tr>
-                                           <td> Objective </td>
+                                           <td> Objektif </td>
                                            <td><?php echo ucwords(strtolower($profile->OBJECTIVE)); ?></td>
                                        </tr>
                                        </tbody>
