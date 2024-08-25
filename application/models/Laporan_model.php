@@ -6,84 +6,84 @@ class Laporan_model extends CI_Model {
 
     public function get_laporan($table, $studentID) {
 
-        $this->db->select('program.*, club.*, laporan.*, program.programID');
+        $this->db->select('PROGRAM.*, CLUB.*, LAPORAN.*, PROGRAM.PROGRAMID');
         $this->db->from($table);
-        $this->db->join('club', 'club.clubID = program.clubID');
-        $this->db->join('laporan', 'laporan.programID = program.programID','left');
-        $this->db->where('program.pengarahProg', $studentID);
-        $this->db->where('program.endDate <', 'CURDATE()', false);
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
+        $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','left');
+        $this->db->where('PROGRAM.PENGARAHPROG', $studentID);
+        $this->db->where('PROGRAM.ENDDATE <', 'CURDATE()', false);
         
         return $this->db->get();
     }
 
     public function get_all_program($table) {
 
-        $this->db->select('program.*, club.*, state.*, laporan.*,program.programID');
+        $this->db->select('PROGRAM.*, CLUB.*, STATE.*, LAPORAN.*,PROGRAM.PROGRAMID');
         $this->db->from($table);
-        $this->db->join('club', 'club.clubID = program.clubID');
-        $this->db->join('state', 'state.stateID = program.stateID','left');
-        $this->db->join('laporan', 'laporan.programID = program.programID','left');
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
+        $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID','LEFT');
+        $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','LEFT');
         
         return $this->db->get();
     }
 
     public function get_all_record($table) {
 
-        $this->db->select('program.*, club.*, state.*, laporan.*, student.*, programcategory.*, DATEDIFF(program.endDate, program.startDate) AS period,
-            (laporan.bantuanKewanganHEPA + laporan.danaTabungAmanah) as total');
+        $this->db->select('PROGRAM.*, CLUB.*, STATE.*, LAPORAN.*, STUDENT.*, PROGRAMCATEGORY.*, DATEDIFF(PROGRAM.ENDDATE, PROGRAM.STARTDATE) AS PERIOD,
+            (LAPORAN.BANTUANKEWANGANHEPA + LAPORAN.DANATABUNGAMANAH) AS TOTAL');
         $this->db->from($table);
-        $this->db->join('club', 'club.clubID = program.clubID');
-        $this->db->join('state', 'state.stateID = program.stateID','left');
-        $this->db->join('laporan', 'laporan.programID = program.programID','left');
-        $this->db->join('student', 'student.studentID = program.pengarahProg', 'left');
-        $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID', 'left');
-        $this->db->where('laporan.statusApproval', 3);
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
+        $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID','left');
+        $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','left');
+        $this->db->join('STUDENT', 'STUDENT.STUDENTID = PROGRAM.PENGARAHPROG', 'left');
+        $this->db->join('PROGRAMCATEGORY', 'PROGRAMCATEGORY.PROGRAMCATEGORYID = PROGRAM.PROGRAMCATEGORYID', 'left');
+        $this->db->where('LAPORAN.STATUSAPPROVAL', 3);
 
         return $this->db->get();
     }
 
     public function get_lateReason($table) {
 
-        $this->db->select('laporan.*, program.*, state.*, club.*');
+        $this->db->select('LAPORAN.*, PROGRAM.*, STATE.*, CLUB.*');
         $this->db->from($table);
-        $this->db->join('program', 'laporan.programID = program.programID','left');
-        $this->db->join('state', 'state.stateID = program.stateID','left');
-        $this->db->join('club', 'club.clubID = program.clubID','left');
-        $this->db->where_in('laporan.statusApproval', [2, 3, 4]);
+        $this->db->join('PROGRAM', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','left');
+        $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID','left');
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID','left');
+        $this->db->where_in('LAPORAN.STATUSAPPROVAL', [2, 3, 4]);
 
         return $this->db->get();
     }
 
     public function get_reportApproval($table) {
 
-        $this->db->select('laporan.*, program.*, state.*, club.*');
+        $this->db->select('LAPORAN.*, PROGRAM.*, STATE.*, CLUB.*');
         $this->db->from($table);
-        $this->db->join('program', 'laporan.programID = program.programID','left');
-        $this->db->join('state', 'state.stateID = program.stateID','left');
-        $this->db->join('club', 'club.clubID = program.clubID','left');
-        $this->db->where_in('laporan.statusApproval', [2, 3, 4]);
+        $this->db->join('PROGRAM', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','left');
+        $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID','left');
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID','left');
+        $this->db->where_in('LAPORAN.STATUSAPPROVAL', [2, 3, 4]);
         
         return $this->db->get();
     }
 
     public function get_byid($programID)
     {
-        $this->db->select('program.*, club.*, laporan.*, program.programID');
-        $this->db->from('program');
-        $this->db->join('club', 'club.clubID = program.clubID');
-        $this->db->join('laporan', 'laporan.programID = program.programID', 'left');
-        $this->db->where('program.programID', $programID);
+        $this->db->select('PROGRAM.*, CLUB.*, LAPORAN.*, PROGRAM.PROGRAMID');
+        $this->db->from('PROGRAM');
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
+        $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID', 'left');
+        $this->db->where('PROGRAM.PROGRAMID', $programID);
         
         return $this->db->get();
     }
 
     public function get_laporan_byid($laporanID)
     {
-        $this->db->select('laporan.*, program.*, club.*, program.programID');
-        $this->db->from('laporan');
-        $this->db->join('program', 'laporan.programID = program.programID', 'left');
-        $this->db->join('club', 'club.clubID = program.clubID');
-        $this->db->where('laporan.laporanID', $laporanID);
+        $this->db->select('LAPORAN.*, PROGRAM.*, CLUB.*, PROGRAM.PROGRAMID');
+        $this->db->from('LAPORAN');
+        $this->db->join('PROGRAM', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID', 'left');
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
+        $this->db->where('LAPORAN.LAPORANID', $laporanID);
         
         return $this->db->get();
     }
@@ -95,14 +95,14 @@ class Laporan_model extends CI_Model {
 
     public function update_report($data,$table)
      {
-        $this->db->where('laporanID',$data['laporanID']);
+        $this->db->where('LAPORANID',$data['LAPORANID']);
         $this->db->update($table,$data);
      }
 
      public function is_report_exist($laporanID)
     {
-        $this->db->where('laporanID', $laporanID);
-        $query = $this->db->get('laporan');
+        $this->db->where('LAPORANID', $laporanID);
+        $query = $this->db->get('LAPORAN');
 
         if ($query->num_rows() > 0) {
             return true;
@@ -113,11 +113,11 @@ class Laporan_model extends CI_Model {
 
     public function get_transcript($studentID)
     {
-        $this->db->select('student.*, COALESCE(committee.committee, "Ahli Aktif") as committee, kepimpinan.*, student.studentID');
-        $this->db->from('student');
-        $this->db->join('kepimpinan', 'kepimpinan.studentID = student.studentID', 'left');
-        $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID', 'left');
-        $this->db->where('student.studentID', $studentID);
+        $this->db->select('STUDENT.*, COALESCE(COMMITTEE.COMMITTEE, "AHLI AKTIF") AS COMMITTEE, KEPIMPINAN.*, STUDENT.STUDENTID');
+        $this->db->from('STUDENT');
+        $this->db->join('KEPIMPINAN', 'KEPIMPINAN.STUDENTID = STUDENT.STUDENTID', 'left');
+        $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = KEPIMPINAN.COMMITTEEID', 'left');
+        $this->db->where('STUDENT.STUDENTID', $studentID);
         
         $query = $this->db->get();
         return $query;
@@ -127,8 +127,8 @@ class Laporan_model extends CI_Model {
     {
         // Get student basic information
         $student_info = $this->db->select('*')
-                                 ->from('student')
-                                 ->where('studentID', $studentID)
+                                 ->from('STUDENT')
+                                 ->where('STUDENTID', $studentID)
                                  ->get()
                                  ->row();
     
@@ -169,16 +169,16 @@ class Laporan_model extends CI_Model {
     }
 
     public function get_monthly_record($table, $date) {
-        $this->db->select('program.*, club.*, state.*, laporan.*, student.*, programcategory.*, DATEDIFF(program.endDate, program.startDate) AS period,
-            (laporan.bantuanKewanganHEPA + laporan.danaTabungAmanah) as total');
+        $this->db->select('PROGRAM.*, CLUB.*, STATE.*, LAPORAN.*, STUDENT.*, PROGRAMCATEGORY.*, DATEDIFF(PROGRAM.ENDDATE, PROGRAM.STARTDATE) AS PERIOD,
+            (LAPORAN.BANTUANKEWANGANHEPA + LAPORAN.DANATABUNGAMANAH) AS TOTAL');
         $this->db->from($table);
-        $this->db->join('club', 'club.clubID = program.clubID');
-        $this->db->join('state', 'state.stateID = program.stateID', 'left');
-        $this->db->join('laporan', 'laporan.programID = program.programID', 'left');
-        $this->db->join('student', 'student.studentID = program.pengarahProg', 'left');
-        $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID', 'left');
-        $this->db->where('laporan.statusApproval', 3);
-        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
+        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
+        $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID', 'left');
+        $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID', 'left');
+        $this->db->join('STUDENT', 'STUDENT.STUDENTID = PROGRAM.PENGARAHPROG', 'left');
+        $this->db->join('PROGRAMCATEGORY', 'PROGRAMCATEGORY.PROGRAMCATEGORYID = PROGRAM.PROGRAMCATEGORYID', 'left');
+        $this->db->where('LAPORAN.STATUSAPPROVAL', 3);
+        $this->db->where("DATE_FORMAT(LAPORAN.DATESUBMISSION, '%Y-%m') =", $date);
     
         return $this->db->get();
     }
@@ -196,9 +196,9 @@ class Laporan_model extends CI_Model {
     
     public function get_programName($programID) {
 
-        $this->db->select('programName');
-        $this->db->from('program');
-        $this->db->where('programID', $programID);
+        $this->db->select('PROGRAMNAME');
+        $this->db->from('PROGRAM');
+        $this->db->where('PROGRAMID', $programID);
         
         return $this->db->get();
     }
