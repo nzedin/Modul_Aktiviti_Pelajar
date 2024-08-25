@@ -6,7 +6,7 @@ class Club_model extends CI_Model {
    
     public function get_club($table)
     {
-        $this->db->select('CLUB.*, STAFF1.STAFFID AS ADVISOR1_ID, STAFF1.STAFFNAME AS ADVISOR1_NAME, STAFF2.STAFFID AS ADVISOR2_ID, STAFF2.STAFFNAME AS ADVISOR2_NAME, CATEGORY.CATEGORYID, CATEGORY.CATEGORY');
+        $this->db->select('CLUB.*, STAFF1.STAFFID AS ADVISOR1_ID, STAFF1.STAFFNAME AS ADVISOR1_NAME, STAFF2.STAFFID AS ADVISOR2_ID, STAFF2.STAFFNAME AS ADVISOR2_NAME, CATEGORY.*');
         $this->db->from($table . ' CLUB');
         $this->db->join('STAFF STAFF1', 'STAFF1.STAFFID = CLUB.ADVISOR1');
         $this->db->join('STAFF STAFF2', 'STAFF2.STAFFID = CLUB.ADVISOR2', 'left'); 
@@ -162,11 +162,9 @@ class Club_model extends CI_Model {
         return $query->row();
     }
     
-
-
-    public function selectCategory($table) {
+    public function selectCategory() {
         $this->db->order_by('CATEGORY', 'ASC');
-        return $this->db->get($table); 
+        return $this->db->get('CATEGORY'); 
     }
     
     public function selectStaff($table) {

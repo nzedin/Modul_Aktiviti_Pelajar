@@ -38,7 +38,7 @@
                                         <select name="clubID" id="clubID" class="form-control select2bs4" style="width: 100%;" required>
                                             <option value="" selected disabled>Pilih Badan Pelajar</option>
                                             <?php foreach ($club as $row): ?>
-                                                <option value="<?= $row->clubID; ?>"><?= ucwords(strtolower($row->clubName)); ?></option>
+                                                <option value="<?= $row->CLUBID; ?>"><?= ucwords(strtolower($row->CLUBNAME)); ?></option>
                                             <?php endforeach; ?>
                                         </select>                                
                                     </div>
@@ -62,7 +62,7 @@
         
         <div class="card card-info">
             <div class="card-header">
-                <h3 class="card-title">Senarai JawatanKuasa Badan Pelajar <?= ucwords(strtolower($clubID->clubName)); ?></h3>
+                <h3 class="card-title">Senarai JawatanKuasa Badan Pelajar <?= ucwords(strtolower($clubID->CLUBNAME)); ?></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
@@ -71,7 +71,7 @@
             </div>
 
             <div class="card-footer">
-                <a href="<?= base_url('club/daftar_jawatankuasa/pendaftaran/'.$warga.'/'.$clubID->clubID); ?>"><button class="btn btn-info"><i class="fas fa-plus"></i>  Daftar Ahli</button></a>
+                <a href="<?= base_url('club/daftar_jawatankuasa/pendaftaran/'.$warga.'/'.$clubID->CLUBID); ?>"><button class="btn btn-info"><i class="fas fa-plus"></i>  Daftar Ahli</button></a>
             </div>
             <div class="card-body">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -91,56 +91,56 @@
                           foreach($jawatankuasa as $kep): ?>
                               <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($kep->studentID)) ?></td>
-                                  <td><?= ucwords(strtolower($kep->studentName)) ?></td>
-                                  <td><?= ucwords(strtolower($kep->committee)) ?></td>
-                                  <td><?= ucwords(strtolower($kep->status)) ?></td>
+                                  <td><?= ucwords(strtolower($kep->STUDENTID)) ?></td>
+                                  <td><?= ucwords(strtolower($kep->STUDENTNAME)) ?></td>
+                                  <td><?= ucwords(strtolower($kep->COMMITTEE)) ?></td>
+                                  <td><?= ucwords(strtolower($kep->STATUS)) ?></td>
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                          
-                                         <button data-toggle="modal" data-target="#editkepimpinan<?= $kep->kepimpinanID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
+                                         <button data-toggle="modal" data-target="#editkepimpinan<?= $kep->KEPIMPINANID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
                                          
-                                         <div class="modal fade" id="editkepimpinan<?= $kep->kepimpinanID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="modal fade" id="editkepimpinan<?= $kep->KEPIMPINANID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h5 class="modal-title" id="exampleModalLabel">Kemaskini Jawatankuasa Badan Pelajar <?= ucwords(strtolower($clubID->clubName)); ?></h5>
+                                                      <h5 class="modal-title" id="exampleModalLabel">Kemaskini Jawatankuasa Badan Pelajar <?= ucwords(strtolower($clubID->CLUBNAME)); ?></h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                           <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      <form action="<?= base_url('club/edit_jawatankuasa/'.$warga.'/'.$kep->kepimpinanID) ?>" method="POST">
+                                                      <form action="<?= base_url('club/edit_jawatankuasa/'.$warga.'/'.$kep->KEPIMPINANID) ?>" method="POST">
                                                             <div style="text-align: left;" class="card-body">
                                                           
-                                                            <input type="hidden" id="clubID" name="clubID" value="<?= $clubID->clubID; ?>">
+                                                            <input type="hidden" id="clubID" name="clubID" value="<?= $clubID->CLUBID; ?>">
 
                                                             <div class="form-group">
                                                               <label>Matrik Pelajar</label>
-                                                              <input type="text" class="form-control" id="studentID" name="studentID" value="<?=  $kep->studentID; ?>" readonly>
+                                                              <input type="text" class="form-control" id="studentID" name="studentID" value="<?=  $kep->STUDENTID; ?>" readonly>
                                                             </div>
                                                             
                                                             <div class="form-group">
                                                               <label>Nama Pelajar</label>
-                                                              <input type="text" class="form-control" id="studentName" name="studentName" value="<?=  $kep->studentName; ?>" readonly>
+                                                              <input type="text" class="form-control" id="studentName" name="studentName" value="<?=  $kep->STUDENTNAME; ?>" readonly>
                                                             </div>
 
                                                             <div class="form-group">
                                                               <label>Program Pengajian</label>
-                                                              <input type="text" class="form-control" id="program" name="program" value="<?=  $kep->program; ?>" readonly>
+                                                              <input type="text" class="form-control" id="program" name="program" value="<?=  $kep->PROGRAM; ?>" readonly>
                                                             </div>
 
                                                             <div class="form-group">
                                                               <label>Semester</label>
-                                                              <input type="text" class="form-control" id="semester" name="semester" value="<?= $kep->semester; ?>" readonly>
+                                                              <input type="text" class="form-control" id="semester" name="semester" value="<?= $kep->SEMESTER; ?>" readonly>
                                                             </div>
                                                             
                                                             <div class="form-group">
                                                               <label>Jawatan</label>
-                                                              <select name="committeeID" class="form-control select2bs4" style="width: 100%;" value="<?= $kep->committeeID; ?>" required>
+                                                              <select name="committeeID" class="form-control select2bs4" style="width: 100%;" value="<?= $kep->COMMITTEEID; ?>" required>
                                                                 <?php foreach ($committee as $comm): ?>
-                                                                    <?php if ($comm->categoryrole == 'BADAN PELAJAR'): ?>
-                                                                      <option value="<?= $comm->committeeID; ?>" <?php if($comm->committeeID == $kep->committeeID) echo 'selected'; ?> ><?= $comm->committee; ?></option>
+                                                                    <?php if ($comm->CATEGORYROLE == 'BADAN PELAJAR'): ?>
+                                                                      <option value="<?= $comm->COMMITTEEID; ?>" <?php if($comm->COMMITTEEID == $kep->COMMITTEEID) echo 'selected'; ?> ><?= $comm->COMMITTEE; ?></option>
                                                                     <?php endif; ?>
                                                                 <?php endforeach; ?>
                                                               </select>
@@ -149,17 +149,17 @@
                                                            <div class="form-group">
                                                               <label>Status Pelajar</label>
                                                               <div class="custom-control custom-radio">
-                                                                  <input class="custom-control-input" type="radio" id="AKTIF<?= $kep->kepimpinanID ?>" name="status" value="AKTIF" <?php echo ($kep->status == "AKTIF") ? "checked" : ""; ?> required>
-                                                                  <label class="custom-control-label" for="AKTIF<?= $kep->kepimpinanID ?>">Aktif</label>
+                                                                  <input class="custom-control-input" type="radio" id="AKTIF<?= $kep->KEPIMPINANID ?>" name="status" value="AKTIF" <?php echo ($kep->STATUS == "AKTIF") ? "checked" : ""; ?> required>
+                                                                  <label class="custom-control-label" for="AKTIF<?= $kep->KEPIMPINANID ?>">Aktif</label>
                                                               </div>
                                                               <div class="custom-control custom-radio">
-                                                                  <input class="custom-control-input" type="radio" id="TIDAKAKTIF<?= $kep->kepimpinanID ?>" name="status" value="TIDAK AKTIF" <?php echo ($kep->status == "TIDAK AKTIF") ? "checked" : ""; ?>>
-                                                                  <label class="custom-control-label" for="TIDAKAKTIF<?= $kep->kepimpinanID ?>">Tidak Aktif</label>
+                                                                  <input class="custom-control-input" type="radio" id="TIDAKAKTIF<?= $kep->KEPIMPINANID ?>" name="status" value="TIDAK AKTIF" <?php echo ($kep->STATUS == "TIDAK AKTIF") ? "checked" : ""; ?>>
+                                                                  <label class="custom-control-label" for="TIDAKAKTIF<?= $kep->KEPIMPINANID ?>">Tidak Aktif</label>
                                                               </div>
 
                                                             </div>
                                                             <?php else: ?>
-                                                              <input type="hidden" id="status" name="status" value="<?= $kep->status; ?>">
+                                                              <input type="hidden" id="status" name="status" value="<?= $kep->STATUS; ?>">
                                                             <?php endif; ?>
 
                                                             
@@ -177,7 +177,7 @@
                                               </div>
                                          
 
-                                         <a href="<?= base_url('club/delete_jawatankuasa/'.$warga.'/'.$clubID->clubID.'/'.$kep->kepimpinanID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
+                                         <a href="<?= base_url('club/delete_jawatankuasa/'.$warga.'/'.$clubID->CLUBID.'/'.$kep->KEPIMPINANID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
                                       </div>
                                       
                                   </td>
@@ -199,7 +199,7 @@
       <div class="container-fluid">
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Pendaftaran Jawatankuasa Badan Pelajar <?= ucwords(strtolower($clubID->clubName)); ?></h3>
+            <h3 class="card-title">Pendaftaran Jawatankuasa Badan Pelajar <?= ucwords(strtolower($clubID->CLUBNAME)); ?></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -209,17 +209,17 @@
             </div>
           </div>
           
-          <form action="<?= base_url('club/tambah_jawatankuasa/'.$warga .'/'. $clubID->clubID)?>" method="POST">
+          <form action="<?= base_url('club/tambah_jawatankuasa/'.$warga .'/'. $clubID->CLUBID)?>" method="POST">
           <div class="card-body">
           
-               <input type="hidden" id="clubID" name="clubID" value="<?= $clubID->clubID; ?>">
+               <input type="hidden" id="clubID" name="clubID" value="<?= $clubID->CLUBID; ?>">
 
                 <div class="form-group">
                   <label>Matrik Pelajar</label>
                   <select name="studentID" class="form-control select2bs4" style="width: 100%;" required>
                   <option value="" selected disabled>Pilih Matrik Pelajar</option>
                   <?php foreach ($studentSelect as $stud): ?>
-                        <option value="<?= $stud->studentID; ?>"><?= $stud->studentID; ?></option>
+                        <option value="<?= $stud->STUDENTID; ?>"><?= $stud->STUDENTID; ?></option>
                     <?php endforeach; ?>
                   </select>
                 </div>
@@ -244,8 +244,8 @@
                   <select name="committeeID" class="form-control select2bs4" style="width: 100%;" required>
                     <option value="" selected disabled>Pilih Jawatan</option>
                     <?php foreach ($committee as $com): ?>
-                        <?php if ($com->categoryrole == 'BADAN PELAJAR'): ?>
-                          <option value="<?= $com->committeeID; ?>"><?= $com->committee; ?></option>
+                        <?php if ($com->CATEGORYROLE == 'BADAN PELAJAR'): ?>
+                          <option value="<?= $com->COMMITTEEID; ?>"><?= $com->COMMITTEE; ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
                     

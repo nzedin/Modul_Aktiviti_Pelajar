@@ -12,12 +12,12 @@ class Laporan extends CI_Controller {
     }
     public function index($warga, $studentID)
     {
-        $data['laporan'] = $this->laporan_model->get_laporan('program', $studentID)->result();
+        $data['laporan'] = $this->laporan_model->get_laporan('PROGRAM', $studentID)->result();
         $data['title'] = 'Laporan Program';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -33,7 +33,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -49,7 +49,7 @@ class Laporan extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -65,7 +65,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -81,7 +81,7 @@ class Laporan extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -97,7 +97,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -122,39 +122,39 @@ class Laporan extends CI_Controller {
             
             if ($this->laporan_model->is_report_exist($laporanID)) {
                 $data = array(
-                    'laporanID' => $laporanID,
-                    'programID' => $programID,
-                    'programUmt' => $programUmt,
-                    'programLuar' => $programLuar,
-                    'pencapaian' => $pencapaian,
-                    'syor' => $syor,
-                    'objektif' => $objektif,
-                    'lainLainKelulusan' => $lainLainKelulusan,
-                    'statusApproval' => $status,
-                    'sebabLewat' => $sebabLewat,
-                    'dateSubmission' => $dateSubmission
+                    'LAPORANID' => $laporanID,
+                    'PROGRAMID' => $programID,
+                    'PROGRAMUMT' => $programUmt,
+                    'PROGRAMLUAR' => $programLuar,
+                    'PENCAPAIAN' => $pencapaian,
+                    'SYOR' => $syor,
+                    'OBJEKTIF' => $objektif,
+                    'LAINLAINKELULUSAN' => $lainLainKelulusan,
+                    'STATUSAPPROVAL' => $status,
+                    'SEBABLEWAT' => $sebabLewat,
+                    'DATESUBMISSION' => $dateSubmission
     
                 );
 
-                $this->laporan_model->update_report($data, 'laporan');
+                $this->laporan_model->update_report($data, 'LAPORAN');
                 
             } else {
 
             $data = array(
-                'programID' => $programID,
-                'programUmt' => $programUmt,
-                'programLuar' => $programLuar,
-                'pencapaian' => $pencapaian,
-                'syor' => $syor,
-                'objektif' => $objektif,
-                'lainLainKelulusan' => $lainLainKelulusan,
-                'statusApproval' => $status,
-                'sebabLewat' => $sebabLewat,
-                'dateSubmission' => $dateSubmission
+                'PROGRAMID' => $programID,
+                'PROGRAMUMT' => $programUmt,
+                'PROGRAMLUAR' => $programLuar,
+                'PENCAPAIAN' => $pencapaian,
+                'SYOR' => $syor,
+                'OBJEKTIF' => $objektif,
+                'LAINLAINKELULUSAN' => $lainLainKelulusan,
+                'STATUSAPPROVAL' => $status,
+                'SEBABLEWAT' => $sebabLewat,
+                'DATESUBMISSION' => $dateSubmission
 
             );
 
-            $this->laporan_model->insert_report($data, 'laporan');
+            $this->laporan_model->insert_report($data, 'LAPORAN');
             
             }
         
@@ -174,17 +174,17 @@ class Laporan extends CI_Controller {
 
         if ($this->laporan_model->is_report_exist($laporanID)) {
             $data = array(
-                'laporanID' => $laporanID,
-                'bantuanKewanganHEPA' => $bantuanKewanganHEPA,
-                'danaTabungAmanah' => $danaTabungAmanah,
-                'kelulusanKenderaan' => $kelulusanKenderaan,
-                'kelulusanSijil' => $kelulusanSijil,
-                'comment' => $comment,
-                'statusApproval' => $status
+                'LAPORANID' => $laporanID,
+                'BANTUANKEWANGANHEPA' => $bantuanKewanganHEPA,
+                'DANATABUNGAMANAH' => $danaTabungAmanah,
+                'KELULUSANKENDERAAN' => $kelulusanKenderaan,
+                'KELULUSANSIJIL' => $kelulusanSijil,
+                'COMMENT' => $comment,
+                'STATUSAPPROVAL' => $status
 
             );
 
-            $this->laporan_model->update_report($data, 'laporan');
+            $this->laporan_model->update_report($data, 'LAPORAN');
             
         } 
     
@@ -201,7 +201,7 @@ class Laporan extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -217,7 +217,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -232,7 +232,7 @@ class Laporan extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -248,7 +248,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -269,15 +269,15 @@ class Laporan extends CI_Controller {
             $data = array();
             $uniqueStudentIDs = array();
             foreach ($result->result() as $row) {
-                if (!in_array($row->studentID, $uniqueStudentIDs)) {
-                    $committee = !empty($row->kepimpinanID) ? $row->committee : 'Ahli Aktif';
+                if (!in_array($row->STUDENTID, $uniqueStudentIDs)) {
+                    $committee = !empty($row->KEPIMPINANID) ? $row->COMMITTEE : 'Ahli Aktif';
                     
                     $data[] = array(
-                        'studentID' => $row->studentID,
-                        'studentName' => $row->studentName,
-                        'committee' => $committee,
+                        'STUDENTID' => $row->STUDENTID,
+                        'STUDENTNAME' => $row->STUDENTNAME,
+                        'COMMITTEE' => $committee,
                     );
-                    $uniqueStudentIDs[] = $row->studentID;
+                    $uniqueStudentIDs[] = $row->STUDENTID;
                 }
             }
             echo json_encode($data);
@@ -304,7 +304,7 @@ class Laporan extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -320,7 +320,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -336,7 +336,7 @@ class Laporan extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -352,7 +352,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -371,12 +371,12 @@ class Laporan extends CI_Controller {
 
     public function report_reminder($warga)
     {
-        $data['laporan'] = $this->laporan_model->get_all_program('program')->result();
+        $data['laporan'] = $this->laporan_model->get_all_program('PROGRAM')->result();
         $data['title'] = 'Peringatan Laporan';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -392,7 +392,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -403,13 +403,13 @@ class Laporan extends CI_Controller {
 
     public function laporan_admin($page, $warga)
     {
-        $data['laporan'] = $this->laporan_model->get_all_record('program')->result();
+        $data['laporan'] = $this->laporan_model->get_all_record('PROGRAM')->result();
         $data['title'] = 'Rekod Laporan';
         $data['warga'] = $warga;
         $data['page'] = $page;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -425,7 +425,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -436,14 +436,14 @@ class Laporan extends CI_Controller {
 
     public function catatan_rekod_laporan($page,$warga,$laporanID)
     {
-        $data['laporan'] = $this->laporan_model->get_all_record('program')->result();
+        $data['laporan'] = $this->laporan_model->get_all_record('PROGRAM')->result();
         $data['laporanID'] = $this->laporan_model->get_report_by_id($laporanID)->row();
         $data['title'] = 'Rekod Laporan';
         $data['warga'] = $warga;
         $data['page'] = $page;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -459,7 +459,7 @@ class Laporan extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -468,46 +468,7 @@ class Laporan extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function statistic($warga, $date) {
-        $data['laporan'] = $this->laporan_model->get_monthly_record('program', $date)->result();
-        $data['title'] = 'Statistik Bulanan';
-        $data['warga'] = $warga;
-        $wargaID = $this->session->userdata('wargaID');
     
-        if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
-        } else {
-            if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
-                $data['student_type'] = "both";
-            } else if ($this->login_model->ahli_kelab($wargaID)) {
-                $data['student_type'] = "member";
-            } else if ($this->login_model->pengarah_program($wargaID)) {
-                $data['student_type'] = "programdirector";
-            } else {
-                $message = $this->session->set_flashdata('reminder', '<div class="text-small text-danger" role="alert">Pelajar tidak dibenarkan akses!</div>');
-                redirect('login', $message);
-            }
-        }
-    
-        // Fetch additional data for charts
-        $data['total_registered_students'] = $this->laporan_model->get_total_registered_students($date);
-        $data['total_attendance'] = $this->laporan_model->get_total_attendance($date);
-        $data['financial_aid'] = $this->laporan_model->get_financial_aid($date);
-        $data['programs_by_category'] = $this->laporan_model->get_programs_by_category($date);
-        $data['attendance_trends'] = $this->laporan_model->get_attendance_trends($date);
-    
-        $data['json_laporan'] = json_encode($data['laporan']);
-        $data['json_total_registered_students'] = json_encode($data['total_registered_students']);
-        $data['json_total_attendance'] = json_encode($data['total_attendance']);
-        $data['json_financial_aid'] = json_encode($data['financial_aid']);
-        $data['json_programs_by_category'] = json_encode($data['programs_by_category']);
-        $data['json_attendance_trends'] = json_encode($data['attendance_trends']);
-    
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidenav', $data);
-        $this->load->view('list/statistic_Report', $data);
-        $this->load->view('templates/footer');
-    }
     
 
     public function update_remark($laporanID){
@@ -515,10 +476,10 @@ class Laporan extends CI_Controller {
     
         if ($this->laporan_model->is_report_exist($laporanID)) {
             $data = array(
-                'laporanID' => $laporanID,
-                'remark' => $remark,
+                'LAPORANID' => $laporanID,
+                'REMARK' => $remark,
             );
-            $this->laporan_model->update_report($data, 'laporan');
+            $this->laporan_model->update_report($data, 'LAPORAN');
             $response = array('success' => true);
         } else {
             $response = array('success' => false);

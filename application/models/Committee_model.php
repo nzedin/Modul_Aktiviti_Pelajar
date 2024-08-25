@@ -15,7 +15,6 @@ class Committee_model extends CI_Model {
     
     public function get_categoryrole($table)
     {
-
         return $this->db->get($table);
     }
 

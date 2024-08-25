@@ -105,7 +105,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                       <form action="<?= base_url('club/editclub/'.$warga.'/'. $kelab->CLUBID) ?>" method="POST"  enctype="multipart/form-data">
-                                                            <div style="text-align: left;" class="card-body">
+                                                        <div style="text-align: left;" class="card-body">
                                                           
                                                             <div class="form-group">
                                                               <label>Tarikh Penubuhan <label style="color: red;">*</label></label>
@@ -131,11 +131,11 @@
                                                             </div>
                                                             
                                                             <div class="form-group">
-                                                              <label>Kategori Badan Pelajar <label style="color: red;">*</label></label>
-                                                              <select name="category" class="form-control select2bs4" style="width: 100%;" required>
-                                                              <?php foreach ($category as $row): ?>
-                                                                  <option value="<?= $row->CATEGORYID; ?>" <?php if($row->CATEGORYID == $kelab->CATEGORY) echo 'selected'; ?>><?= $row->CATEGORY; ?></option>
-                                                              <?php endforeach; ?>
+                                                              <label>Kategori Badan Pelajar  <label style="color: red;">*</label></label>
+                                                              <select name="category" class="form-control select2bs4" style="width: 100%;" value="<?= $kelab->CATEGORY; ?>" required>
+                                                                <?php foreach ($categoryClub as $cat): ?>
+                                                                    <option value="<?= $cat->CATEGORYID; ?>"  <?php if($cat->CATEGORYID == $kelab->CATEGORY) echo 'selected'; ?>  > <?= $cat->CATEGORY; ?></option>
+                                                                <?php endforeach; ?>
                                                               </select>
                                                               <?= form_error('category', '<div class="text-small text-danger">', '</div>'); ?>
                                                             </div>
@@ -143,9 +143,8 @@
                                                             <div class="form-group">
                                                                 <label for="logo">Logo</label>
                                                                 <div class="input-group">
-                                                                  
                                                                     <div class="custom-file">
-                                                                        <input type="file" class="custom-file-input" id="logo" name="logo" >
+                                                                        <input type="file" class="custom-file-input" id="logo" name="logo" accept="image/*" >
                                                                         <label class="custom-file-label" for="logo"> <?= $kelab->LOGO != null ? $kelab->LOGO : 'Choose Image'; ?></label>
                                                                     </div>
                                                                     
@@ -194,7 +193,7 @@
                                                                   <button type="submit" class="btn btn-info"><i class="fas fa-save"></i>   Simpan</button>
                                                               </div>
                                                         
-                                                            </div>
+                                                        </div>
                                                       </form>
                                                     </div>
                                                     
@@ -221,7 +220,12 @@
      
     </section>   
   </div>
-  
+
+
+
+
+
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
       $(document).ready(function(){
@@ -233,7 +237,6 @@
                   data: {advisor1: advisor1},
                   dataType: 'json',
                   success: function(data){
-                   
                       $('input[name="staffName1"]').val(data.STAFFNAME);
                     
                   }
@@ -241,21 +244,21 @@
           });
 
           $('select[name="advisor2"]').change(function(){
-        var advisor2 = $(this).val();
-        if (advisor2 !== "") { // Check if the value is not empty
-            $.ajax({
-                type: 'POST',
-                url: '<?= base_url('club/getStaff2')?>',
-                data: {advisor2: advisor2},
-                dataType: 'json',
-                success: function(data){
-                    $('input[name="staffName2"]').val(data.STAFFNAME);
-                }
-            });
-        } else {
-            $('input[name="staffName2"]').val(""); // Clear the value if the select option is set to default
-        }
-    });
+              var advisor2 = $(this).val();
+              $.ajax({
+                  type: 'POST',
+                  url: '<?= base_url('club/getStaff2')?>',
+                  data: {advisor2: advisor2},
+                  dataType: 'json',
+                  success: function(data){
+                    if ( advisor2 != null) {
+                      $('input[name="staffName2"]').val(data.STAFFNAME);
+                    }else{
+
+                    }
+                  }
+              });
+          });
       });
     
       $(document).ready(function() {
@@ -271,12 +274,6 @@
           });
       });
   </script>
-  <script>
-    // Function to update staff name based on selected advisor
-    $('select[name="advisor1"], select[name="advisor2"]').change(function() {
-        var selectedAdvisorID = $(this).val();
-        var selectedStaffName = $(this).find('option:selected').data('staffname');
-        var targetStaffNameInput = $(this).attr('name') === 'advisor1' ? $('input[name="staffName1"]') : $('input[name="staffName2"]');
-        targetStaffNameInput.val(selectedStaffName);
-    });
-</script>
+
+
+

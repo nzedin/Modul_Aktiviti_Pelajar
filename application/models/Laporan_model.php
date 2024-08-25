@@ -187,9 +187,9 @@ class Laporan_model extends CI_Model {
     
     public function get_studentEmail($studentID) {
 
-        $this->db->select('studentEmail');
-        $this->db->from('student');
-        $this->db->where('studentID', $studentID);
+        $this->db->select('STUDENTEMAIL');
+        $this->db->from('STUDENT');
+        $this->db->where('STUDENTID', $studentID);
         
         return $this->db->get();
     }
@@ -205,77 +205,35 @@ class Laporan_model extends CI_Model {
 
     public function get_clubName($clubID) {
 
-        $this->db->select('clubName');
-        $this->db->from('club');
-        $this->db->where('clubID', $clubID);
+        $this->db->select('CLUBNAME');
+        $this->db->from('CLUB');
+        $this->db->where('CLUBID', $clubID);
         
         return $this->db->get();
     }
 
     public function get_committeeName($committeeID) {
 
-        $this->db->select('committee');
-        $this->db->from('committee');
-        $this->db->where('committeeID', $committeeID);
+        $this->db->select('COMMITTEE');
+        $this->db->from('COMMITTEE');
+        $this->db->where('COMMITTEEID', $committeeID);
         
         return $this->db->get();
     }
 
     public function get_report_by_id($laporanID)
     {
-        $this->db->select('laporan.*, program.programName');
-        $this->db->from('laporan');
-        $this->db->join('program', 'laporan.programID = program.programID', 'left');
-        $this->db->where('laporanID', $laporanID);
+        $this->db->select('LAPORAN.*, PROGRAM.PROGRAMNAME');
+        $this->db->from('LAPORAN');
+        $this->db->join('PROGRAM', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID', 'left');
+        $this->db->where('LAPORANID', $laporanID);
         
         return $this->db->get();
     }
 
 
 
-    
-    public function get_total_registered_students($date) {
-        $this->db->select('COUNT(*) as total_students');
-        $this->db->from('penyertaan');
-        $this->db->join('laporan', 'laporan.programID = penyertaan.programID');
-        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
-        return $this->db->get()->row()->total_students;
-    }
-    
-    public function get_total_attendance($date) {
-        $this->db->select('COUNT(*) as total_attendance');
-        $this->db->from('kehadiran');
-        $this->db->join('laporan', 'laporan.programID = kehadiran.programID');
-        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
-        return $this->db->get()->row()->total_attendance;
-    }
-    
-    public function get_financial_aid($date) {
-        $this->db->select('SUM(laporan.bantuanKewanganHEPA) as bantuanKewanganHEPA, SUM(laporan.danaTabungAmanah) as danaTabungAmanah, SUM(laporan.totalCost) as totalCost');
-        $this->db->from('laporan');
-        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
-        return $this->db->get()->row();
-    }
-    
-    public function get_programs_by_category($date) {
-        $this->db->select('programcategory.programCategoryName, COUNT(*) as program_count');
-        $this->db->from('program');
-        $this->db->join('laporan', 'laporan.programID = program.programID');
-        $this->db->join('programcategory', 'programcategory.programCategoryID = program.programCategoryID');
-        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
-        $this->db->group_by('programcategory.programCategoryName');
-        return $this->db->get()->result();
-    }
-    
-    public function get_attendance_trends($date) {
-        $this->db->select('DATE(laporan.dateSubmission) as submission_date, COUNT(*) as total_attendance');
-        $this->db->from('kehadiran');
-        $this->db->join('laporan', 'laporan.programID = kehadiran.programID');
-        $this->db->where("DATE_FORMAT(laporan.dateSubmission, '%Y-%m') =", $date);
-        $this->db->group_by('DATE(laporan.dateSubmission)');
-        return $this->db->get()->result();
-    }
-    
+   
 
     
 }

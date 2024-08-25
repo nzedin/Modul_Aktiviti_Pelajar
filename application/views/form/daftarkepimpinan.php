@@ -75,7 +75,7 @@
                   <select name="committeeID" class="form-control select2bs4" style="width: 100%;" required>
                     <option value="" selected disabled>Pilih Jawatan</option>
                     <?php foreach ($committee as $com): ?>
-                        <?php if ($com->categoryrole == 'BADAN PELAJAR'): ?>
+                        <?php if ($com->CATEGORYROLE == 'BADAN PELAJAR'): ?>
                           <option value="<?= $com->COMMITTEEID; ?>"><?= $com->COMMITTEE; ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
@@ -136,7 +136,6 @@
                     $('input[name="studentName"]').val(data.studentName);
                     $('input[name="program"]').val(data.program);
                     $('input[name="semester"]').val(data.semester);
-                    $('input[name="studentEmail"]').val(data.studentEmail);
                 }
             });
         });

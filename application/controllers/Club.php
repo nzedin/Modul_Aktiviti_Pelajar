@@ -20,7 +20,7 @@ class Club extends CI_Controller {
     {
         $data['club'] = $this->club_model->get_club('CLUB')->result();
         $data['advisor'] = $this->club_model->selectStaff('STAFF')->result();
-        $data['category'] = $this->club_model->selectCategory('CATEGORY')->result();
+        $data['categoryClub'] = $this->club_model->selectCategory()->result();
         $data['title'] = 'Badan Pelajar';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
@@ -322,17 +322,17 @@ class Club extends CI_Controller {
 
                 $sendEmail = [];
                 foreach ($sendEmailResult as $row) {
-                    $sendEmail[] = $row->studentEmail;
+                    $sendEmail[] = $row->STUDENTEMAIL;
                 }
 
                 $committeeName = '';
                 if (!empty($committeeNameResult)) {
-                    $committeeName = $committeeNameResult[0]->committee;
+                    $committeeName = $committeeNameResult[0]->COMMITTEE;
                 }
 
                 $clubName = '';
                 if (!empty($clubNameResult)) {
-                    $clubName = ucwords($clubNameResult[0]->clubName); 
+                    $clubName = ucwords($clubNameResult[0]->CLUBNAME); 
                 }
 
                 if ((strcasecmp($committeeName, "Presiden") == 0) && strcasecmp($status, "AKTIF") == 0) {
@@ -442,6 +442,20 @@ class Club extends CI_Controller {
                 </button>
             </div>');
             } else {
+
+                $club = $this->club_model->get_club_by_id($clubID);
+
+            // Handle file upload
+            if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+                $uploadDir = 'images/';
+                $uploadFile = $uploadDir . basename($_FILES['logo']['name']);
+                if (move_uploaded_file($_FILES['logo']['tmp_name'], $uploadFile)) {
+                    $logo = $_FILES['logo']['name'];  // New file uploaded, update logo
+                } 
+            } else {
+                $logo = $club->LOGO;  // No new file uploaded, keep existing logo
+            }
+
                 $data = array(
                     'CLUBID'=>$clubID,
                     'ESTABLISHDATE'=> $establishDate,
@@ -449,24 +463,13 @@ class Club extends CI_Controller {
                     'CLUBNAME'=> $this->input->post('clubName'),
                     'SHORTNAME'=> !empty($shortName) ? $shortName : NULL,
                     'CATEGORY'=> $this->input->post('category'),
-                    'LOGO'=> $_FILES['logo']['name'],
+                    'LOGO'=> $logo,
                     'ADVISOR1'=> $this->input->post('advisor1'),
                     'ADVISOR2'=> !empty($advisor2) ? $advisor2 : NULL,
                     'OBJECTIVE'=> $this->input->post('objective')
                 );
 
-                $fileName = $_FILES['logo']['name'];
-            
-                $targetDirectory = "images/";
-                $targetFile = $targetDirectory . basename($fileName);
-                
-                if(file_exists($fileName)) {
-                    chmod($fileName ,0755); //Change the file permissions if allowed
-                    unlink($fileName); //remove the file
-                }
-                    
-                move_uploaded_file($_FILES['logo']['tmp_name'], $targetFile);
-
+                 
                 $this->club_model->update_data($data, 'CLUB');
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                 Data Berjaya Dikemaskini!
@@ -498,17 +501,17 @@ class Club extends CI_Controller {
 
             $sendEmail = [];
             foreach ($sendEmailResult as $row) {
-                $sendEmail[] = $row->studentEmail;
+                $sendEmail[] = $row->STUDENTEMAIL;
             }
 
             $committeeName = '';
             if (!empty($committeeNameResult)) {
-                $committeeName = $committeeNameResult[0]->committee;
+                $committeeName = $committeeNameResult[0]->COMMITTEE;
             }
 
             $clubName = '';
             if (!empty($clubNameResult)) {
-                $clubName = ucwords($clubNameResult[0]->clubName); 
+                $clubName = ucwords($clubNameResult[0]->CLUBNAME); 
             }
 
             if ((strcasecmp($committeeName, "Presiden") == 0) && strcasecmp($status, "AKTIF") == 0) {
@@ -685,17 +688,17 @@ class Club extends CI_Controller {
 
             $sendEmail = [];
             foreach ($sendEmailResult as $row) {
-                $sendEmail[] = $row->studentEmail;
+                $sendEmail[] = $row->STUDENTEMAIL;
             }
 
             $committeeName = '';
             if (!empty($committeeNameResult)) {
-                $committeeName = $committeeNameResult[0]->committee;
+                $committeeName = $committeeNameResult[0]->COMMITTEE;
             }
 
             $clubName = '';
             if (!empty($clubNameResult)) {
-                $clubName = ucwords($clubNameResult[0]->clubName); 
+                $clubName = ucwords($clubNameResult[0]->CLUBNAME); 
             }
 
             if ((strcasecmp($committeeName, "Presiden") == 0) && strcasecmp($status, "AKTIF") == 0) {
@@ -845,17 +848,17 @@ class Club extends CI_Controller {
 
             $sendEmail = [];
             foreach ($sendEmailResult as $row) {
-                $sendEmail[] = $row->studentEmail;
+                $sendEmail[] = $row->STUDENTEMAIL;
             }
 
             $committeeName = '';
             if (!empty($committeeNameResult)) {
-                $committeeName = $committeeNameResult[0]->committee;
+                $committeeName = $committeeNameResult[0]->COMMITTEE;
             }
 
             $clubName = '';
             if (!empty($clubNameResult)) {
-                $clubName = ucwords($clubNameResult[0]->clubName); 
+                $clubName = ucwords($clubNameResult[0]->CLUBNAME); 
             }
 
             if ((strcasecmp($committeeName, "Presiden") == 0) && strcasecmp($status, "AKTIF") == 0) {
