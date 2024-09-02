@@ -93,11 +93,11 @@
                     $.each(data, function(index, item) {
                         $('#table-body').append('<tr>' +
                             '<td>' + (index + 1) + '</td>' +
-                            '<td>' + toTitleCase(item.studentID) + '</td>' +
-                            '<td>' + toTitleCase(item.studentName) + '</td>' +
-                            '<td>' + toTitleCase(item.committee) + '</td>' +
+                            '<td>' + toTitleCase(item.STUDENTID) + '</td>' +
+                            '<td>' + toTitleCase(item.STUDENTNAME) + '</td>' +
+                            '<td>' + toTitleCase(item.COMMITTEE) + '</td>' +
                             '<td style="text-align:center;">' +
-                            '<button onclick="window.open(\'<?php echo base_url('laporan/curricular_transcript/'); ?>' + item.studentID + '\')" class="btn btn-primary">' +
+                            '<button onclick="window.open(\'<?php echo base_url('laporan/curricular_transcript/'); ?>' + item.STUDENTID + '\')" class="btn btn-primary">' +
                             '<i class="fa fa-file-text" aria-hidden="true"></i> Transkrip</button>' +
                             '</td>' +
                         '</tr>');

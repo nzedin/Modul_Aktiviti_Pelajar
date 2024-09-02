@@ -134,7 +134,7 @@
                                                               <label>Kategori Badan Pelajar  <label style="color: red;">*</label></label>
                                                               <select name="category" class="form-control select2bs4" style="width: 100%;" value="<?= $kelab->CATEGORY; ?>" required>
                                                                 <?php foreach ($categoryClub as $cat): ?>
-                                                                    <option value="<?= $cat->CATEGORYID; ?>"  <?php if($cat->CATEGORYID == $kelab->CATEGORY) echo 'selected'; ?>  > <?= $cat->CATEGORY; ?></option>
+                                                                    <option value="<?= $cat->CATEGORYID; ?>"  <?php if($cat->CATEGORYID != $kelab->CATEGORY) echo 'selected'; ?>  > <?= $cat->CATEGORY; ?></option>
                                                                 <?php endforeach; ?>
                                                               </select>
                                                               <?= form_error('category', '<div class="text-small text-danger">', '</div>'); ?>

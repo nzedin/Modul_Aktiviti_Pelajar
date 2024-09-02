@@ -18,11 +18,11 @@ class Email extends CI_Controller {
         // Extract email addresses
         $sendEmail = [];
         foreach ($sendEmailResult as $row) {
-            $sendEmail[] = $row->studentEmail;
+            $sendEmail[] = $row->STUDENTEMAIL;
         }
         $programName = '';
         if (!empty($progNameResult)) {
-            $programName = $progNameResult[0]->programName;
+            $programName = $progNameResult[0]->PROGRAMNAME;
         }
 
         $config = array (

@@ -299,7 +299,7 @@ class Laporan extends CI_Controller {
     
     public function late_Reasons($warga)
     {
-        $data['laporan'] = $this->laporan_model->get_lateReason('laporan')->result();
+        $data['laporan'] = $this->laporan_model->get_lateReason('LAPORAN')->result();
         $data['title'] = 'Sebab Kelewatan Laporan';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
@@ -331,7 +331,7 @@ class Laporan extends CI_Controller {
 
     public function report_submission_list($warga)
     {
-        $data['laporan'] = $this->laporan_model->get_reportApproval('laporan')->result();
+        $data['laporan'] = $this->laporan_model->get_reportApproval('LAPORAN')->result();
         $data['title'] = 'Kelulusan Laporan';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');

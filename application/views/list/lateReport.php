@@ -54,28 +54,28 @@
                           
                           <tbody>
                             <?php $no = 1; foreach($laporan as $list): ?>
-                              <?php if (strtotime($list->endDate) < strtotime('+15 days')):?>
+                              <?php if (strtotime($list->ENDDATE) < strtotime('+15 days')):?>
                                   <tr>
                                       <td><?= $no++ ?></td>
-                                      <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                                      <td><?= ucwords(strtolower($list->programName)) ?></td>
-                                      <td style="text-align: center;"><?= $list->dateApply ?></td>
+                                      <td><?= ucwords(strtolower($list->CLUBNAME)) ?></td>
+                                      <td><?= ucwords(strtolower($list->PROGRAMNAME)) ?></td>
+                                      <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->DATEAPPLY)) ?></td>
                                       <td style="text-align: center;"> 
                                         <?php
-                                          if ($list->statusApproval == 2) {
+                                          if ($list->STATUSAPPROVAL == 2) {
                                             echo "<span class='badge badge-warning'>Proses Kelulusan</span>";
                                           }
-                                          else if ($list->statusApproval == 3){
+                                          else if ($list->STATUSAPPROVAL == 3){
                                             echo "<span class='badge badge-success'> Lulus</span>";
                                           } else {
                                             echo "<span class='badge badge-danger'> Tidak Lulus</span>";
                                           }
                                         ?>
                                       </td>
-                                      <td style="text-align: center;"><?= $list->startDate ?><br>-<br><?= $list->endDate ?></td>
-                                      <td><?= ucwords(strtolower($list->programLocation)) ?>, <br><?= ucwords(strtolower($list->stateName)) ?></td>
-                                      <td style="text-align: center;"><?= $list->dateSubmission ?></td>
-                                      <td><?= ucwords(strtolower($list->sebabLewat)) ?></td>
+                                      <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->STARTDATE)) ?><br>-<br><?= date('d/m/Y', strtotime($list->ENDDATE)) ?></td>
+                                      <td><?= ucwords(strtolower($list->PROGRAMLOCATION)) ?>, <br><?= ucwords(strtolower($list->STATENAME)) ?></td>
+                                      <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->DATESUBMISSION)) ?></td>
+                                      <td><?= ucwords(strtolower($list->SEBABLEWAT)) ?></td>
                                   </tr>
                               <?php endif ?>
                             <?php endforeach ?>

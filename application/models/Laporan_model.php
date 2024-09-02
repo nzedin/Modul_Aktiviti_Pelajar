@@ -110,78 +110,66 @@ class Laporan_model extends CI_Model {
             return false;
         }
     }
-
     public function get_transcript($studentID)
     {
-        $this->db->select('STUDENT.*, COALESCE(COMMITTEE.COMMITTEE, "AHLI AKTIF") AS COMMITTEE, KEPIMPINAN.*, STUDENT.STUDENTID');
+        $this->db->select('STUDENT.*, COALESCE(COMMITTEE.COMMITTEE, \'AHLI AKTIF\') AS COMMITTEE, KEPIMPINAN.*, STUDENT.STUDENTID');
         $this->db->from('STUDENT');
         $this->db->join('KEPIMPINAN', 'KEPIMPINAN.STUDENTID = STUDENT.STUDENTID', 'left');
         $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = KEPIMPINAN.COMMITTEEID', 'left');
         $this->db->where('STUDENT.STUDENTID', $studentID);
-        
+    
         $query = $this->db->get();
         return $query;
     }
+    
 
     public function get_student_transcript($studentID)
-    {
-        // Get student basic information
-        $student_info = $this->db->select('*')
-                                 ->from('STUDENT')
-                                 ->where('STUDENTID', $studentID)
-                                 ->get()
-                                 ->row();
-    
-        // Get student transcript details
-        $this->db->select('
-            student.studentID,
-            student.studentName,
-            COALESCE(club.clubName, "Tiada") as club,
-            COALESCE(committee.committee, "Tiada") as committee,
-            COALESCE(categoryrole.categoryrole, "Tiada") as categoryrole,
-            COALESCE(committee.merit, "0") as merit
-        ');
-        $this->db->from('student');
-        $this->db->join('kepimpinan', 'kepimpinan.studentID = student.studentID', 'left');
-        $this->db->join('committee', 'committee.committeeID = kepimpinan.committeeID', 'left');
-        $this->db->join('categoryrole', 'categoryrole.categoryRoleID = committee.categoryRoleID', 'left');
-        $this->db->join('club', 'club.clubID = kepimpinan.clubID', 'left');
-        $this->db->where('student.studentID', $studentID);
-    
-        $transcript = $this->db->get()->result();
+{
+    // Get student basic information
+    $student_info = $this->db->select('*')
+                             ->from('STUDENT')
+                             ->where('STUDENTID', $studentID)
+                             ->get()
+                             ->row();
 
-        $this->db->select('
-            mpp.studentID,
-            student.studentName,
-            COALESCE(committee.committee, "Tiada") as committee,
-            COALESCE(categoryrole.categoryrole, "Tiada") as categoryrole,
-            COALESCE(committee.merit, "0") as merit
-        ');
-        $this->db->from('mpp');
-        $this->db->join('student', 'mpp.studentID = student.studentID', 'left');
-        $this->db->join('committee', 'committee.committeeID = mpp.positionMpp', 'left');
-        $this->db->join('categoryrole', 'categoryrole.categoryRoleID = committee.categoryRoleID', 'left');
-        $this->db->where('student.studentID', $studentID);
-    
-        $transcriptMPP = $this->db->get()->result();
-    
-        return ['student_info' => $student_info, 'transcript' => $transcript, 'transcriptMPP' => $transcriptMPP];
-    }
+    // Get student transcript details
+    $this->db->select('
+        STUDENT.STUDENTID,
+        STUDENT.STUDENTNAME,
+        COALESCE(CLUB.CLUBNAME, \'Tiada\') AS CLUB,
+        COALESCE(COMMITTEE.COMMITTEE, \'Tiada\') AS COMMITTEE,
+        COALESCE(CATEGORYROLE.CATEGORYROLE, \'Tiada\') AS CATEGORYROLE,
+        COALESCE(COMMITTEE.MERIT, 0) AS MERIT
+    ');
+    $this->db->from('STUDENT');
+    $this->db->join('KEPIMPINAN', 'KEPIMPINAN.STUDENTID = STUDENT.STUDENTID', 'left');
+    $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = KEPIMPINAN.COMMITTEEID', 'left');
+    $this->db->join('CATEGORYROLE', 'CATEGORYROLE.CATEGORYROLEID = COMMITTEE.CATEGORYROLEID', 'left');
+    $this->db->join('CLUB', 'CLUB.CLUBID = KEPIMPINAN.CLUBID', 'left');
+    $this->db->where('STUDENT.STUDENTID', $studentID);
 
-    public function get_monthly_record($table, $date) {
-        $this->db->select('PROGRAM.*, CLUB.*, STATE.*, LAPORAN.*, STUDENT.*, PROGRAMCATEGORY.*, DATEDIFF(PROGRAM.ENDDATE, PROGRAM.STARTDATE) AS PERIOD,
-            (LAPORAN.BANTUANKEWANGANHEPA + LAPORAN.DANATABUNGAMANAH) AS TOTAL');
-        $this->db->from($table);
-        $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
-        $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID', 'left');
-        $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID', 'left');
-        $this->db->join('STUDENT', 'STUDENT.STUDENTID = PROGRAM.PENGARAHPROG', 'left');
-        $this->db->join('PROGRAMCATEGORY', 'PROGRAMCATEGORY.PROGRAMCATEGORYID = PROGRAM.PROGRAMCATEGORYID', 'left');
-        $this->db->where('LAPORAN.STATUSAPPROVAL', 3);
-        $this->db->where("DATE_FORMAT(LAPORAN.DATESUBMISSION, '%Y-%m') =", $date);
-    
-        return $this->db->get();
-    }
+    $transcript = $this->db->get()->result();
+
+    // Get MPP transcript details
+    $this->db->select('
+        MPP.STUDENTID,
+        STUDENT.STUDENTNAME,
+        COALESCE(COMMITTEE.COMMITTEE, \'Tiada\') AS COMMITTEE,
+        COALESCE(CATEGORYROLE.CATEGORYROLE, \'Tiada\') AS CATEGORYROLE,
+        COALESCE(COMMITTEE.MERIT, 0) AS MERIT
+    ');
+    $this->db->from('MPP');
+    $this->db->join('STUDENT', 'MPP.STUDENTID = STUDENT.STUDENTID', 'left');
+    $this->db->join('COMMITTEE', 'COMMITTEE.COMMITTEEID = MPP.POSITIONMPP', 'left');
+    $this->db->join('CATEGORYROLE', 'CATEGORYROLE.CATEGORYROLEID = COMMITTEE.CATEGORYROLEID', 'left');
+    $this->db->where('STUDENT.STUDENTID', $studentID);
+
+    $transcriptMPP = $this->db->get()->result();
+
+    return ['student_info' => $student_info, 'transcript' => $transcript, 'transcriptMPP' => $transcriptMPP];
+}
+
+
 
 
     

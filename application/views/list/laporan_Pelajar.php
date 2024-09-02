@@ -67,12 +67,12 @@
                             <?php $no = 1; foreach($laporan as $list): ?>
                                 <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                                  <td><?= ucwords(strtolower($list->programName)) ?></td>
-                                  <td style="text-align: center;"><?= $list->dateApply ?></td>
-                                  <td <?php if (strtotime($list->endDate) < strtotime(date('Y-m-d'))) { echo 'style="background-color: #3ae965;text-align: center;"';}else{echo 'style="background-color: #90daff;text-align: center;"';}?>>
+                                  <td><?= ucwords(strtolower($list->CLUBNAME)) ?></td>
+                                  <td><?= ucwords(strtolower($list->PROGRAMNAME)) ?></td>
+                                  <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->DATEAPPLY)) ?></td>
+                                  <td <?php if (strtotime($list->ENDDATE) < strtotime(date('Y-m-d'))) { echo 'style="background-color: #3ae965;text-align: center;"';}else{echo 'style="background-color: #90daff;text-align: center;"';}?>>
                                   <?php
-                                    if (strtotime($list->endDate) < strtotime(date('Y-m-d'))) {
+                                    if (strtotime($list->ENDDATE) < strtotime(date('Y-m-d'))) {
                                       echo "Selesai";
                                     }
                                     else{
@@ -80,24 +80,24 @@
                                     } 
                                   ?>
                                   </td>
-                                  <td style="text-align: center;"><?= $list->startDate ?><br>-<br><?= $list->endDate ?></td>
-                                  <td><?= ucwords(strtolower($list->programLocation)) ?>, <br><?= ucwords(strtolower($list->stateName)) ?></td>
-                                  <td style="text-align: center;"><?= $list->dateSubmission ?></td>
+                                  <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->STARTDATE)) ?><br>-<br><?= date('d/m/Y', strtotime($list->ENDDATE)) ?></td>
+                                  <td><?= ucwords(strtolower($list->PROGRAMLOCATION)) ?>, <br><?= ucwords(strtolower($list->STATENAME)) ?></td>
+                                  <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->DATESUBMISSION)) ?></td>
                                   <td style="text-align: center;"><?php
-                                      if ($list->comment == null) {
+                                      if ($list->COMMENT == null) {
                                         echo "<span class='badge badge-secondary'>Tiada Maklumat</span>";
                                       }
                                       else{
-                                        echo ucwords(strtolower($list->comment));
+                                        echo ucwords(strtolower($list->COMMENT));
                                       } 
                                     ?>
                                   </td>
                                   <td style="text-align: center;"> 
                                     <?php
-                                      if ($list->statusApproval == 2) {
+                                      if ($list->STATUSAPPROVAL == 2) {
                                         echo "<span class='badge badge-warning'>Proses Kelulusan</span>";
                                       }
-                                      else if ($list->statusApproval == 3){
+                                      else if ($list->STATUSAPPROVAL == 3){
                                         echo "<span class='badge badge-success'> Diluluskan</span>";
                                       } else {
                                         echo "<span class='badge badge-danger'> Tidak Lulus</span>";
@@ -106,7 +106,7 @@
                                   </td>
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                      <a href="<?= base_url($list->statusApproval == 2 ? 'laporan/laporanProgramID/' . $warga . '/' . $list->laporanID : 'laporan/submit_Report/' . $warga . '/' . $list->programID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
+                                      <a href="<?= base_url($list->STATUSAPPROVAL == 2 ? 'laporan/laporanProgramID/' . $warga . '/' . $list->LAPORANID : 'laporan/submit_Report/' . $warga . '/' . $list->PROGRAMID) ?> " ><button type="button" class="btn btn-info">Laporan</button></a>
                                       </div>
                                   </td>
                                 </tr>
