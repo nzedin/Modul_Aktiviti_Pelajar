@@ -63,17 +63,17 @@
                           foreach($parameter as $hepa): ?>
                               <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($hepa->staffID)) ?></td>
-                                  <td><?= ucwords(strtolower($hepa->staffName)) ?></td>
-                                  <td><?= $hepa->staffIC ?></td>
-                                  <td><?= ucwords(strtolower($hepa->staffPosition)) ?></td>
-                                  <td><?= ucwords(strtolower($hepa->bagiPihak)) ?></td>
-                                  <td><?= ucwords(strtolower($hepa->status)) ?></td>
+                                  <td><?= ucwords(strtolower($hepa->STAFFID)) ?></td>
+                                  <td><?= ucwords(strtolower($hepa->STAFFNAME)) ?></td>
+                                  <td><?= $hepa->STAFFIC ?></td>
+                                  <td><?= ucwords(strtolower($hepa->STAFFPOSITION)) ?></td>
+                                  <td><?= ucwords(strtolower($hepa->BAGIPIHAK)) ?></td>
+                                  <td><?= ucwords(strtolower($hepa->STATUS)) ?></td>
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                         <button data-toggle="modal" data-target="#editparameter<?= $hepa->parameterID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
+                                         <button data-toggle="modal" data-target="#editparameter<?= $hepa->PARAMETERID ?>"  class="btn btn-warning"><i class="fas fa-edit">  Edit</i></button>
                                          
-                                            <div class="modal fade" id="editparameter<?= $hepa->parameterID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="editparameter<?= $hepa->PARAMETERID ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
@@ -83,43 +83,43 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      <form action="<?= base_url('setup/edit_parameter/'.$warga.'/'. $hepa->parameterID) ?>" method="POST">
+                                                      <form action="<?= base_url('setup/edit_parameter/'.$warga.'/'. $hepa->PARAMETERID) ?>" method="POST">
                                                             <div style="text-align: left;" class="card-body">
                                                           
                                                             <div class="form-group">
                                                                 <label>ID Admin</label>
-                                                                <select name="staffID" class="form-control select2bs4" style="width: 100%;" value="<?= $hepa->staffID; ?>" required>
+                                                                <select name="staffID" class="form-control select2bs4" style="width: 100%;" value="<?= $hepa->STAFFID; ?>" required>
                                                                 <?php foreach ($admin as $row): ?>
-                                                                    <option value="<?= $row->staffID; ?>" <?php if($row->staffID == $hepa->staffID) echo 'selected'; ?>><?= $row->staffID; ?></option>
+                                                                    <option value="<?= $row->STAFFID; ?>" <?php if($row->STAFFID == $hepa->STAFFID) echo 'selected'; ?>><?= $row->STAFFID; ?></option>
                                                                 <?php endforeach; ?>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group">
                                                                 <label>Nama</label>
-                                                                <input type="text" class="form-control" id="staffName" name="staffName" placeholder="Nama Admin" value="<?=  $hepa->staffName; ?>" disabled>
+                                                                <input type="text" class="form-control" id="staffName" name="staffName" placeholder="Nama Admin" value="<?=  $hepa->STAFFNAME; ?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Jawatan</label>
-                                                                <input type="text" class="form-control" id="staffPosition" name="staffPosition" placeholder="Jawatan" value="<?=  $hepa->staffPosition; ?>" disabled>
+                                                                <input type="text" class="form-control" id="staffPosition" name="staffPosition" placeholder="Jawatan" value="<?=  $hepa->STAFFPOSITION; ?>" disabled>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Bagi Pihak</label>
-                                                                <input type="text" class="form-control" id="bagiPihak" name="bagiPihak" placeholder="Bagi Pihak" value="<?=  $hepa->bagiPihak; ?>" required>
+                                                                <input type="text" class="form-control" id="bagiPihak" name="bagiPihak" placeholder="Bagi Pihak" value="<?=  $hepa->BAGIPIHAK; ?>" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Status</label>
                                                                     <div class="row">
                                                                         <div class="col-1">
                                                                             <div class="custom-control custom-radio">
-                                                                                <input class="custom-control-input" type="radio" id="aktif<?= $hepa->parameterID ?>" name="status" value="Aktif" <?php echo ($hepa->status == "Aktif") ? "checked" : ""; ?>>
-                                                                                <label class="custom-control-label" for="aktif<?= $hepa->parameterID ?>">Aktif</label>
+                                                                                <input class="custom-control-input" type="radio" id="aktif<?= $hepa->PARAMETERID ?>" name="status" value="Aktif" <?php echo ($hepa->STATUS == "Aktif") ? "checked" : ""; ?>>
+                                                                                <label class="custom-control-label" for="aktif<?= $hepa->PARAMETERID ?>">Aktif</label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-2">
                                                                             <div class="custom-control custom-radio">
-                                                                                <input class="custom-control-input" type="radio" id="tidakaktif<?= $hepa->parameterID ?>" name="status" value="Tidak Aktif" <?php echo ($hepa->status == "Tidak Aktif") ? "checked" : ""; ?>>
-                                                                                <label class="custom-control-label" for="tidakaktif<?= $hepa->parameterID ?>">Tidak Aktif</label>
+                                                                                <input class="custom-control-input" type="radio" id="tidakaktif<?= $hepa->PARAMETERID ?>" name="status" value="Tidak Aktif" <?php echo ($hepa->STATUS == "Tidak Aktif") ? "checked" : ""; ?>>
+                                                                                <label class="custom-control-label" for="tidakaktif<?= $hepa->PARAMETERID ?>">Tidak Aktif</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -138,7 +138,7 @@
                                                 </div>
                                               </div>
 
-                                           <a href="<?= base_url('setup/delete_parameter/'.$warga.'/'.$hepa->parameterID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
+                                           <a href="<?= base_url('setup/delete_parameter/'.$warga.'/'.$hepa->PARAMETERID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
                                       </div>
                                   </td>
                               </tr>
@@ -164,8 +164,8 @@
                     data: {staffID: staffID},
                     dataType: 'json',
                     success: function(data){
-                        $('input[name="staffName"]').val(data.staffName);
-                        $('input[name="staffPosition"]').val(data.staffPosition);
+                        $('input[name="staffName"]').val(data.STAFFNAME);
+                        $('input[name="staffPosition"]').val(data.STAFFPOSITION);
 
                     }
                 });
@@ -199,7 +199,7 @@
                     <select name="staffID" id="staffID" class="form-control select2bs4" style="width: 100%;" required>
                     <option value="" selected disabled>Pilih ID Admin</option>
                     <?php foreach ($admin as $row): ?>
-                        <option value="<?= $row->staffID; ?>"><?= $row->staffID; ?></option>
+                        <option value="<?= $row->STAFFID; ?>"><?= $row->STAFFID; ?></option>
                     <?php endforeach; ?>
                     </select>
                   </div>
@@ -255,8 +255,8 @@
                     data: {staffID: staffID},
                     dataType: 'json',
                     success: function(data){
-                        $('input[name="staffName"]').val(data.staffName);
-                        $('input[name="staffPosition"]').val(data.staffPosition);
+                        $('input[name="staffName"]').val(data.STAFFNAME);
+                        $('input[name="staffPosition"]').val(data.STAFFPOSITION);
 
                     }
                 });

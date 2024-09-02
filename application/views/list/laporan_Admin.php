@@ -118,7 +118,7 @@
 
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Catatan Laporan <?= ucwords(strtolower($laporanID->programName)); ?></h3>
+            <h3 class="card-title">Catatan Laporan <?= ucwords(strtolower($laporanID->PROGRAMNAME)); ?></h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -129,9 +129,9 @@
 
           <div class="card-body">
               
-              <form id="reportForm" action="<?= base_url('laporan/update_remark/'.$laporanID->laporanID)?>" method="POST">
+              <form id="reportForm" action="<?= base_url('laporan/update_remark/'.$laporanID->LAPORANID)?>" method="POST">
   
-              <input type="hidden" id="laporanID" name="laporanID" value="<?= $laporanID->laporanID ?>">
+              <input type="hidden" id="laporanID" name="laporanID" value="<?= $laporanID->LAPORANID ?>">
 
               <div class="form-group row">
                   <div class="col-sm-2">
@@ -141,7 +141,7 @@
                       <p>:</p>
                   </div>
                   <div class="col-sm-7">
-                      <textarea class="form-control" id="remark" name="remark" placeholder="Ulasan" required><?= $laporanID->remark ?></textarea>
+                      <textarea class="form-control" id="remark" name="remark" placeholder="Ulasan" required><?= $laporanID->REMARK ?></textarea>
                   </div>
               </div>
            
@@ -248,11 +248,6 @@
                   <i class="fas fa-search"></i> Cari
                 </button>
               </div>
-            <!-- <div class="col-2">
-                <button style="float:left;" onclick="report()" id="generateReportBtn" class="btn btn-primary">
-                  <i class="fa fa-cogs"></i> Laporan Bulanan
-                </button>
-              </div>-->
             </div>
             </div>
           </div>       
@@ -298,25 +293,25 @@
                             <?php $no = 1; foreach($laporan as $list): ?>
                                 <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($list->clubName)) ?></td>
-                                  <td><?= ucwords(strtolower($list->programCategoryName)) ?></td>
-                                  <td style="text-align: center;"><?= $list->dateApply ?></td>
-                                  <td><?= ucwords(strtolower($list->programName)) ?></td>
-                                  <td style="text-align: center;"><?= $list->startDate ?></td>
-                                  <td style="text-align: center;"><?= $list->endDate ?></td>
-                                  <td style="text-align: center;"><?= $list->period ?></td>
-                                  <td><?= ucwords(strtolower($list->programLocation)) ?>, <br><?= ucwords(strtolower($list->stateName)) ?></td>
-                                  <td style="text-align: center;"><?= date('Y-m-d', strtotime($list->dateApproved)) ?></td>
-                                  <td style="text-align: center;"><?= $list->bantuanKewanganHEPA ?></td>
-                                  <td style="text-align: center;"><?= $list->danaTabungAmanah ?></td>
-                                  <td style="text-align: center;"><?= $list->total ?></td>
-                                  <td style="text-align: center;"><?= $list->dateSubmission ?></td>
-                                  <td style="text-align: center;"><?= $list->totalCost ?></td>
-                                  <td style="text-align: center;"><?= ucwords(strtolower($list->studentName)) ?></td>
-                                  <td style="text-align: center;"><?= $list->studentID ?></td>
-                                  <td style="text-align: center;"><?= $list->phoneNo ?></td>
+                                  <td><?= ucwords(strtolower($list->CLUBNAME)) ?></td>
+                                  <td><?= ucwords(strtolower($list->PROGRAMCATEGORYNAME)) ?></td>
+                                  <td style="text-align: center;"><?=  date('d/m/Y', strtotime($list->DATEAPPLY)) ?></td>
+                                  <td><?= ucwords(strtolower($list->PROGRAMNAME)) ?></td>
+                                  <td style="text-align: center;"><?=  date('d/m/Y', strtotime($list->STARTDATE)) ?></td>
+                                  <td style="text-align: center;"><?=  date('d/m/Y', strtotime($list->ENDDATE)) ?></td>
+                                  <td style="text-align: center;"><?= $list->PERIOD ?></td>
+                                  <td><?= ucwords(strtolower($list->PROGRAMLOCATION)) ?>, <br><?= ucwords(strtolower($list->STATENAME)) ?></td>
+                                  <td style="text-align: center;"><?=  date('d/m/Y', strtotime($list->DATEAPPROVED)) ?></td>
+                                  <td style="text-align: center;"><?= $list->BANTUANKEWANGANHEPA ?></td>
+                                  <td style="text-align: center;"><?= $list->DANATABUNGAMANAH ?></td>
+                                  <td style="text-align: center;"><?= $list->TOTAL ?></td>
+                                  <td style="text-align: center;"><?=  date('d/m/Y', strtotime($list->DATESUBMISSION)) ?></td>
+                                  <td style="text-align: center;"><?= $list->TOTALCOST ?></td>
+                                  <td style="text-align: center;"><?= ucwords(strtolower($list->STUDENTNAME)) ?></td>
+                                  <td style="text-align: center;"><?= $list->STUDENTID ?></td>
+                                  <td style="text-align: center;"><?= $list->PHONENO ?></td>
                                   <td style="text-align: center;">
-                                    <a href="<?= base_url('laporan/catatan_rekod_laporan/catatan/' . $warga . '/' . $list->laporanID) ?>"><img src="<?= base_url('img/catatan.png') ?>" alt="icon" style="width:30px"></a>
+                                    <a href="<?= base_url('laporan/catatan_rekod_laporan/catatan/' . $warga . '/' . $list->LAPORANID) ?>"><img src="<?= base_url('img/catatan.png') ?>" alt="icon" style="width:30px"></a>
                                   </td>
                                 </tr>
                             <?php endforeach ?>
@@ -338,18 +333,15 @@
         const monthDropdown = document.getElementById('monthDropdown');
         const yearDropdown = document.getElementById('yearDropdown');
         
-        // Months array
         const months = [
           'Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun',
           'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'
         ];
         
-        // Current date
         const currentDate = new Date();
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
         
-        // Populate months dropdown
         months.forEach((month, index) => {
           const option = document.createElement('option');
           option.value = index + 1;
@@ -360,8 +352,7 @@
           monthDropdown.appendChild(option);
         });
         
-        // Populate years dropdown (2000 to current year)
-        for (let year = 2000; year <= currentYear; year++) {
+        for (let year = 1997; year <= currentYear; year++) {
           const option = document.createElement('option');
           option.value = year;
           option.textContent = year;
@@ -381,7 +372,6 @@
           var tableBody = document.querySelector("table tbody");
           var rows = tableBody.rows;
 
-          // Remove any existing "No data" row
           var noDataRow = document.getElementById('no-data-row');
           if (noDataRow) {
               noDataRow.remove();
@@ -389,35 +379,32 @@
 
           var anyRowDisplayed = false;
 
-          // Loop through all table rows
           for (var i = 0; i < rows.length; i++) {
               var shouldDisplay = false;
 
-              // Extract dateSubmission from the table cell (assuming it's in YYYY-MM-DD format)
               var dateSubmission = rows[i].cells[13].innerText.trim();
 
-              // Check if dateSubmission matches the selected month and year
-              var submissionDate = new Date(dateSubmission);
-              var submissionMonth = submissionDate.getMonth() + 1; // getMonth() returns zero-based month
-              var submissionYear = submissionDate.getFullYear();
+              var parts = dateSubmission.split('/');
+              var submissionDay = parseInt(parts[0], 10); 
+              var submissionMonth = parseInt(parts[1], 10); 
+              var submissionYear = parseInt(parts[2], 10); 
 
               if (submissionMonth == month && submissionYear == year) {
                   shouldDisplay = true;
               }
 
-              // Display or hide the row based on search result
               rows[i].style.display = shouldDisplay ? "" : "none";
               if (shouldDisplay) {
                   anyRowDisplayed = true;
               }
           }
 
-          // If no rows are displayed, insert a "No data" row
+
           if (!anyRowDisplayed) {
               var newRow = tableBody.insertRow();
               newRow.id = 'no-data-row';
               var newCell = newRow.insertCell(0);
-              newCell.colSpan = tableBody.rows[0].cells.length; // Set the colspan to span all columns
+              newCell.colSpan = tableBody.rows[0].cells.length; 
               newCell.innerText = "Tiada Maklumat Data";
               newCell.style.textAlign = "center";
           }
@@ -425,14 +412,6 @@
           
       }
 
-      function report() {
-      const month = document.getElementById('monthDropdown').value;
-      const year = document.getElementById('yearDropdown').value;
-      console.log(`Selected month: ${month}, Selected year: ${year}`);
-      const baseUrl = '<?= base_url('laporan/statistic/' . $warga) ?>';
-      const selectedDate = `${year}-${month.toString().padStart(2, '0')}`;
-      window.open(`${baseUrl}/${selectedDate}`);
-  }
   </script>
 
   <?php endif ?>  

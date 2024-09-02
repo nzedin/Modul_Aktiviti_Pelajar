@@ -59,11 +59,11 @@
                           foreach($admin as $hepa): ?>
                               <tr>
                                   <td><?= $no++ ?></td>
-                                  <td><?= ucwords(strtolower($hepa->staffID)) ?></td>
-                                  <td><?= ucwords(strtolower($hepa->staffName)) ?></td>
+                                  <td><?= ucwords(strtolower($hepa->STAFFID)) ?></td>
+                                  <td><?= ucwords(strtolower($hepa->STAFFNAME)) ?></td>
                                   <td style="text-align: center;">
                                       <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                           <a href="<?= base_url('setup/delete_admin/'.$warga.'/'.$hepa->staffID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
+                                           <a href="<?= base_url('setup/delete_admin/'.$warga.'/'.$hepa->STAFFID) ?>" ><button type="button" onclick="return confirm('Confirm delete the data?')" class="btn btn-danger"><i class="fas fa-trash">  Padam</i></button></a>
                                       </div>
                                   </td>
                               </tr>
@@ -105,7 +105,7 @@
                         <select name="staffID" id="staffID" class="form-control select2bs4" style="width: 100%;" required>
                         <option value="" selected disabled>Pilih ID Admin</option>
                         <?php foreach ($admin as $row): ?>
-                            <option value="<?= $row->staffID; ?>"><?= $row->staffID; ?></option>
+                            <option value="<?= $row->STAFFID; ?>"><?= $row->STAFFID; ?></option>
                         <?php endforeach; ?>
                         </select>
                      
@@ -136,7 +136,7 @@
                   data: {staffID: staffID},
                   dataType: 'json',
                   success: function(data){
-                      $('input[name="staffName"]').val(data.staffName);
+                      $('input[name="staffName"]').val(data.STAFFNAME);
                     
                   }
               });

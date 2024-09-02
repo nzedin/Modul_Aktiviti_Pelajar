@@ -5,20 +5,20 @@ class Setup_model extends CI_Model {
    
     public function get_admin($table)
     {
-        $this->db->select('admin.*, staff.*');
+        $this->db->select('ADMIN.*, STAFF.*');
         $this->db->from($table);
-        $this->db->join('staff', 'staff.staffID = admin.staffID');
+        $this->db->join('STAFF', 'STAFF.STAFFID = ADMIN.STAFFID');
         return $this->db->get();
     }
 
     public function selectStaff($table) {
-        $this->db->order_by('staffID', 'ASC');
+        $this->db->order_by('STAFFID', 'ASC');
         return $this->db->get($table); 
     }
 
     public function staffOption($staffID)
     {
-        return $this->db->get_where('staff', array('staffID' => $staffID))->row();
+        return $this->db->get_where('STAFF', array('STAFFID' => $staffID))->row();
     }
 
     public function insert_data($data,$table)
@@ -28,8 +28,8 @@ class Setup_model extends CI_Model {
 
     public function is_admin_exist($staffID)
     {
-        $this->db->where('staffID', $staffID);
-        $query = $this->db->get('admin');
+        $this->db->where('STAFFID', $staffID);
+        $query = $this->db->get('ADMIN');
         
         if ($query->num_rows() > 0) {
             return true;
@@ -45,16 +45,16 @@ class Setup_model extends CI_Model {
 
      public function get_parameter($table)
      {
-         $this->db->select('parametersurat.*, staff.*');
+         $this->db->select('PARAMETERSURAT.*, STAFF.*');
          $this->db->from($table);
-         $this->db->join('staff', 'staff.staffID = parametersurat.staffID');
+         $this->db->join('STAFF', 'STAFF.STAFFID = PARAMETERSURAT.STAFFID');
          return $this->db->get();
      }
 
      public function is_parameter_exist($bagiPihak)
      {
-         $this->db->where('bagiPihak', $bagiPihak);
-         $query = $this->db->get('parametersurat');
+         $this->db->where('BAGIPIHAK', $bagiPihak);
+         $query = $this->db->get('PARAMETERSURAT');
          
          if ($query->num_rows() > 0) {
              return true;
@@ -64,21 +64,22 @@ class Setup_model extends CI_Model {
      }
 
      public function selectAdmin($table) {
-        $this->db->order_by('adminID', 'ASC');
+        $this->db->order_by('ADMINID', 'ASC');
         return $this->db->get($table); 
     }
 
     public function update_data($data,$table)
     {
-       $this->db->where('parameterID',$data['parameterID']);
+       $this->db->where('PARAMETERID',$data['PARAMETERID']);
        $this->db->update($table,$data);
     }
 
-    public function is_editparameter_exist($bagiPihak, $status)
+    public function is_editparameter_exist($staffID, $bagiPihak, $status)
     {
-        $this->db->where('bagiPihak', $bagiPihak);
-        $this->db->where('status', $status);
-        $query = $this->db->get('parametersurat');
+        $this->db->where('STAFFID', $staffID);
+        $this->db->where('BAGIPIHAK', $bagiPihak);
+        $this->db->where('STATUS', $status);
+        $query = $this->db->get('PARAMETERSURAT');
         
         if ($query->num_rows() > 0) {
             return true;
