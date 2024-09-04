@@ -899,11 +899,5 @@ class Club extends CI_Controller {
         
     }
 
-    public function calender()  {
-        $this->load->view('templates/header');
-        $this->load->view('templates/sidenav');
-        $this->load->view('templates/calender');
-        $this->load->view('templates/footer');
-    }
    
 }
