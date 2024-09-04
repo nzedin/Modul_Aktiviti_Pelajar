@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="<?= base_url('dist/temp') ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Bootstrap4 Duallistbox -->
   <link rel="stylesheet" href="<?= base_url('dist/temp') ?>/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <link rel="stylesheet" href="<?= base_url('dist/temp') ?>/plugins/fullcalendar/main.css">
   <style>
   .table-admin-checkbox {
     accent-color: white; 

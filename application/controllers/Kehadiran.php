@@ -15,12 +15,12 @@ class Kehadiran extends CI_Controller {
     }
     public function index($warga, $studentID)
     {
-        $data['list'] = $this->kehadiran_model->get_program('program', $studentID)->result();
+        $data['list'] = $this->kehadiran_model->get_program('PROGRAM', $studentID)->result();
         $data['title'] = 'Pendaftaran dan Kehadiran';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -36,7 +36,7 @@ class Kehadiran extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -47,15 +47,15 @@ class Kehadiran extends CI_Controller {
 
     public function kehadiranPeserta($warga, $programID)
     {
-        $data['kehadiran'] = $this->kehadiran_model->get_kehadiran($programID, 'kehadiran')->result();
-        $data['penyertaan'] = $this->kehadiran_model->get_penyertaan($programID, 'penyertaan')->result();
-        $data['studentID'] = $this->mpp_model->get_student('student')->result();
+        $data['kehadiran'] = $this->kehadiran_model->get_kehadiran($programID, 'KEHADIRAN')->result();
+        $data['penyertaan'] = $this->kehadiran_model->get_penyertaan($programID, 'PENYERTAAN')->result();
+        $data['studentID'] = $this->mpp_model->get_student('STUDENT')->result();
         $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
         $data['title'] = 'Kehadiran Peserta';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -71,7 +71,7 @@ class Kehadiran extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -82,14 +82,14 @@ class Kehadiran extends CI_Controller {
 
     public function pendaftaranPeserta($warga, $programID)
     {
-        $data['penyertaan'] = $this->kehadiran_model->get_penyertaan($programID, 'penyertaan')->result();
-        $data['studentID'] = $this->mpp_model->get_student('student')->result();
+        $data['penyertaan'] = $this->kehadiran_model->get_penyertaan($programID, 'PENYERTAAN')->result();
+        $data['studentID'] = $this->mpp_model->get_student('STUDENT')->result();
         $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
         $data['title'] = 'Pendaftaran Peserta';
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -105,7 +105,7 @@ class Kehadiran extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $this->load->view('templates/header', $data);
@@ -133,7 +133,7 @@ class Kehadiran extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -149,7 +149,7 @@ class Kehadiran extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
@@ -165,7 +165,7 @@ class Kehadiran extends CI_Controller {
         $data['warga'] = $warga;
         $wargaID = $this->session->userdata('wargaID');
         if ($warga == 'staff') {
-            $data['staff'] = $this->login_model->get_warga($wargaID, 'staff');
+            $data['staff'] = $this->login_model->get_warga($wargaID, 'STAFF');
         } else {
             if ($this->login_model->ahli_kelab($wargaID) && $this->login_model->pengarah_program($wargaID)) {
                 $data['student_type'] = "both";
@@ -181,7 +181,7 @@ class Kehadiran extends CI_Controller {
                 redirect('login', $message);
             }
 
-            $data['student'] = $this->login_model->get_warga($wargaID, 'student');
+            $data['student'] = $this->login_model->get_warga($wargaID, 'STUDENT');
 
         }
         $data['programID'] = $this->kehadiran_model->get_program_by_id($programID)->row();
@@ -225,10 +225,10 @@ class Kehadiran extends CI_Controller {
             } else {
 
                 $data = array(
-                    'studentID'=> $this->input->post('studentID'),
-                    'programID'=> $this->input->post('programID')
+                    'STUDENTID'=> $this->input->post('studentID'),
+                    'PROGRAMID'=> $this->input->post('programID')
                 );
-                $this->kehadiran_model->insert_kehadiran($data, 'kehadiran');
+                $this->kehadiran_model->insert_kehadiran($data, 'KEHADIRAN');
 
                 $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Kehadiran Berjaya Disimpan!
@@ -266,10 +266,10 @@ class Kehadiran extends CI_Controller {
                     </div>');
                 } else {
                     $data = array(
-                        'studentID'=> $this->input->post('studentID'),
-                        'programID'=> $this->input->post('programID')
+                        'STUDENTID'=> $this->input->post('studentID'),
+                        'PROGRAMID'=> $this->input->post('programID')
                     );
-                    $this->kehadiran_model->insert_kehadiran($data, 'penyertaan');
+                    $this->kehadiran_model->insert_kehadiran($data, 'PENYERTAAN');
 
                     $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
                         Pendaftaran Berjaya Disimpan!
@@ -305,11 +305,7 @@ class Kehadiran extends CI_Controller {
      
         $studentID = $this->input->post('studentID');
         $programID = $this->input->post('programID');
-        $password = $this->input->post('password');
-        $key = 'hepa123'; 
-
-        $encrypted_password = $this->encryption->encrypt($password, array('key' => $key));
-
+        $encrypted_password = $this->input->post('password');
         
         if  ($this->kehadiran_model->is_student_umt($studentID, $encrypted_password)){
 
@@ -326,10 +322,10 @@ class Kehadiran extends CI_Controller {
             } else {
 
                 $data = array(
-                    'studentID'=> $this->input->post('studentID'),
-                    'programID'=> $this->input->post('programID')
+                    'STUDENTID'=> $this->input->post('studentID'),
+                    'PROGRAMID'=> $this->input->post('programID')
                 );
-                $this->kehadiran_model->insert_kehadiran($data, 'kehadiran');
+                $this->kehadiran_model->insert_kehadiran($data, 'KEHADIRAN');
 
                 $message = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="fa fa-check" aria-hidden="true">  <b>OK</b></i><br>Pengesahan Kehadiran Berjaya!
@@ -354,10 +350,7 @@ class Kehadiran extends CI_Controller {
      
         $studentID = $this->input->post('studentID');
         $programID = $this->input->post('programID');
-        $password = $this->input->post('password');
-        $key = 'hepa123'; 
-        
-        $encrypted_password = $this->encryption->encrypt($password, array('key' => $key));
+        $encrypted_password = $this->input->post('password');
         
         if  ($this->kehadiran_model->is_student_umt($studentID, $encrypted_password )){
 
@@ -382,10 +375,10 @@ class Kehadiran extends CI_Controller {
                 } else {
 
                     $data = array(
-                        'studentID'=> $this->input->post('studentID'),
-                        'programID'=> $this->input->post('programID')
+                        'STUDENTID'=> $this->input->post('studentID'),
+                        'PROGRAMID'=> $this->input->post('programID')
                     );
-                    $this->kehadiran_model->insert_kehadiran($data, 'penyertaan');
+                    $this->kehadiran_model->insert_kehadiran($data, 'PENYERTAAN');
 
                     $message = '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     <i class="fa fa-check" aria-hidden="true">  <b>OK</b></i><br>Pendaftaran Penyertaan Berjaya!

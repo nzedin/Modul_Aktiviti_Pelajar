@@ -185,10 +185,10 @@
 
                   // Loop through each checkbox to gather data
                   $('.adminCheckbox').each(function() {
-                      var kehadiranID = $(this).data('kehadiranid'); 
-                      var padam = $(this).prop('checked') ? 1 : 0; 
+                      var KEHADIRANID = $(this).data('kehadiranid'); 
+                      var PADAM = $(this).prop('checked') ? 1 : 0; 
 
-                      checkboxData.push({ kehadiranID: kehadiranID, padam: padam });
+                      checkboxData.push({ KEHADIRANID: KEHADIRANID, PADAM: PADAM });
                   });
 
                   $.ajax({

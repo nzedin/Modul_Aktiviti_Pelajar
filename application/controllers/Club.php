@@ -421,66 +421,62 @@ class Club extends CI_Controller {
         echo json_encode($response);
     }
 
-    public function editclub($warga, $clubID){
+    public function editclub($warga, $clubID) {
         $this->_rules();
-
-        if ($this->form_validation->run() == FALSE){
-           $this->club($warga);
+    
+        if ($this->form_validation->run() == FALSE) {
+            $this->club($warga);
         } else {
-
+            $club = $this->club_model->get_club_by_id($clubID)->row();
+    
             $clubName = $this->input->post('clubName');
             $shortName = $this->input->post('shortName');
             $advisor2 = $this->input->post('advisor2');
-            $logo = $this->input->post('logo');
             $establishDate = DateTime::createFromFormat('Y-m-d', $this->input->post('establishDate'))->format('d-M-Y');
-
-            if  ($this->club_model->is_edit_exists($clubName, $clubID)){
-            $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                Data telah wujud!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>');
+            
+            if ($this->club_model->is_edit_exists($clubName, $clubID)) {
+                $this->session->set_flashdata('reminder', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Data telah wujud!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>');
             } else {
-
-                $club = $this->club_model->get_club_by_id($clubID);
-
-            // Handle file upload
-            if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = 'images/';
-                $uploadFile = $uploadDir . basename($_FILES['logo']['name']);
-                if (move_uploaded_file($_FILES['logo']['tmp_name'], $uploadFile)) {
-                    $logo = $_FILES['logo']['name'];  // New file uploaded, update logo
-                } 
-            } else {
-                $logo = $club->LOGO;  // No new file uploaded, keep existing logo
-            }
-
+                if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+                    $uploadDir = 'images/';
+                    $uploadFile = $uploadDir . basename($_FILES['logo']['name']);
+                    if (move_uploaded_file($_FILES['logo']['tmp_name'], $uploadFile)) {
+                        $logo = $_FILES['logo']['name']; 
+                    } 
+                } else {
+                    $logo = $club->LOGO;  
+                }
+    
                 $data = array(
-                    'CLUBID'=>$clubID,
-                    'ESTABLISHDATE'=> $establishDate,
-                    'REFNO'=> $this->input->post('refNo'),
-                    'CLUBNAME'=> $this->input->post('clubName'),
-                    'SHORTNAME'=> !empty($shortName) ? $shortName : NULL,
-                    'CATEGORY'=> $this->input->post('category'),
-                    'LOGO'=> $logo,
-                    'ADVISOR1'=> $this->input->post('advisor1'),
-                    'ADVISOR2'=> !empty($advisor2) ? $advisor2 : NULL,
-                    'OBJECTIVE'=> $this->input->post('objective')
+                    'CLUBID' => $clubID,
+                    'ESTABLISHDATE' => $establishDate,
+                    'REFNO' => $this->input->post('refNo'),
+                    'CLUBNAME' => $this->input->post('clubName'),
+                    'SHORTNAME' => !empty($shortName) ? $shortName : NULL,
+                    'CATEGORY' => $this->input->post('category'),
+                    'LOGO' => $logo, 
+                    'ADVISOR1' => $this->input->post('advisor1'),
+                    'ADVISOR2' => !empty($advisor2) ? $advisor2 : NULL,
+                    'OBJECTIVE' => $this->input->post('objective')
                 );
-
-                 
+    
                 $this->club_model->update_data($data, 'CLUB');
-                $this->session->set_flashdata('reminder','<div class="alert alert-success alert-dismissible fade show" role="alert">
-                Data Berjaya Dikemaskini!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button></div>');
+                $this->session->set_flashdata('reminder', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Data Berjaya Dikemaskini!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
             }
             
             redirect('club/index/'.$warga);  
         }
     }
+    
 
     public function editkepimpinan($warga, $kepimpinanID){
         $clubID = $this->input->post('clubID');
@@ -901,6 +897,13 @@ class Club extends CI_Controller {
         
             redirect('club/badan_pelajar/senarai_jawatankuasa/'.$warga.'/'.$clubID);
         
+    }
+
+    public function calender()  {
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidenav');
+        $this->load->view('templates/calender');
+        $this->load->view('templates/footer');
     }
    
 }

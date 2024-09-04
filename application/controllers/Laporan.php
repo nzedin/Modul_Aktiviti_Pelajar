@@ -8,8 +8,8 @@ class Laporan extends CI_Controller {
         $this->load->model('club_model');
         $this->load->model('laporan_model');
         $this->load->model('login_model');
-        
     }
+    
     public function index($warga, $studentID)
     {
         $data['laporan'] = $this->laporan_model->get_laporan('PROGRAM', $studentID)->result();
@@ -118,8 +118,6 @@ class Laporan extends CI_Controller {
             $lainLainKelulusan = $this->input->post('lainLainKelulusan');
             $status = $this->input->post('status');
             $sebabLewat = $this->input->post('sebabLewat');
-            $dateSubmission = $this->input->post('dateSubmission');
-            
             if ($this->laporan_model->is_report_exist($laporanID)) {
                 $data = array(
                     'LAPORANID' => $laporanID,
@@ -132,7 +130,6 @@ class Laporan extends CI_Controller {
                     'LAINLAINKELULUSAN' => $lainLainKelulusan,
                     'STATUSAPPROVAL' => $status,
                     'SEBABLEWAT' => $sebabLewat,
-                    'DATESUBMISSION' => $dateSubmission
     
                 );
 
@@ -150,7 +147,6 @@ class Laporan extends CI_Controller {
                 'LAINLAINKELULUSAN' => $lainLainKelulusan,
                 'STATUSAPPROVAL' => $status,
                 'SEBABLEWAT' => $sebabLewat,
-                'DATESUBMISSION' => $dateSubmission
 
             );
 
@@ -330,7 +326,7 @@ class Laporan extends CI_Controller {
     }
 
     public function report_submission_list($warga)
-    {
+    { 
         $data['laporan'] = $this->laporan_model->get_reportApproval('LAPORAN')->result();
         $data['title'] = 'Kelulusan Laporan';
         $data['warga'] = $warga;

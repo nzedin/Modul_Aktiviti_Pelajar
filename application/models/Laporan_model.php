@@ -11,7 +11,7 @@ class Laporan_model extends CI_Model {
         $this->db->join('CLUB', 'CLUB.CLUBID = PROGRAM.CLUBID');
         $this->db->join('LAPORAN', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','left');
         $this->db->where('PROGRAM.PENGARAHPROG', $studentID);
-        $this->db->where('PROGRAM.ENDDATE <', 'CURDATE()', false);
+        $this->db->where('PROGRAM.ENDDATE <', 'SYSDATE', false);
         
         return $this->db->get();
     }
@@ -65,7 +65,7 @@ class Laporan_model extends CI_Model {
 
     public function get_reportApproval($table) {
 
-        $this->db->select('LAPORAN.*, PROGRAM.*, STATE.*, CLUB.*');
+        $this->db->select("LAPORAN.*, PROGRAM.*, STATE.*, CLUB.*, TO_CHAR(DATESUBMISSION, 'DD/MM/YYYY') AS DATESUBMISSION");
         $this->db->from($table);
         $this->db->join('PROGRAM', 'LAPORAN.PROGRAMID = PROGRAM.PROGRAMID','left');
         $this->db->join('STATE', 'STATE.STATEID = PROGRAM.STATEID','left');
@@ -99,11 +99,13 @@ class Laporan_model extends CI_Model {
 
     public function insert_report($data,$table)
     {
+
         $this->db->insert($table,$data);   
     }
 
     public function update_report($data,$table)
      {
+
         $this->db->where('LAPORANID',$data['LAPORANID']);
         $this->db->update($table,$data);
      }

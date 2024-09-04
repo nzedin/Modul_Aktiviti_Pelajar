@@ -64,8 +64,8 @@
                                   <td><?= $no++ ?></td>
                                   <td><?= ucwords(strtolower($list->PROGRAMNAME)) ?></td>
                                   <td><?= ucwords(strtolower($list->CLUBNAME)) ?></td>
-                                  <td><?= $list->STARTDATE ?></td>
-                                  <td><?= $list->ENDDATE ?></td>
+                                  <td><?= date('d/m/Y', strtotime($list->STARTDATE)) ?></td>
+                                  <td><?= date('d/m/Y', strtotime($list->ENDDATE)) ?></td>
                                   <td><?= ucwords(strtolower($list->TYPEPROGRAM)) ?></td>
                                   <td><?= $list->PROGRAMQUOTA ?></td>
                                   <td><?= $list->BILANGAN_PENYERTAAN ?></td>

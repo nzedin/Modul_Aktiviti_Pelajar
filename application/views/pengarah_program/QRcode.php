@@ -4,7 +4,7 @@
   include('phpqrcode/qrlib.php');
       $tempDir = "qrcodes/"; 
     
-      $codeContents = 'http://localhost/HEPA/kehadiran/logmasuk/'.(string)$programID->PROGRAMID;
+      $codeContents = 'http://localhost/aktivitipelajar/kehadiran/logmasuk/'.(string)$programID->PROGRAMID;
 
       
       // we need to generate filename somehow, 
@@ -64,7 +64,7 @@
 include('phpqrcode/qrlib.php');
     $tempDir = "qrpendaftaran/"; 
   
-    $codeContents = 'http://localhost/HEPA/kehadiran/logmasukpendaftaran/'.(string)$programID->PROGRAMID;
+    $codeContents = 'http://localhost/aktivitipelajar/kehadiran/logmasukpendaftaran/'.(string)$programID->PROGRAMID;
 
     
     // we need to generate filename somehow, 

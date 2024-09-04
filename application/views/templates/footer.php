@@ -62,6 +62,8 @@
 <script src="<?= base_url('dist/temp') ?>/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <script src="<?= base_url('dist/temp') ?>/plugins/jszip/jszip.min.js"></script>
 
+<script src="<?= base_url('dist/temp') ?>/plugins/moment/moment.min.js"></script>
+<script src="<?= base_url('dist/temp') ?>/plugins/fullcalendar/main.js"></script>
 <script>
   $(function () {
     

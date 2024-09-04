@@ -66,7 +66,7 @@
                               <tr>
                                   <td><?= $no++ ?></td>
                                   <td><?= ucwords(strtolower($list->CLUBNAME)) ?></td>
-                                  <td><?= $list->startDate ?></td>
+                                  <td><?= date('d/m/Y', strtotime($list->STARTDATE)) ?></td>
                                   <td><?= ucwords(strtolower($list->PROGRAMNAME)) ?></td>
 
                                   <td style="text-align: center;"> <?php
@@ -76,13 +76,13 @@
                                         $difference = $currentTimestamp - $endDateTimestamp;
                                         $daysLate = floor($difference / (60 * 60 * 24));
 
-                                        if ($list->statusApproval == null) {
+                                        if ($list->STATUSAPPROVAL == null) {
                                           echo "<span class='badge badge-secondary'>Tiada Data</span>";
                                           if (strtotime($list->ENDDATE) < strtotime('+15 days')){
                                             echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";
                                           }
                                         }
-                                        else if ($list->statusApproval == 1) {
+                                        else if ($list->STATUSAPPROVAL == 1) {
                                           echo "<span class='badge badge-primary'> Draf</span>";
                                           if (strtotime($list->ENDDATE) < strtotime('+15 days')){
                                             echo "<span class='badge badge-info'>Lewat {$daysLate} Hari</span>";

@@ -82,7 +82,7 @@
                                   </td>
                                   <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->STARTDATE)) ?><br>-<br><?= date('d/m/Y', strtotime($list->ENDDATE)) ?></td>
                                   <td><?= ucwords(strtolower($list->PROGRAMLOCATION)) ?>, <br><?= ucwords(strtolower($list->STATENAME)) ?></td>
-                                  <td style="text-align: center;"><?= date('d/m/Y', strtotime($list->DATESUBMISSION)) ?></td>
+                                  <td style="text-align: center;"> <?= $list->DATESUBMISSION ?></td>
                                   <td style="text-align: center;"><?php
                                       if ($list->COMMENT == null) {
                                         echo "<span class='badge badge-secondary'>Tiada Maklumat</span>";

@@ -144,7 +144,7 @@
                                                                 <label for="logo">Logo</label>
                                                                 <div class="input-group">
                                                                     <div class="custom-file">
-                                                                        <input type="file" class="custom-file-input" id="logo" name="logo" accept="image/*" >
+                                                                        <input type="file" class="custom-file-input" id="logo" name="logo" value="<?= $kelab->LOGO ?>" accept="image/*" >
                                                                         <label class="custom-file-label" for="logo"> <?= $kelab->LOGO != null ? $kelab->LOGO : 'Choose Image'; ?></label>
                                                                     </div>
                                                                     
@@ -219,6 +219,8 @@
       </div>
      
     </section>   
+
+
   </div>
 
 

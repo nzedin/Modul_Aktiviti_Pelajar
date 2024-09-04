@@ -48,13 +48,13 @@
                                         <label for="date" class="col-sm-4 col-form-label">Tarikh Pelaksanaan Program</label>
                                         <p >:</p>
                                         <div class="col-sm-2">
-                                            <p id="date"> <?= $program->STARTDATE ?> </p>
+                                            <p id="date"> <?= date('d/m/Y', strtotime($program->STARTDATE)) ?> </p>
                                         </div>
                                         <div class="col-sm-2">
                                             <p id="date"><b>sehingga</b></p>
                                         </div>
                                         <div class="col-sm-2">
-                                            <p id="date"> <?= $program->ENDDATE ?></p>
+                                            <p id="date"> <?= date('d/m/Y', strtotime($program->ENDDATE)) ?></p>
                                         </div>
                                     </div>
 
